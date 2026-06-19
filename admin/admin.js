@@ -1,5 +1,3 @@
-// admin.js – merged with Supabase CRUD
-
 let sb = null;
 let unitsData = [];
 let grammarData = [];
@@ -46,7 +44,6 @@ async function initAdmin() {
 function showDashboard() {
   document.getElementById('loginContainer').style.display = 'none';
   document.getElementById('dashboard').style.display = 'block';
-  // Load data from Supabase
   loadAllData();
 }
 
@@ -65,7 +62,6 @@ async function loadUnits() {
       .order('sort_order', { ascending: true });
     if (error) throw error;
     unitsData = data || [];
-    // Ensure lessons are ordered by sort_order
     unitsData.forEach(u => {
       if (u.lessons) u.lessons.sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0));
     });
@@ -96,7 +92,6 @@ async function loadTranslations() {
       .select('*')
       .order('language', { ascending: true });
     if (error) throw error;
-    // Rebuild the translations object grouped by language
     translationsData = {};
     (data || []).forEach(row => {
       if (!translationsData[row.language]) translationsData[row.language] = {};
@@ -117,7 +112,6 @@ function renderAll() {
   setupAddButtons();
 }
 
-// ----------------- Units Editor -----------------
 function renderUnitsEditor() {
   const container = document.getElementById('unitsList');
   if (!unitsData.length) {
@@ -170,41 +164,31 @@ function renderUnitsEditor() {
       lessonsContainer.appendChild(lessonDiv);
     });
 
-    // Attach event listeners for this unit
     attachUnitEvents(unitDiv);
   });
 }
 
 function attachUnitEvents(container) {
-  // Unit save
   container.querySelector('.unit-save-btn')?.addEventListener('click', async (e) => {
     const unitId = e.target.dataset.unitId;
     await saveUnit(unitId);
   });
-
-  // Unit delete
   container.querySelector('.delete-unit-btn')?.addEventListener('click', async (e) => {
     const unitId = e.target.dataset.unitId;
     if (confirm('Delete this unit and all its lessons?')) {
       await deleteUnit(unitId);
     }
   });
-
-  // Add lesson
   container.querySelector('.add-lesson-btn')?.addEventListener('click', async (e) => {
     const unitId = e.target.dataset.unitId;
     await addLesson(unitId);
   });
-
-  // Lesson save
   container.querySelectorAll('.lesson-save-btn').forEach(btn => {
     btn.addEventListener('click', async (e) => {
       const lessonId = e.target.dataset.lessonId;
       await saveLesson(lessonId);
     });
   });
-
-  // Lesson delete
   container.querySelectorAll('.delete-lesson-btn').forEach(btn => {
     btn.addEventListener('click', async (e) => {
       const lessonId = e.target.dataset.lessonId;
@@ -215,7 +199,6 @@ function attachUnitEvents(container) {
   });
 }
 
-// ----------------- Grammar Editor -----------------
 function renderGrammarEditor() {
   const container = document.getElementById('grammarList');
   if (!grammarData.length) {
@@ -258,7 +241,6 @@ function attachGrammarEvents(container) {
   });
 }
 
-// ----------------- Translations Editor -----------------
 function renderTranslationsEditor() {
   const container = document.getElementById('translationsList');
   const langKeys = Object.keys(translationsData);
@@ -376,7 +358,6 @@ async function saveUnit(unitId) {
   try {
     const { error } = await sb.from('units').update(updates).eq('id', unitId);
     if (error) throw error;
-    // Update local data
     const unit = unitsData.find(u => u.id === unitId);
     if (unit) Object.assign(unit, updates);
     showStatus('Unit saved!', 'success');
@@ -411,7 +392,6 @@ async function addLesson(unitId) {
   try {
     const { data, error } = await sb.from('lessons').insert(newLesson).select().single();
     if (error) throw error;
-    // Add to local unitsData
     const unit = unitsData.find(u => u.id === unitId);
     if (unit) {
       if (!unit.lessons) unit.lessons = [];
@@ -444,7 +424,6 @@ async function saveLesson(lessonId) {
   try {
     const { error } = await sb.from('lessons').update(updates).eq('id', lessonId);
     if (error) throw error;
-    // Update local
     for (const unit of unitsData) {
       const lesson = unit.lessons?.find(l => l.id === lessonId);
       if (lesson) { Object.assign(lesson, updates); break; }
@@ -459,7 +438,6 @@ async function deleteLesson(lessonId) {
   try {
     const { error } = await sb.from('lessons').delete().eq('id', lessonId);
     if (error) throw error;
-    // Remove from local
     for (const unit of unitsData) {
       if (unit.lessons) {
         unit.lessons = unit.lessons.filter(l => l.id !== lessonId);
