@@ -10,6 +10,7 @@ function getAdminSupabase() {
 
 async function isAdminUser() {
   const sb = getAdminSupabase();
+  if (!sb) return false;
   const { data: { user } } = await sb.auth.getUser();
   if (!user) return false;
   const { data, error } = await sb
