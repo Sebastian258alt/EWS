@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel – English With Sebastian</title>
+  <link rel="stylesheet" href="admin.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-config.js"></script>
+  <script src="admin-utils.js"></script>
+  <script src="admin.js" defer></script>
+</head>
+<body>
+  <div class="login-container" id="loginContainer">
+    <div class="login-card">
+      <h1>🔐 Admin Login</h1>
+      <p>Sign in with your Supabase email (must be in admins table)</p>
+      <input type="email" id="adminEmail" placeholder="Email" autocomplete="email">
+      <input type="password" id="adminPassword" placeholder="Password" autocomplete="current-password">
+      <button id="loginBtn">Login</button>
+      <div id="loginError" class="error"></div>
+    </div>
+  </div>
+
+  <div class="dashboard" id="dashboard" style="display: none;">
+    <nav class="admin-nav">
+      <span class="logo">✏️ Admin</span>
+      <button id="logoutBtn">Logout</button>
+    </nav>
+    <div class="admin-content">
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="units">📚 Units & Lessons</button>
+        <button class="tab-btn" data-tab="grammar">📖 Grammar</button>
+        <button class="tab-btn" data-tab="translations">🌐 Translations</button>
+      </div>
+      <div id="unitsTab" class="tab-pane active">
+        <div id="unitsList"></div>
+      </div>
+      <div id="grammarTab" class="tab-pane">
+        <div id="grammarList"></div>
+      </div>
+      <div id="translationsTab" class="tab-pane">
+        <div id="translationsList"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
