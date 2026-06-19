@@ -20,7 +20,7 @@ body { font-family: system-ui, 'Segoe UI', sans-serif; background: #0f172a; colo
 button.edit-btn, button.delete-btn { background: #334155; border: none; padding: 0.25rem 0.6rem; border-radius: 8px; margin-left: 0.5rem; cursor: pointer; }
 button.save-btn { background: #10b981; }
 
-/* Editor styles (from old admin) */
+/* Editor styles */
 .card { background: #1e293b; border-radius: 16px; padding: 1rem; margin-bottom: 1rem; }
 textarea, input[type="text"], input[type="number"] {
   width: 100%; background: #0f172a; border: 1px solid #334155; color: white; padding: 0.5rem; border-radius: 8px; margin: 0.5rem 0;
