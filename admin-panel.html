@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EnglishFlow · Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#06080e;
+  --surface:#0e121c;
+  --surface2:#151b2a;
+  --surface3:#1c2438;
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.13);
+  --text:#eef2fc;
+  --muted:#8b9bb8;
+  --muted2:#4a5572;
+  --green:#00e676;
+  --blue:#3d7eff;
+  --blue2:#7eb0ff;
+  --yellow:#ffc93d;
+  --orange:#ff7a1a;
+  --red:#ff3d5c;
+  --purple:#b84dff;
+  --teal:#2ee8c8;
+  --accent:var(--blue);
+}
+body{background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;min-height:100vh;overflow-x:hidden}
+
+/* ── TOP BAR ── */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 2rem;
+  background:var(--surface);
+  border-bottom:1px solid var(--border2);
+  position:sticky;top:0;z-index:100;
+}
+.topbar-logo{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;
+  background:linear-gradient(135deg,var(--blue),var(--teal));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topbar-logo span{color:var(--muted);font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:600;margin-left:.5rem;-webkit-text-fill-color:var(--muted)}
+.topbar-right{display:flex;align-items:center;gap:1rem}
+.badge-live{background:rgba(0,230,118,.12);color:var(--green);border:1px solid rgba(0,230,118,.25);
+  padding:.25rem .75rem;border-radius:999px;font-size:.72rem;font-weight:800;letter-spacing:.08em;
+  display:flex;align-items:center;gap:.4rem}
+.badge-live::before{content:'';width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.btn{padding:.5rem 1.1rem;border-radius:8px;border:none;font-family:'Nunito',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;transition:.2s}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:#5590ff}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border2)}
+.btn-ghost:hover{color:var(--text);border-color:var(--blue)}
+.btn-danger{background:rgba(255,61,92,.12);color:var(--red);border:1px solid rgba(255,61,92,.2)}
+.btn-danger:hover{background:rgba(255,61,92,.22)}
+.btn-sm{padding:.3rem .7rem;font-size:.78rem}
+
+/* ── LOGIN GATE ── */
+#login-gate{
+  display:flex;align-items:center;justify-content:center;min-height:80vh;
+}
+.login-card{
+  background:var(--surface);border:1px solid var(--border2);border-radius:16px;
+  padding:2.5rem;width:100%;max-width:380px;text-align:center;
+}
+.login-card h2{font-family:'Syne',sans-serif;font-size:1.5rem;margin-bottom:.5rem}
+.login-card p{color:var(--muted);font-size:.9rem;margin-bottom:1.5rem}
+.input-group{margin-bottom:1rem;text-align:left}
+.input-group label{display:block;font-size:.8rem;font-weight:700;color:var(--muted);margin-bottom:.4rem}
+.input-group input{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;
+  padding:.65rem 1rem;color:var(--text);font-family:'Nunito',sans-serif;font-size:.95rem;outline:none}
+.input-group input:focus{border-color:var(--blue)}
+#login-err{color:var(--red);font-size:.82rem;margin-top:.75rem;display:none}
+
+/* ── MAIN LAYOUT ── */
+#admin-app{display:none}
+.layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 57px)}
+
+/* ── SIDEBAR ── */
+.sidebar{background:var(--surface);border-right:1px solid var(--border);padding:1.5rem 1rem;display:flex;flex-direction:column;gap:.25rem}
+.nav-item{display:flex;align-items:center;gap:.7rem;padding:.65rem .9rem;border-radius:10px;
+  color:var(--muted);font-weight:700;font-size:.88rem;cursor:pointer;transition:.15s;border:none;background:none;width:100%;text-align:left}
+.nav-item:hover{background:var(--surface2);color:var(--text)}
+.nav-item.active{background:rgba(61,126,255,.12);color:var(--blue)}
+.nav-item .icon{font-size:1.1rem;width:1.4rem;text-align:center}
+.sidebar-section{font-size:.7rem;font-weight:800;color:var(--muted2);letter-spacing:.1em;text-transform:uppercase;padding:.75rem .9rem .3rem}
+
+/* ── CONTENT ── */
+.content{padding:2rem;overflow-y:auto;max-height:calc(100vh - 57px)}
+
+/* ── KPI CARDS ── */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:2rem}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.25rem 1.5rem;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.kpi.k-blue::before{background:linear-gradient(90deg,var(--blue),var(--teal))}
+.kpi.k-green::before{background:linear-gradient(90deg,var(--green),var(--teal))}
+.kpi.k-yellow::before{background:linear-gradient(90deg,var(--yellow),var(--orange))}
+.kpi.k-purple::before{background:linear-gradient(90deg,var(--purple),var(--blue))}
+.kpi.k-red::before{background:linear-gradient(90deg,var(--red),var(--orange))}
+.kpi-label{font-size:.75rem;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.5rem}
+.kpi-val{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;line-height:1}
+.kpi-sub{font-size:.75rem;color:var(--muted);margin-top:.4rem}
+.kpi-icon{position:absolute;right:1rem;top:50%;transform:translateY(-50%);font-size:2rem;opacity:.12}
+
+/* ── SECTION HEADER ── */
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem}
+.sec-hdr h2{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800}
+.sec-hdr-actions{display:flex;gap:.6rem;align-items:center}
+
+/* ── SEARCH / FILTER BAR ── */
+.filter-bar{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:1.25rem;align-items:center}
+.search-wrap{position:relative;flex:1;min-width:220px}
+.search-wrap input{width:100%;background:var(--surface);border:1px solid var(--border2);border-radius:10px;
+  padding:.6rem 1rem .6rem 2.4rem;color:var(--text);font-family:'Nunito',sans-serif;font-size:.9rem;outline:none}
+.search-wrap input:focus{border-color:var(--blue)}
+.search-icon{position:absolute;left:.8rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.9rem}
+select.filter-sel{background:var(--surface);border:1px solid var(--border2);border-radius:10px;
+  padding:.6rem 1rem;color:var(--text);font-family:'Nunito',sans-serif;font-size:.85rem;outline:none;cursor:pointer}
+select.filter-sel:focus{border-color:var(--blue)}
+
+/* ── TABLE ── */
+.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.tbl{width:100%;border-collapse:collapse;font-size:.85rem}
+.tbl th{background:var(--surface2);padding:.75rem 1rem;text-align:left;font-size:.72rem;font-weight:800;
+  color:var(--muted);letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--border)}
+.tbl th.sortable{cursor:pointer;user-select:none}
+.tbl th.sortable:hover{color:var(--blue)}
+.tbl th .sort-arrow{margin-left:.3rem;opacity:.4}
+.tbl th.sorted .sort-arrow{opacity:1;color:var(--blue)}
+.tbl td{padding:.85rem 1rem;border-bottom:1px solid var(--border);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:rgba(255,255,255,.025)}
+.tbl tr.highlight td{background:rgba(61,126,255,.06)}
+
+/* cells */
+.user-cell{display:flex;align-items:center;gap:.75rem}
+.av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));
+  display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:800;
+  flex-shrink:0;overflow:hidden}
+.av img{width:100%;height:100%;object-fit:cover}
+.av-name{font-weight:700}
+.av-email{font-size:.75rem;color:var(--muted)}
+.badge{display:inline-block;padding:.18rem .55rem;border-radius:999px;font-size:.72rem;font-weight:800}
+.badge-google{background:rgba(66,133,244,.15);color:#7eb0ff;border:1px solid rgba(66,133,244,.25)}
+.badge-local{background:rgba(139,155,184,.1);color:var(--muted);border:1px solid var(--border2)}
+.badge-premium{background:rgba(255,201,61,.12);color:var(--yellow);border:1px solid rgba(255,201,61,.25)}
+.badge-online{background:rgba(0,230,118,.1);color:var(--green);border:1px solid rgba(0,230,118,.2)}
+.badge-offline{background:rgba(139,155,184,.08);color:var(--muted2);border:1px solid var(--border)}
+.xp-bar-wrap{width:90px}
+.xp-bar{height:5px;background:var(--surface3);border-radius:3px;overflow:hidden}
+.xp-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--teal));border-radius:3px;transition:.4s}
+.xp-label{font-size:.72rem;color:var(--muted);margin-top:.25rem}
+.streak-cell{display:flex;align-items:center;gap:.3rem;font-weight:700}
+.streak-fire{font-size:1rem}
+.level-pill{background:var(--surface3);border:1px solid var(--border2);border-radius:6px;
+  padding:.2rem .55rem;font-size:.78rem;font-weight:800;white-space:nowrap}
+.action-btns{display:flex;gap:.4rem}
+.date-cell{color:var(--muted);font-size:.8rem}
+
+/* ── USER DRAWER ── */
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;display:none;backdrop-filter:blur(3px)}
+.drawer-overlay.open{display:block}
+.drawer{position:fixed;right:0;top:0;bottom:0;width:420px;max-width:95vw;
+  background:var(--surface);border-left:1px solid var(--border2);z-index:201;
+  overflow-y:auto;transform:translateX(100%);transition:.3s cubic-bezier(.4,0,.2,1)}
+.drawer.open{transform:translateX(0)}
+.drawer-hdr{display:flex;align-items:center;justify-content:space-between;padding:1.5rem;border-bottom:1px solid var(--border)}
+.drawer-hdr h3{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800}
+.close-btn{background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;padding:.2rem}
+.close-btn:hover{color:var(--text)}
+.drawer-body{padding:1.5rem}
+.drawer-av{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));
+  display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 1rem;overflow:hidden}
+.drawer-av img{width:100%;height:100%;object-fit:cover}
+.drawer-name{text-align:center;font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;margin-bottom:.25rem}
+.drawer-email{text-align:center;color:var(--muted);font-size:.85rem;margin-bottom:1.25rem}
+.drawer-badges{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.5rem}
+.stat-box{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:.9rem 1rem}
+.stat-box-label{font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem}
+.stat-box-val{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800}
+.drawer-section{margin-bottom:1.5rem}
+.drawer-section-title{font-size:.75rem;font-weight:800;color:var(--muted2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.75rem}
+.progress-level{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1rem}
+.progress-level-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
+.progress-level-name{font-weight:800;font-size:.95rem}
+.progress-level-xp{font-size:.8rem;color:var(--muted)}
+.progress-bar-lg{height:8px;background:var(--surface3);border-radius:4px;overflow:hidden}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--teal));border-radius:4px}
+.ach-grid{display:flex;flex-wrap:wrap;gap:.5rem}
+.ach-item{background:var(--surface2);border:1px solid var(--border);border-radius:8px;
+  padding:.4rem .65rem;font-size:.8rem;display:flex;align-items:center;gap:.35rem}
+.ach-item.locked{opacity:.35;filter:grayscale(1)}
+.drawer-actions{display:flex;flex-direction:column;gap:.6rem;padding-top:1rem;border-top:1px solid var(--border)}
+
+/* ── TOAST ── */
+.toast-wrap{position:fixed;bottom:1.5rem;right:1.5rem;z-index:999;display:flex;flex-direction:column;gap:.5rem}
+.toast{background:var(--surface2);border:1px solid var(--border2);border-radius:10px;
+  padding:.75rem 1.25rem;font-size:.88rem;font-weight:700;max-width:300px;
+  animation:toastIn .3s ease;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+@keyframes toastIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── EMPTY / LOADING ── */
+.empty-state{text-align:center;padding:3rem 1rem;color:var(--muted)}
+.empty-state .empty-icon{font-size:3rem;margin-bottom:.75rem}
+.spinner{display:inline-block;width:22px;height:22px;border:2.5px solid var(--border2);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-row td{text-align:center;padding:2.5rem}
+
+/* ── TABS ── */
+.tab-bar{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:1.5rem}
+.tab{padding:.65rem 1.25rem;font-weight:700;font-size:.88rem;color:var(--muted);cursor:pointer;
+  border-bottom:2px solid transparent;margin-bottom:-1px;transition:.15s;border-top:none;border-left:none;border-right:none;background:none}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--blue);border-bottom-color:var(--blue)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .content{padding:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div style="display:flex;align-items:center;gap:1rem">
+    <div class="topbar-logo">EnglishFlow <span>Admin</span></div>
+    <div class="badge-live" id="live-badge" style="display:none">● LIVE</div>
+  </div>
+  <div class="topbar-right">
+    <span id="admin-email-label" style="color:var(--muted);font-size:.82rem;display:none"></span>
+    <button class="btn btn-ghost btn-sm" onclick="doAdminLogout()" id="logout-btn" style="display:none">Sair</button>
+  </div>
+</div>
+
+<!-- LOGIN GATE -->
+<div id="login-gate">
+  <div class="login-card">
+    <div style="font-size:2.5rem;margin-bottom:.75rem">🛡️</div>
+    <h2>Painel Admin</h2>
+    <p>Acesso restrito a administradores</p>
+    <div class="input-group">
+      <label>Email</label>
+      <input type="email" id="a-email" placeholder="admin@englishflow.com" onkeydown="if(event.key==='Enter')doAdminLogin()">
+    </div>
+    <div class="input-group">
+      <label>Password</label>
+      <input type="password" id="a-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doAdminLogin()">
+    </div>
+    <button class="btn btn-primary" style="width:100%;margin-top:.5rem" onclick="doAdminLogin()" id="login-btn">Entrar</button>
+    <div id="login-err">❌ Credenciais inválidas ou sem acesso de admin.</div>
+  </div>
+</div>
+
+<!-- ADMIN APP -->
+<div id="admin-app">
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <nav class="sidebar">
+      <div class="sidebar-section">Menu</div>
+      <button class="nav-item active" onclick="showSection('dashboard',this)">
+        <span class="icon">📊</span> Dashboard
+      </button>
+      <button class="nav-item" onclick="showSection('users',this)">
+        <span class="icon">👥</span> Utilizadores
+      </button>
+      <button class="nav-item" onclick="showSection('leaderboard',this)">
+        <span class="icon">🏆</span> Leaderboard
+      </button>
+      <button class="nav-item" onclick="showSection('activity',this)">
+        <span class="icon">⚡</span> Atividade
+      </button>
+      <div class="sidebar-section" style="margin-top:auto">Sistema</div>
+      <button class="nav-item" onclick="refreshAll()">
+        <span class="icon">🔄</span> Atualizar
+      </button>
+    </nav>
+
+    <!-- CONTENT -->
+    <main class="content">
+
+      <!-- DASHBOARD -->
+      <section id="sec-dashboard">
+        <div class="sec-hdr">
+          <h2>📊 Visão Geral</h2>
+          <button class="btn btn-ghost btn-sm" onclick="refreshAll()">🔄 Atualizar</button>
+        </div>
+        <div class="kpi-grid" id="kpi-grid">
+          <div class="kpi k-blue"><div class="kpi-label">Total de Utilizadores</div><div class="kpi-val" id="k-total">—</div><div class="kpi-sub">registados</div><div class="kpi-icon">👥</div></div>
+          <div class="kpi k-green"><div class="kpi-label">Online Agora</div><div class="kpi-val" id="k-online">—</div><div class="kpi-sub">últimos 5 min</div><div class="kpi-icon">🟢</div></div>
+          <div class="kpi k-yellow"><div class="kpi-label">XP Total</div><div class="kpi-val" id="k-xp">—</div><div class="kpi-sub">ganho por todos</div><div class="kpi-icon">⚡</div></div>
+          <div class="kpi k-purple"><div class="kpi-label">Google Auth</div><div class="kpi-val" id="k-google">—</div><div class="kpi-sub">via Google</div><div class="kpi-icon">🔑</div></div>
+          <div class="kpi k-red"><div class="kpi-label">Streak Máximo</div><div class="kpi-val" id="k-streak">—</div><div class="kpi-sub">dias consecutivos</div><div class="kpi-icon">🔥</div></div>
+        </div>
+
+        <div class="sec-hdr" style="margin-top:1.5rem">
+          <h2>🏅 Top 5 desta Semana</h2>
+        </div>
+        <div class="table-wrap">
+          <table class="tbl">
+            <thead><tr>
+              <th>#</th><th>Utilizador</th><th>XP</th><th>Nível</th><th>Streak</th>
+            </tr></thead>
+            <tbody id="top5-body"><tr class="loading-row"><td colspan="5"><span class="spinner"></span></td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- USERS -->
+      <section id="sec-users" style="display:none">
+        <div class="sec-hdr">
+          <h2>👥 Utilizadores</h2>
+          <div class="sec-hdr-actions">
+            <span id="user-count-label" style="color:var(--muted);font-size:.85rem"></span>
+            <button class="btn btn-ghost btn-sm" onclick="exportCSV()">⬇️ Exportar CSV</button>
+          </div>
+        </div>
+        <div class="filter-bar">
+          <div class="search-wrap">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="search-input" placeholder="Pesquisar por nome ou email…" oninput="filterUsers()">
+          </div>
+          <select class="filter-sel" id="filter-provider" onchange="filterUsers()">
+            <option value="">Todos os tipos</option>
+            <option value="google">Google</option>
+            <option value="local">Local</option>
+          </select>
+          <select class="filter-sel" id="filter-sort" onchange="filterUsers()">
+            <option value="xp">Ordenar: XP</option>
+            <option value="name">Ordenar: Nome</option>
+            <option value="streak">Ordenar: Streak</option>
+            <option value="recent">Ordenar: Recente</option>
+          </select>
+        </div>
+        <div class="table-wrap">
+          <table class="tbl">
+            <thead><tr>
+              <th>Utilizador</th>
+              <th>Tipo</th>
+              <th>Nível / XP</th>
+              <th>Streak</th>
+              <th>Estado</th>
+              <th>Último acesso</th>
+              <th>Ações</th>
+            </tr></thead>
+            <tbody id="users-body"><tr class="loading-row"><td colspan="7"><span class="spinner"></span></td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- LEADERBOARD -->
+      <section id="sec-leaderboard" style="display:none">
+        <div class="sec-hdr">
+          <h2>🏆 Leaderboard Global</h2>
+          <button class="btn btn-ghost btn-sm" onclick="loadLeaderboard()">🔄</button>
+        </div>
+        <div class="table-wrap">
+          <table class="tbl">
+            <thead><tr>
+              <th>#</th><th>Utilizador</th><th>XP Total</th><th>Nível</th><th>Streak</th><th>Lições</th><th>Online</th>
+            </tr></thead>
+            <tbody id="lb-body"><tr class="loading-row"><td colspan="7"><span class="spinner"></span></td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ACTIVITY -->
+      <section id="sec-activity" style="display:none">
+        <div class="sec-hdr">
+          <h2>⚡ Atividade Recente</h2>
+          <button class="btn btn-ghost btn-sm" onclick="loadActivity()">🔄</button>
+        </div>
+        <div class="table-wrap">
+          <table class="tbl">
+            <thead><tr>
+              <th>Utilizador</th><th>XP Hoje</th><th>Lições Feitas</th><th>Conquistas</th><th>Último Acesso</th>
+            </tr></thead>
+            <tbody id="activity-body"><tr class="loading-row"><td colspan="5"><span class="spinner"></span></td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- USER DRAWER -->
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="user-drawer">
+  <div class="drawer-hdr">
+    <h3>👤 Perfil do Utilizador</h3>
+    <button class="close-btn" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drawer-body" id="drawer-body"></div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-wrap" id="toast-wrap"></div>
+
+<script>
+// ── CONFIG ────────────────────────────────────────────────
+const SUPABASE_URL = 'https://xlpwrwourxcanpyfnivz.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhscHdyd291cnhjYW5weWZuaXZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwNjIxNjEsImV4cCI6MjA5NTYzODE2MX0.nPWZLnhodrNbwarx2SFKRvLoLnE-G3BCmcYXWQ1qApU';
+
+// ⚠️  ADMIN EMAILS — adiciona os teus emails de admin aqui
+const ADMIN_EMAILS = [
+  'nhamoneques@gmail.com',
+  'strupsivy@gmail.com',
+];
+
+const LEVELS = [
+  {level:1,title:'Iniciante',prev:0,next:100},
+  {level:2,title:'Elementar',prev:100,next:250},
+  {level:3,title:'Pré-Intermédio',prev:250,next:500},
+  {level:4,title:'Intermédio',prev:500,next:900},
+  {level:5,title:'Interm. Superior',prev:900,next:1400},
+  {level:6,title:'Avançado',prev:1400,next:2000},
+  {level:7,title:'Fluente',prev:2000,next:9999},
+];
+
+const ACHS_META = [
+  {id:'first',icon:'🌱',name:'Primeiro Passo'},
+  {id:'5less',icon:'📚',name:'Rato de Biblioteca'},
+  {id:'10less',icon:'🎓',name:'Académico'},
+  {id:'allless',icon:'🏆',name:'Perfeccionista'},
+  {id:'str3',icon:'🔥',name:'Em Chamas'},
+  {id:'str7',icon:'💥',name:'Guerreiro Semanal'},
+  {id:'str30',icon:'🌩️',name:'Lenda Mensal'},
+  {id:'xp100',icon:'⚡',name:'Caçador de XP'},
+  {id:'xp500',icon:'💎',name:'Lenda XP'},
+  {id:'xp1000',icon:'👑',name:'Mestre XP'},
+  {id:'perfect',icon:'✨',name:'Perfeccionista'},
+  {id:'combo5',icon:'💫',name:'Mestre do Combo'},
+  {id:'ai1',icon:'🤖',name:'Amigo da IA'},
+  {id:'ai10',icon:'🤖',name:'Viciado em IA'},
+  {id:'game100',icon:'🎮',name:'Scramble Pro'},
+  {id:'pron5',icon:'🎤',name:'Orador'},
+];
+
+// ── STATE ────────────────────────────────────────────────
+let sb = null;
+let allUsers = [];
+let filteredUsers = [];
+let currentSection = 'dashboard';
+
+// ── SUPABASE ─────────────────────────────────────────────
+function initSB() {
+  sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+}
+
+// ── ADMIN LOGIN ───────────────────────────────────────────
+async function doAdminLogin() {
+  const email = document.getElementById('a-email').value.trim();
+  const pass  = document.getElementById('a-pass').value;
+  const btn   = document.getElementById('login-btn');
+  const err   = document.getElementById('login-err');
+  err.style.display = 'none';
+  btn.textContent = 'A entrar…'; btn.disabled = true;
+
+  const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+  if (error || !data?.user) {
+    err.style.display = 'block';
+    btn.textContent = 'Entrar'; btn.disabled = false;
+    return;
+  }
+  if (!ADMIN_EMAILS.includes(data.user.email)) {
+    err.textContent = '⛔ Este email não tem permissão de admin.';
+    err.style.display = 'block';
+    await sb.auth.signOut();
+    btn.textContent = 'Entrar'; btn.disabled = false;
+    return;
+  }
+  showAdminApp(data.user);
+}
+
+function showAdminApp(user) {
+  document.getElementById('login-gate').style.display = 'none';
+  document.getElementById('admin-app').style.display = 'block';
+  document.getElementById('logout-btn').style.display = 'block';
+  document.getElementById('admin-email-label').style.display = 'block';
+  document.getElementById('admin-email-label').textContent = user.email;
+  document.getElementById('live-badge').style.display = 'flex';
+  refreshAll();
+}
+
+async function doAdminLogout() {
+  await sb.auth.signOut();
+  location.reload();
+}
+
+// ── DATA FETCH ────────────────────────────────────────────
+async function fetchUsers() {
+  const { data, error } = await sb
+    .from('user_progress')
+    .select('un, payload, updated_at')
+    .limit(500);
+  if (error) { toast('Erro ao carregar utilizadores: ' + error.message, 'red'); return []; }
+  return (data || []).map(row => ({
+    un: row.un,
+    updated_at: row.updated_at,
+    ...row.payload,
+  }));
+}
+
+// ── LEVEL HELPER ─────────────────────────────────────────
+function getLevel(xp) {
+  return LEVELS.reduce((a, l) => xp >= l.prev ? l : a, LEVELS[0]);
+}
+function levelPct(xp) {
+  const l = getLevel(xp);
+  if (l.level === 7) return 100;
+  return Math.min(100, Math.round((xp - l.prev) / (l.next - l.prev) * 100));
+}
+
+// ── ONLINE CHECK ──────────────────────────────────────────
+function isOnline(updated_at) {
+  if (!updated_at) return false;
+  return Date.now() - new Date(updated_at).getTime() < 5 * 60 * 1000;
+}
+
+function timeAgo(ts) {
+  if (!ts) return '—';
+  const d = Date.now() - new Date(ts).getTime();
+  const m = Math.floor(d/60000);
+  if (m < 1) return 'agora mesmo';
+  if (m < 60) return `${m} min atrás`;
+  const h = Math.floor(m/60);
+  if (h < 24) return `${h}h atrás`;
+  const days = Math.floor(h/24);
+  if (days < 30) return `${days}d atrás`;
+  return new Date(ts).toLocaleDateString('pt-PT');
+}
+
+// ── AVATAR ───────────────────────────────────────────────
+function avatarHTML(u, size=34) {
+  const letter = (u.name || u.un || '?')[0].toUpperCase();
+  if (u.avatar && !u.avatar.startsWith('emoji:')) {
+    return `<div class="av" style="width:${size}px;height:${size}px"><img src="${u.avatar}" onerror="this.parentNode.textContent='${letter}'"></div>`;
+  }
+  const emoji = u.avatar?.startsWith('emoji:') ? u.avatar.slice(6) : letter;
+  return `<div class="av" style="width:${size}px;height:${size}px">${emoji}</div>`;
+}
+
+// ── REFRESH ALL ───────────────────────────────────────────
+async function refreshAll() {
+  allUsers = await fetchUsers();
+  filteredUsers = [...allUsers];
+  updateKPIs();
+  renderTop5();
+  if (currentSection === 'users') renderUsersTable(filteredUsers);
+  if (currentSection === 'leaderboard') renderLeaderboard();
+  if (currentSection === 'activity') renderActivity();
+}
+
+// ── KPIs ─────────────────────────────────────────────────
+function updateKPIs() {
+  const total   = allUsers.length;
+  const online  = allUsers.filter(u => isOnline(u.updated_at)).length;
+  const totalXP = allUsers.reduce((s,u) => s + (u.xp||0), 0);
+  const google  = allUsers.filter(u => u.authProvider === 'google' || String(u.un).startsWith('google_')).length;
+  const maxStr  = Math.max(0, ...allUsers.map(u => u.streak||0));
+
+  document.getElementById('k-total').textContent  = total;
+  document.getElementById('k-online').textContent = online;
+  document.getElementById('k-xp').textContent     = totalXP >= 1000 ? (totalXP/1000).toFixed(1)+'k' : totalXP;
+  document.getElementById('k-google').textContent = google;
+  document.getElementById('k-streak').textContent = maxStr + '🔥';
+}
+
+// ── TOP 5 ─────────────────────────────────────────────────
+function renderTop5() {
+  const top = [...allUsers].sort((a,b) => (b.xp||0)-(a.xp||0)).slice(0,5);
+  const medals = ['🥇','🥈','🥉','4️⃣','5️⃣'];
+  document.getElementById('top5-body').innerHTML = top.map((u,i) => {
+    const lv = getLevel(u.xp||0);
+    return `<tr>
+      <td><span style="font-size:1.2rem">${medals[i]}</span></td>
+      <td><div class="user-cell">${avatarHTML(u)}<div><div class="av-name">${u.name||u.un}</div><div class="av-email">${u.email||''}</div></div></div></td>
+      <td><strong style="color:var(--yellow)">${(u.xp||0).toLocaleString()}</strong> XP</td>
+      <td><span class="level-pill">Lv ${lv.level} · ${lv.title}</span></td>
+      <td><span class="streak-cell"><span class="streak-fire">🔥</span>${u.streak||0}</span></td>
+    </tr>`;
+  }).join('') || '<tr><td colspan="5" class="empty-state">Sem dados</td></tr>';
+}
+
+// ── USERS TABLE ───────────────────────────────────────────
+function filterUsers() {
+  const q = document.getElementById('search-input').value.toLowerCase();
+  const prov = document.getElementById('filter-provider').value;
+  const sort = document.getElementById('filter-sort').value;
+
+  filteredUsers = allUsers.filter(u => {
+    const matchQ = !q || (u.name||'').toLowerCase().includes(q) || (u.email||'').toLowerCase().includes(q) || (u.un||'').toLowerCase().includes(q);
+    const isGoogle = u.authProvider === 'google' || String(u.un).startsWith('google_');
+    const matchP = !prov || (prov === 'google' ? isGoogle : !isGoogle);
+    return matchQ && matchP;
+  });
+
+  filteredUsers.sort((a,b) => {
+    if (sort === 'xp')     return (b.xp||0) - (a.xp||0);
+    if (sort === 'name')   return (a.name||'').localeCompare(b.name||'');
+    if (sort === 'streak') return (b.streak||0) - (a.streak||0);
+    if (sort === 'recent') return new Date(b.updated_at||0) - new Date(a.updated_at||0);
+    return 0;
+  });
+
+  document.getElementById('user-count-label').textContent = `${filteredUsers.length} utilizador(es)`;
+  renderUsersTable(filteredUsers);
+}
+
+function renderUsersTable(users) {
+  if (!users.length) {
+    document.getElementById('users-body').innerHTML = `<tr><td colspan="7"><div class="empty-state"><div class="empty-icon">🔍</div>Nenhum utilizador encontrado</div></td></tr>`;
+    return;
+  }
+  document.getElementById('users-body').innerHTML = users.map(u => {
+    const lv = getLevel(u.xp||0);
+    const pct = levelPct(u.xp||0);
+    const isGoogle = u.authProvider === 'google' || String(u.un).startsWith('google_');
+    const online = isOnline(u.updated_at);
+    return `<tr>
+      <td>
+        <div class="user-cell">
+          ${avatarHTML(u)}
+          <div>
+            <div class="av-name">${u.name||u.un}</div>
+            <div class="av-email">${u.email||u.un}</div>
+          </div>
+        </div>
+      </td>
+      <td>${isGoogle ? '<span class="badge badge-google">Google</span>' : '<span class="badge badge-local">Local</span>'}</td>
+      <td>
+        <div class="xp-bar-wrap">
+          <div class="xp-bar"><div class="xp-bar-fill" style="width:${pct}%"></div></div>
+          <div class="xp-label">Lv ${lv.level} · ${(u.xp||0).toLocaleString()} XP</div>
+        </div>
+      </td>
+      <td><span class="streak-cell"><span class="streak-fire">🔥</span>${u.streak||0}</span></td>
+      <td>${online ? '<span class="badge badge-online">● Online</span>' : '<span class="badge badge-offline">Offline</span>'}</td>
+      <td class="date-cell">${timeAgo(u.updated_at)}</td>
+      <td>
+        <div class="action-btns">
+          <button class="btn btn-ghost btn-sm" onclick="openDrawer(${JSON.stringify(u).replace(/"/g,'&quot;')})">Ver</button>
+          <button class="btn btn-danger btn-sm" onclick="confirmDelete('${u.un}','${u.name||u.un}')">Apagar</button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+// ── LEADERBOARD ───────────────────────────────────────────
+async function loadLeaderboard() {
+  document.getElementById('lb-body').innerHTML = '<tr class="loading-row"><td colspan="7"><span class="spinner"></span></td></tr>';
+  const sorted = [...allUsers].sort((a,b) => (b.xp||0)-(a.xp||0));
+  renderLeaderboard(sorted);
+}
+
+function renderLeaderboard(users) {
+  const sorted = (users || [...allUsers].sort((a,b) => (b.xp||0)-(a.xp||0)));
+  const medals = {1:'🥇',2:'🥈',3:'🥉'};
+  document.getElementById('lb-body').innerHTML = sorted.map((u,i) => {
+    const rank = i+1;
+    const lv = getLevel(u.xp||0);
+    const online = isOnline(u.updated_at);
+    return `<tr ${rank<=3?'class="highlight"':''}>
+      <td><strong>${medals[rank]||rank}</strong></td>
+      <td><div class="user-cell">${avatarHTML(u)}<div class="av-name">${u.name||u.un}</div></div></td>
+      <td><strong style="color:var(--yellow)">${(u.xp||0).toLocaleString()}</strong></td>
+      <td><span class="level-pill">Lv ${lv.level}</span></td>
+      <td>🔥 ${u.streak||0}</td>
+      <td>${(u.done||[]).length}</td>
+      <td>${online ? '<span class="badge badge-online">● Online</span>' : '<span class="badge badge-offline">—</span>'}</td>
+    </tr>`;
+  }).join('') || '<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--muted)">Sem dados</td></tr>';
+}
+
+// ── ACTIVITY ─────────────────────────────────────────────
+async function loadActivity() {
+  document.getElementById('activity-body').innerHTML = '<tr class="loading-row"><td colspan="5"><span class="spinner"></span></td></tr>';
+  renderActivity();
+}
+
+function renderActivity() {
+  const recent = [...allUsers].sort((a,b) => new Date(b.updated_at||0)-new Date(a.updated_at||0)).slice(0,50);
+  document.getElementById('activity-body').innerHTML = recent.map(u => `
+    <tr>
+      <td><div class="user-cell">${avatarHTML(u)}<div><div class="av-name">${u.name||u.un}</div><div class="av-email">${u.email||''}</div></div></div></td>
+      <td><strong style="color:var(--yellow)">${u.todayXP||0}</strong> XP</td>
+      <td>${(u.done||[]).length} lições</td>
+      <td>${(u.achs||[]).length} conquistas</td>
+      <td class="date-cell">${timeAgo(u.updated_at)}</td>
+    </tr>
+  `).join('') || '<tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--muted)">Sem dados</td></tr>';
+}
+
+// ── USER DRAWER ───────────────────────────────────────────
+function openDrawer(u) {
+  const lv = getLevel(u.xp||0);
+  const pct = levelPct(u.xp||0);
+  const isGoogle = u.authProvider === 'google' || String(u.un||'').startsWith('google_');
+  const online = isOnline(u.updated_at);
+  const achs = u.achs || [];
+
+  document.getElementById('drawer-body').innerHTML = `
+    ${avatarHTML(u, 72).replace('class="av"','class="drawer-av"')}
+    <div class="drawer-name">${u.name||u.un}</div>
+    <div class="drawer-email">${u.email||u.un}</div>
+    <div class="drawer-badges">
+      ${isGoogle ? '<span class="badge badge-google">🔑 Google</span>' : '<span class="badge badge-local">🔒 Local</span>'}
+      ${online ? '<span class="badge badge-online">● Online</span>' : '<span class="badge badge-offline">Offline</span>'}
+      ${(u.gems||0) > 0 ? `<span class="badge badge-premium">💎 ${u.gems} Gemas</span>` : ''}
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><div class="stat-box-label">XP Total</div><div class="stat-box-val" style="color:var(--yellow)">${(u.xp||0).toLocaleString()}</div></div>
+      <div class="stat-box"><div class="stat-box-label">Streak</div><div class="stat-box-val">🔥 ${u.streak||0}</div></div>
+      <div class="stat-box"><div class="stat-box-label">Corações</div><div class="stat-box-val">❤️ ${u.hearts??5}</div></div>
+      <div class="stat-box"><div class="stat-box-label">Lições Feitas</div><div class="stat-box-val">${(u.done||[]).length}</div></div>
+      <div class="stat-box"><div class="stat-box-label">Respostas Certas</div><div class="stat-box-val" style="color:var(--green)">${u.totalCor||0}</div></div>
+      <div class="stat-box"><div class="stat-box-label">Total Respostas</div><div class="stat-box-val">${u.totalAns||0}</div></div>
+      <div class="stat-box"><div class="stat-box-label">XP Hoje</div><div class="stat-box-val">${u.todayXP||0}</div></div>
+      <div class="stat-box"><div class="stat-box-label">Combo Máx.</div><div class="stat-box-val">💫 ${u.maxCombo||0}</div></div>
+    </div>
+
+    <div class="drawer-section">
+      <div class="drawer-section-title">Progresso de Nível</div>
+      <div class="progress-level">
+        <div class="progress-level-hdr">
+          <span class="progress-level-name">Nível ${lv.level} · ${lv.title}</span>
+          <span class="progress-level-xp">${u.xp||0} / ${lv.next} XP</span>
+        </div>
+        <div class="progress-bar-lg"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
+      </div>
+    </div>
+
+    <div class="drawer-section">
+      <div class="drawer-section-title">Conquistas (${achs.length}/${ACHS_META.length})</div>
+      <div class="ach-grid">
+        ${ACHS_META.map(a => `
+          <div class="ach-item ${achs.includes(a.id) ? '' : 'locked'}" title="${a.name}">
+            ${a.icon} <span style="font-size:.78rem">${a.name}</span>
+          </div>`).join('')}
+      </div>
+    </div>
+
+    <div class="drawer-section">
+      <div class="drawer-section-title">Informação Técnica</div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1rem;font-size:.78rem;color:var(--muted);line-height:1.8">
+        <div><strong>ID:</strong> ${u.un}</div>
+        <div><strong>Supabase ID:</strong> ${u.supabaseId||'—'}</div>
+        <div><strong>Língua:</strong> ${u.lang||'en'}</div>
+        <div><strong>Criado em:</strong> ${u.createdAt ? new Date(u.createdAt).toLocaleString('pt-PT') : '—'}</div>
+        <div><strong>Último acesso:</strong> ${u.updated_at ? new Date(u.updated_at).toLocaleString('pt-PT') : '—'}</div>
+        <div><strong>Precisão:</strong> ${u.totalAns ? Math.round(u.totalCor/u.totalAns*100) : 0}%</div>
+      </div>
+    </div>
+
+    <div class="drawer-actions">
+      <button class="btn btn-danger" onclick="confirmDelete('${u.un}','${u.name||u.un}');closeDrawer()">🗑️ Apagar Utilizador</button>
+    </div>
+  `;
+
+  document.getElementById('drawer-overlay').classList.add('open');
+  document.getElementById('user-drawer').classList.add('open');
+}
+
+function closeDrawer() {
+  document.getElementById('drawer-overlay').classList.remove('open');
+  document.getElementById('user-drawer').classList.remove('open');
+}
+
+// ── DELETE USER ───────────────────────────────────────────
+async function confirmDelete(un, name) {
+  if (!confirm(`Tens a certeza que queres apagar o utilizador "${name}"?\n\nEsta ação não pode ser desfeita.`)) return;
+  const { error } = await sb.from('user_progress').delete().eq('un', un);
+  if (error) { toast('Erro ao apagar: ' + error.message, 'red'); return; }
+  toast(`✅ "${name}" apagado com sucesso`);
+  await refreshAll();
+  if (currentSection === 'users') filterUsers();
+}
+
+// ── EXPORT CSV ────────────────────────────────────────────
+function exportCSV() {
+  const rows = [['Nome','Email','UN','Auth','XP','Nível','Streak','Lições','Corações','Gemas','XP Hoje','Acertos','Total Respostas','Conquistas','Criado','Último Acesso']];
+  filteredUsers.forEach(u => {
+    const lv = getLevel(u.xp||0);
+    const acc = u.totalAns ? Math.round(u.totalCor/u.totalAns*100)+'%' : '0%';
+    rows.push([
+      u.name||'', u.email||'', u.un, u.authProvider||'local',
+      u.xp||0, lv.level, u.streak||0, (u.done||[]).length,
+      u.hearts??5, u.gems||0, u.todayXP||0, u.totalCor||0, u.totalAns||0,
+      (u.achs||[]).length,
+      u.createdAt ? new Date(u.createdAt).toLocaleString('pt-PT') : '',
+      u.updated_at ? new Date(u.updated_at).toLocaleString('pt-PT') : '',
+    ]);
+  });
+  const csv = rows.map(r => r.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `englishflow-users-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  toast('⬇️ CSV exportado!');
+}
+
+// ── NAVIGATION ────────────────────────────────────────────
+function showSection(name, btn) {
+  currentSection = name;
+  ['dashboard','users','leaderboard','activity'].forEach(s => {
+    document.getElementById('sec-'+s).style.display = s === name ? 'block' : 'none';
+  });
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  if (name === 'users') { filterUsers(); }
+  if (name === 'leaderboard') { renderLeaderboard(); }
+  if (name === 'activity') { renderActivity(); }
+}
+
+// ── TOAST ─────────────────────────────────────────────────
+function toast(msg, color) {
+  const el = document.createElement('div');
+  el.className = 'toast';
+  if (color === 'red') el.style.borderColor = 'rgba(255,61,92,.4)';
+  el.textContent = msg;
+  document.getElementById('toast-wrap').appendChild(el);
+  setTimeout(() => el.remove(), 3500);
+}
+
+// ── INIT ─────────────────────────────────────────────────
+initSB();
+// Check for existing session
+sb.auth.getSession().then(({ data: { session } }) => {
+  if (session?.user && ADMIN_EMAILS.includes(session.user.email)) {
+    showAdminApp(session.user);
+  }
+});
+</script>
+</body>
+</html>
