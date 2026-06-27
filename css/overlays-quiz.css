@@ -1,0 +1,96 @@
+/* ─── QUIZ ENGINE ────────────────────────────────────────── */
+.quiz-wrap { display:flex; flex-direction:column; min-height:100vh; padding-bottom:20px; }
+.quiz-toprow { display:flex; align-items:center; gap:.7rem; padding:1rem 1rem .7rem; }
+.qclose { background:var(--surface2); border:1.5px solid var(--border); border-radius:50%; width:34px; height:34px; color:var(--text); font-size:.9rem; cursor:pointer; transition:all .22s; font-family:'Nunito',sans-serif; flex-shrink:0; font-weight:900; }
+.qclose:hover { background:rgba(255,23,68,.15); border-color:var(--red); color:var(--red); }
+.qbar-bg   { flex:1; height:9px; background:var(--surface2); border-radius:5px; overflow:visible; position:relative; }
+.qbar-fill { height:100%; background:linear-gradient(90deg,var(--blue),var(--teal)); border-radius:5px; transition:width .5s var(--ease); }
+.qbar-glow { position:absolute; top:50%; transform:translateY(-50%); width:16px; height:16px; border-radius:50%; background:var(--teal); filter:blur(4px); margin-left:-8px; pointer-events:none; transition:left .5s var(--ease); }
+.hrow { display:flex; gap:2px; flex-shrink:0; }
+.hrt       { font-size:.9rem; transition:all .3s; }
+.hrt.dead  { opacity:.2; filter:grayscale(1); }
+.quiz-body { flex:1; padding:0 1.2rem; }
+.combo-ind { text-align:center; font-family:'Boogaloo',cursive; font-size:1.1rem; color:var(--yellow); min-height:26px; font-weight:900; letter-spacing:1px; }
+.combo-ind.on   { animation:comboAnim .4s var(--ease); }
+.combo-ind.mega { color:var(--orange); font-size:1.4rem; text-shadow:var(--glow-y); }
+@keyframes comboAnim { 0%{transform:scale(.5)}70%{transform:scale(1.25)}100%{transform:scale(1)} }
+.q-tag  { font-size:.72rem; color:var(--muted); font-weight:900; text-transform:uppercase; letter-spacing:1px; margin-bottom:.8rem; }
+.q-text { font-size:1.05rem; font-weight:800; line-height:1.6; margin-bottom:1.4rem; color:var(--text); }
+.q-opts { display:flex; flex-direction:column; gap:.7rem; }
+.qopt   {
+  display:flex;
+  align-items:center;
+  gap:var(--space-4);
+  text-align:left;
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:var(--r-lg);
+  padding:var(--space-4) var(--space-5);
+  font-size:var(--text-base);
+  font-weight:800;
+  color:var(--text);
+  transition:border-color var(--duration-normal) var(--ease-out),
+    transform var(--duration-normal) var(--ease-out),
+    background var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out);
+  width:100%;
+  box-shadow:var(--shadow-sm);
+}
+.qopt:hover:not(:disabled) {
+  border-color:var(--blue2);
+  transform:translateX(4px);
+  background:var(--accent-soft);
+  box-shadow:var(--shadow-md);
+}
+.oletter {
+  width:28px; height:28px; border-radius:50%; background:var(--surface2);
+  border:1.5px solid var(--border); font-size:.78rem; font-weight:900;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  transition:all .2s;
+}
+.otext { flex:1; }
+.qopt.ok { border-color:var(--green); background:rgba(0,230,118,.1); }
+.qopt.ok .oletter { background:var(--green); border-color:var(--green); color:#000; }
+.qopt.no { border-color:var(--red);   background:rgba(255,23,68,.1); animation:shake .4s ease; }
+.qopt.no .oletter { background:var(--red); border-color:var(--red); color:#fff; }
+/* Feedback footer */
+.fb-foot {
+  border-top:1px solid var(--border); padding:1rem 1.2rem;
+  display:none; flex-direction:column; gap:.6rem;
+  background:var(--surface); animation:slideU .3s var(--ease);
+}
+@keyframes slideU { from{transform:translateY(30px);opacity:0} to{transform:translateY(0);opacity:1} }
+.fb-foot.fb-ok { border-top-color:var(--green); background:rgba(0,230,118,.05); }
+.fb-foot.fb-no { border-top-color:var(--red);   background:rgba(255,23,68,.05); }
+.fb-inner { display:flex; gap:.8rem; align-items:flex-start; }
+.fb-icon  { font-size:1.4rem; flex-shrink:0; }
+.fb-title { font-weight:900; font-size:.95rem; margin-bottom:.15rem; }
+.fb-foot.fb-ok .fb-title { color:var(--green); }
+.fb-foot.fb-no .fb-title { color:var(--red); }
+.fb-roast { font-size:.82rem; font-weight:700; color:var(--muted); }
+.fb-exp   { font-size:.82rem; font-weight:700; color:var(--text); margin-top:.3rem; background:var(--surface2); border-radius:8px; padding:.5rem .7rem; line-height:1.55; }
+.fb-cont  {
+  width:100%; padding:.85rem; border:none; border-radius:12px;
+  background:linear-gradient(135deg,var(--blue),var(--purple)); color:#fff;
+  font-family:'Boogaloo',cursive; font-size:1.05rem; letter-spacing:1.5px;
+  cursor:pointer; transition:all .22s var(--ease);
+}
+.fb-cont:hover { transform:translateY(-3px) scale(1.02); }
+/* Results */
+.res-screen { display:none; flex-direction:column; align-items:center; padding:2rem 1.5rem; min-height:100vh; justify-content:center; }
+.res-screen.on { display:flex; animation:fadeIn .4s ease; }
+.res-emoji  { font-size:5rem; animation:luE .6s var(--ease); margin-bottom:.6rem; }
+@keyframes luE { 0%{transform:scale(0) rotate(-45deg)}70%{transform:scale(1.3) rotate(10deg)}100%{transform:scale(1) rotate(0)} }
+.res-title  { font-family:'Boogaloo',cursive; font-size:2.2rem; color:var(--yellow); text-shadow:var(--glow-y); }
+.res-sub    { color:var(--muted); font-size:.9rem; font-weight:700; text-align:center; margin:.5rem 0 1.5rem; }
+.res-grid   { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; width:100%; max-width:320px; margin-bottom:1.5rem; }
+.res-stat   { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1rem .5rem; text-align:center; }
+.rs-num     { font-family:'Boogaloo',cursive; font-size:1.7rem; }
+.rs-lbl     { font-size:.68rem; color:var(--muted); font-weight:800; margin-top:.15rem; }
+.res-xp-bar-wrap { width:100%; max-width:300px; margin-bottom:1.5rem; }
+.res-xp-label { font-size:.72rem; color:var(--muted); font-weight:800; margin-bottom:.3rem; text-align:center; }
+.res-btns   { display:flex; gap:.7rem; flex-wrap:wrap; justify-content:center; }
+.res-btn    { padding:.85rem 1.8rem; border:none; border-radius:14px; background:linear-gradient(135deg,var(--green2),var(--green)); color:#000; font-family:'Boogaloo',cursive; font-size:1.1rem; letter-spacing:1.5px; cursor:pointer; transition:all .22s var(--ease); }
+.res-btn-sec { background:linear-gradient(135deg,var(--surface2),var(--surface3)); color:var(--text); }
+.res-btn:hover { transform:scale(1.05) translateY(-3px); }
+
