@@ -1,0 +1,20 @@
+/* ═══════════════════════════════════════════════════════════
+   🎨 STYLE.CSS — EnglishFlow v4.0
+   ORCHESTRATOR — imports split CSS modules
+   Edit each module directly; this file is just the loader.
+
+   Load order matters:
+   1. base       → fonts, CSS vars, reset, bg, loading, screens
+   2. auth       → login/register, Google OAuth, password meter
+   3. layout     → app shell, bottom nav
+   4. tabs       → all tab content (home, grammar, sounds, ai, profile, about, leaderboard)
+   5. overlays   → quiz, game, overlays, toast, FAB, disco, utilities, responsive
+   6. flowy      → mascot assistant (separate for easy mascot updates)
+   ═══════════════════════════════════════════════════════════ */
+
+@import url('base.css');
+@import url('auth.css');
+@import url('layout.css');
+@import url('tabs.css');
+@import url('overlays.css');
+/* flowy.css is loaded separately in index.html */

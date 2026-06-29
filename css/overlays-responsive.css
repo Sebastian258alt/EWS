@@ -1,0 +1,250 @@
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width:480px) {
+  :root {
+    --tab-pad:var(--space-4);
+    --nav-h:60px;
+    --top-h:56px;
+  }
+  .auth-logo { font-size:clamp(1.75rem,8vw,2rem); }
+  .auth-card { padding:var(--space-6); }
+  .q-text { font-size:var(--text-base); }
+  .game-scrambled { font-size:1.7rem; letter-spacing:5px; }
+  .tb-logo { font-size:1.2rem; }
+  .tb-pills { gap:var(--space-1); }
+  .pill { font-size:var(--text-xs); padding:var(--space-1) var(--space-2); }
+  .pron-word { font-size:2rem; }
+  .about-stats-grid { grid-template-columns:repeat(2,1fr); gap:var(--space-4); }
+  .about-name { font-size:var(--text-lg); }
+  .social-grid { grid-template-columns:repeat(3,1fr); }
+  .home-hero-inner { padding:var(--space-5) var(--space-4); gap:var(--space-4); }
+  .home-hero-stats { gap:var(--space-2); }
+  .home-hero-stat { padding:var(--space-3) var(--space-2); }
+  .home-hero-actions { flex-direction:column; }
+  .home-hero-cta { min-width:100%; width:100%; }
+  .home-features { gap:var(--space-4); margin-bottom:var(--space-5); }
+  .streak-card,.goal-card,.dc-card { padding:var(--space-4) var(--space-5); }
+  .sc-icon-wrap,.dc-ic { width:3rem; height:3rem; }
+  .shortcut-ic { width:2.75rem; height:2.75rem; font-size:1.5rem; }
+  .shortcut-card { padding:var(--space-4); gap:var(--space-3); }
+  .topbar { padding:0 var(--space-3); }
+  .gram-hero h2,.sounds-hero h2 { font-size:var(--text-xl); }
+  .bnav .bn span { font-size:0.6rem; }
+  .bnav .bn-svg { width:20px; height:20px; }
+}
+@media (min-width:600px) {
+  :root { --tab-pad:var(--space-6); }
+  .auth-wrap,.pm-box,.game-box { max-width:480px; }
+  .app-scroll {
+    max-width:var(--content-max);
+    margin:0 auto;
+    width:100%;
+  }
+  .topbar,.bnav {
+    max-width:var(--content-max);
+    left:50%;
+    right:auto;
+    transform:translateX(-50%);
+    width:100%;
+  }
+  .chat-win { height:400px; }
+  .about-stats-grid { grid-template-columns:repeat(4,1fr); }
+}
+@media (min-width:900px) {
+  :root {
+    --text-base:0.95rem;
+    --tab-pad:var(--space-8);
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
+    animation-duration:0.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:0.01ms !important;
+  }
+  .home-hero-shine,.home-hero-wave { animation:none; }
+  .home-features > *,.home-features-shortcuts { animation:none; }
+  .student-dashboard { animation:none; }
+  .sdash-bar-fill::after,.sdash-fire { animation:none; }
+  .sc-fire,.dc-ic,.dc-card::before { animation:none; }
+}
+/* Chat retry button */
+.chat-retry-container {
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0 0.2rem;
+}
+.chat-retry-btn {
+  background: linear-gradient(135deg, var(--orange), var(--red));
+  color: white;
+  border: none;
+  border-radius: var(--r-pill);
+  padding: 0.4rem 1.2rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.chat-retry-btn:hover {
+  transform: scale(1.05);
+  box-shadow: var(--glow-b);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   📘 LESSON LEARN FLOW — v2.0
+   Explanation → Examples → Practice screens (before the quiz)
+   Reuses .quiz-wrap / .gram-* / .qopt / .fb-* tokens so it feels
+   native to the rest of the app.
+   ═══════════════════════════════════════════════════════════ */
+
+.ltitle {
+  flex: 1; font-weight: 900; font-size: .95rem;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.lstep-bar {
+  display: flex; gap: .4rem; padding: 0 1.2rem .9rem;
+}
+.lstep-dot {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: .3rem;
+  opacity: .4; transition: opacity .25s var(--ease);
+}
+.lstep-dot.on { opacity: 1; }
+.lstep-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .68rem; font-weight: 900;
+  background: var(--surface2); color: var(--muted);
+  border: 1.5px solid var(--border);
+}
+.lstep-dot.on .lstep-num { background: var(--blue); color: #fff; border-color: var(--blue); }
+.lstep-dot.curr .lstep-num { box-shadow: var(--glow-b); transform: scale(1.12); }
+.lstep-lbl { font-size: .62rem; font-weight: 800; color: var(--muted); text-align: center; }
+.lstep-dot.on .lstep-lbl { color: var(--text); }
+
+.lesson-body { flex: 1; padding: 0 1.2rem 1.2rem; }
+
+.lesson-section { margin-bottom: 1rem; }
+
+.lexp-block {
+  background: var(--surface2); border-radius: 12px; padding: .9rem 1rem;
+  margin-bottom: .7rem; border-left: 3px solid var(--blue2);
+}
+.lexp-block.lexp-pt { border-left-color: var(--teal); }
+.lexp-flag {
+  display: inline-block; font-size: .68rem; font-weight: 900;
+  text-transform: uppercase; letter-spacing: 1px; color: var(--blue2);
+  margin-bottom: .4rem;
+}
+.lexp-block.lexp-pt .lexp-flag { color: var(--teal); }
+.lexp-block p { font-size: .9rem; line-height: 1.65; font-weight: 600; color: var(--text); margin: 0; }
+
+.lesson-foot {
+  padding: .8rem 1.2rem calc(1rem + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--border);
+}
+.lesson-foot .fb-cont { width: 100%; }
+
+.lesson-pdone { display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 2rem; }
+.lesson-pdone .res-emoji { font-size: 3rem; margin-bottom: .6rem; }
+.lesson-pdone .res-title { font-size: 1.1rem; font-weight: 900; margin-bottom: .4rem; }
+.lesson-pdone .res-sub { font-size: .85rem; color: var(--muted); font-weight: 700; max-width: 320px; line-height: 1.5; }
+
+@media (max-width: 380px) {
+  .lstep-lbl { display: none; }
+}
+
+/* ─── LESSON LANGUAGE TOGGLE — Feature A ──────────────────
+   llang-btn sits in .quiz-toprow between .ltitle and the edge.
+   lang-fade dims the "other" language in examples.
+   lexp-also is a collapsible details for the secondary language.
+   ──────────────────────────────────────────────────────── */
+
+.llang-btn {
+  flex-shrink: 0;
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-pill);
+  padding: .22rem .6rem;
+  font-size: .72rem;
+  font-weight: 900;
+  cursor: pointer;
+  color: var(--text);
+  transition: background .18s var(--ease), border-color .18s var(--ease), color .18s var(--ease), transform .15s;
+  white-space: nowrap;
+  font-family: 'Nunito', sans-serif;
+  letter-spacing: .3px;
+  line-height: 1.6;
+}
+.llang-btn:hover  { background: var(--blue2); border-color: var(--blue2); color: #fff; }
+.llang-btn:active { transform: scale(.95); }
+
+/* dim the secondary-language line in the examples step */
+.lang-fade { opacity: .3; transition: opacity .2s var(--ease); }
+
+/* collapsible "see in other language" block on the explanation step */
+.lexp-also {
+  margin-top: .55rem;
+}
+.lexp-also > summary {
+  font-size: .76rem;
+  font-weight: 800;
+  color: var(--blue2);
+  cursor: pointer;
+  padding: .25rem 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  user-select: none;
+}
+.lexp-also > summary::-webkit-details-marker { display: none; }
+.lexp-also > summary::before { content: '▶'; font-size: .6rem; transition: transform .18s; }
+.lexp-also[open] > summary::before { transform: rotate(90deg); }
+
+/* ─── CEFR FILTER BAR — Feature B ────────────────────────
+   Pills sit above the unit list; active pill has a coloured
+   glow that matches the CEFR level accent.
+   ──────────────────────────────────────────────────────── */
+
+.cefr-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+  padding: .1rem 0 1.2rem;
+}
+
+.cefr-pill {
+  border: 1.5px solid var(--border2);
+  background: var(--surface2);
+  border-radius: var(--r-pill);
+  padding: .28rem .85rem;
+  font-size: .72rem;
+  font-weight: 900;
+  font-family: 'Nunito', sans-serif;
+  letter-spacing: .5px;
+  cursor: pointer;
+  color: var(--muted);
+  transition: background .18s var(--ease), border-color .18s var(--ease),
+              color .18s var(--ease), box-shadow .18s var(--ease), transform .12s;
+}
+.cefr-pill:active { transform: scale(.94); }
+
+/* Level-specific accent colours */
+.cefr-pill.cefr-a0 { --_c: #78909c; }
+.cefr-pill.cefr-a1 { --_c: var(--green); }
+.cefr-pill.cefr-a2 { --_c: var(--teal); }
+.cefr-pill.cefr-b1 { --_c: var(--blue); }
+.cefr-pill.cefr-b2 { --_c: var(--purple); }
+
+/* Active state — "All" pill */
+.cefr-pill.on {
+  background: var(--surface3);
+  border-color: var(--border2);
+  color: var(--text);
+}
+/* Active state — level pills (explicit per level for max browser compat) */
+.cefr-pill.cefr-a0.on { background:rgba(120,144,156,.15); border-color:#78909c; color:#78909c; box-shadow:0 0 10px rgba(120,144,156,.3); }
+.cefr-pill.cefr-a1.on { background:rgba(0,230,118,.12); border-color:var(--green); color:var(--green); box-shadow:0 0 10px rgba(0,230,118,.3); }
+.cefr-pill.cefr-a2.on { background:rgba(46,232,200,.12); border-color:var(--teal); color:var(--teal); box-shadow:0 0 10px rgba(46,232,200,.3); }
+.cefr-pill.cefr-b1.on { background:rgba(61,126,255,.15); border-color:var(--blue); color:var(--blue); box-shadow:0 0 10px rgba(61,126,255,.35); }
+.cefr-pill.cefr-b2.on { background:rgba(184,77,255,.15); border-color:var(--purple); color:var(--purple); box-shadow:0 0 10px rgba(184,77,255,.35); }
