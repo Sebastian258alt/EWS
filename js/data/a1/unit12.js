@@ -1,127 +1,142 @@
 // ═══════════════════════════════════════════════════════
-//  EnglishFlow — js/data/a1/unit12.js
+//  EnglishFlow v2.0 — js/data/a1/unit12.js
 // ═══════════════════════════════════════════════════════
-// Unit ID: u1h
-// Part of UNITS_A1 — Health & the Doctor
+// Unit ID: u1h  |  CEFR: A2
+// Reported Speech & Storytelling
 
 const UNITS_A1_UNIT12 = [
   {
-    id:'u1h', cefr:'A1', title:'Health & the Doctor', titlePt:'Saúde e o Médico',
-    desc:'Talk about health and get help when you need it 🏥',
-    descPt:'Fala sobre saúde e pede ajuda quando precisas 🏥',
-    color:'#e91e63', icon:'🏥', premium:false,
+    id:'u1h', cefr:'A2', title:'Reported Speech & Storytelling', titlePt:'Discurso Indirecto e Contar Histórias',
+    desc:'Tell what others said & narrate events 🗣️',
+    descPt:'Relata o que outros disseram e narra eventos 🗣️',
+    color:'#7c4dff', icon:'🗣️', premium:false,
     lessons:[
-
-      {id:'l1h1', title:'Illnesses & Symptoms', titlePt:'Doenças e Sintomas', icon:'🤒', xp:20, learn:{
+      {id:'l1h1', title:'Reported Speech — Statements', titlePt:'Discurso Indirecto — Afirmações', icon:'💬', xp:30, learn:{
         explanation:{
-          en:'To describe how you feel when you are sick, say "I have a + illness": "I have a headache", "I have a cold". For symptoms use "I feel + adjective": "I feel dizzy". Key words: fever, cough, pain, tired, nausea.',
-          pt:'Para descrever como te sentes quando estás doente, diz "I have a + doença": "I have a headache" (dói-me a cabeça), "I have a cold" (tenho uma constipação). Para sintomas usa "I feel + adjectivo": "I feel dizzy" (sinto-me tonto). Palavras-chave: fever (febre), cough (tosse), pain (dor), tired (cansado), nausea (náusea).'
+          en:'Reported speech tells what someone said WITHOUT using their exact words. The verb usually goes one tense back: "I am tired" → She said she WAS tired. "I work here" → He said he WORKED there. Pronouns and time expressions also change.',
+          pt:'O discurso indirecto relata o que alguém disse SEM usar as palavras exactas. O verbo normalmente recua um tempo verbal: "I am tired" → She said she WAS tired. "I work here" → He said he WORKED there. Os pronomes e as expressões de tempo também mudam.'
         },
         examples:[
-          {en:'I have a headache and a fever.', pt:'Dói-me a cabeça e tenho febre.'},
-          {en:'She feels very tired and dizzy.', pt:'Ela sente-se muito cansada e tonta.'},
-          {en:'He has a bad cough and a sore throat.', pt:'Ele tem uma tosse má e dores de garganta.'},
+          {en:'"I am hungry." → She said she was hungry.', pt:'"Estou com fome." → Ela disse que estava com fome.'},
+          {en:'"I live in Beira." → He said he lived in Beira.', pt:'"Vivo em Beira." → Ele disse que vivia em Beira.'},
+          {en:'"We will come tomorrow." → They said they would come the next day.', pt:'"Vamos vir amanhã." → Eles disseram que viriam no dia seguinte.'},
         ],
         practice:[
-          {q:'To describe pain, say:', opts:['I am a headache','I have a headache','I do a headache','I feel a headache'], ans:1, exp:'\"I have a + illness\" — I have a headache / cold / fever.'},
-          {q:'\"Fever\" in Portuguese is:', opts:['tosse','dor','febre','cansaço'], ans:2, exp:'fever = febre. A fever = temperatura alta.'},
+          {q:'"I am happy." → She said she ___ happy.', opts:['is','was','will be','be'], ans:1, exp:'am/is/are → was/were in reported speech.'},
+          {q:'"I work in a hospital." → He said he ___ in a hospital.', opts:['works','worked','is working','will work'], ans:1, exp:'work (present) → worked (past) in reported speech.'},
         ],
       }, qs:[
-        {q:'\"I ___ a sore throat and a cough.\"',opts:['feel','am','have','do'],ans:2,exp:'\"I HAVE a sore throat.\" — For illnesses use HAVE + a + illness.'},
-        {q:'\"Dizzy\" means:',opts:['Sad','Hungry','Feeling like everything spins','Very tired'],ans:2,exp:'Dizzy = tonto. You feel dizzy when you might faint.'},
-        {q:'Which word means \"febre\" in English?',opts:['cough','pain','fever','cold'],ans:2,exp:'fever = febre. \"I have a high fever\" = Tenho febre alta.'},
-        {q:'\"I feel ___ today. I cannot get out of bed.\"',opts:['hungry','terrible','happy','sleepy'],ans:1,exp:'\"I feel terrible\" = Sinto-me muito mal. Perfect for being very sick.'},
-        {q:'What does \"sore throat\" mean?',opts:['Dor de cabeça','Dor de barriga','Dor de garganta','Dor de dentes'],ans:2,exp:'sore throat = dor de garganta. \"My throat hurts when I swallow.\"'},
+        {q:'"I love football." → He said he ___ football.',opts:['loves','love','loved','is loving'],ans:2,exp:'"Love" (present simple) → "loved" (past simple) in reported speech.'},
+        {q:'"She is cooking." → He said she ___ cooking.',opts:['is','was','has been','will be'],ans:1,exp:'"is cooking" → "was cooking". Present continuous → past continuous.'},
+        {q:'"I have finished." → She said she ___ finished.',opts:['has','have','had','is'],ans:2,exp:'"have finished" → "had finished". Present perfect → past perfect.'},
+        {q:'"We will help you." → They said they ___ help me.',opts:['will','would','should','can'],ans:1,exp:'"will" → "would" in reported speech.'},
+        {q:'In reported speech, "today" usually becomes:',opts:['tomorrow','yesterday','that day','this day'],ans:2,exp:'"Today" → "that day". Time expressions shift: today→that day, tomorrow→the next day.'},
       ]},
-
-      {id:'l1h2', title:'At the Doctor', titlePt:'No Médico', icon:'👨‍⚕️', xp:25, learn:{
+      {id:'l1h2', title:'Reported Questions', titlePt:'Perguntas no Discurso Indirecto', icon:'❓', xp:30, learn:{
         explanation:{
-          en:'At a clinic or hospital, the doctor will ask: "What is the problem?", "Where does it hurt?", "How long have you had this?" You answer with: "I have had this for 3 days.", "It hurts here.", "I also have a temperature." Learning these phrases helps you get proper treatment.',
-          pt:'Numa clínica ou hospital, o médico vai perguntar: "What is the problem?", "Where does it hurt?", "How long have you had this?" Respondes com: "I have had this for 3 days.", "It hurts here.", "I also have a temperature." Aprender estas frases ajuda-te a receber o tratamento certo.'
+          en:'To report YES/NO questions, use "asked if/whether": "Are you tired?" → She asked if I was tired. For WH- questions, use "asked where/what/why...": "Where do you live?" → He asked where I lived. NO question mark in reported questions!',
+          pt:'Para reportar perguntas de SIM/NÃO, usa "asked if/whether": "Are you tired?" → She asked if I was tired. Para perguntas WH-, usa "asked where/what/why...": "Where do you live?" → He asked where I lived. SEM ponto de interrogação nas perguntas reportadas!'
         },
         examples:[
-          {en:'Doctor: What seems to be the problem?', pt:'Médico: Qual parece ser o problema?'},
-          {en:'Patient: I have had a fever for two days.', pt:'Doente: Tenho febre há dois dias.'},
-          {en:'Doctor: I will prescribe some medicine.', pt:'Médico: Vou receitar alguma medicação.'},
+          {en:'"Are you okay?" → She asked if I was okay.', pt:'"Estás bem?" → Ela perguntou se eu estava bem.'},
+          {en:'"What is your name?" → He asked what my name was.', pt:'"Qual é o teu nome?" → Ele perguntou qual era o meu nome.'},
+          {en:'"Where do you work?" → She asked where I worked.', pt:'"Onde trabalhas?" → Ela perguntou onde eu trabalhava.'},
         ],
         practice:[
-          {q:'The doctor asks \"Where does it hurt?\" You answer:', opts:['It hurts here, in my stomach.','I am fine, thank you.','Yes, I do.','My name is Pedro.'], ans:0, exp:'Point and say where: \"It hurts here, in my stomach.\"'},
-          {q:'\"Prescribe\" means:', opts:['to diagnose','to write a medicine order','to operate','to pay the bill'], ans:1, exp:'To prescribe = to write a prescription for medicine.'},
+          {q:'Reported YES/NO questions use:', opts:['"asked that"','"asked if/whether"','"asked what"','"said if"'], ans:1, exp:'"Asked if/whether" introduces reported yes/no questions.'},
+          {q:'"Do you speak English?" → She asked ___ I spoke English.', opts:['that','what','if','where'], ans:2, exp:'Yes/No question → "asked IF I spoke English."'},
         ],
       }, qs:[
-        {q:'How do you tell the doctor you have had a cough for 3 days?',opts:['I cough 3 days.','I have had a cough for 3 days.','I had a cough 3 days.','I am coughing since 3 days.'],ans:1,exp:'\"I have had this for X days/weeks\" = Present Perfect for duration up to now.'},
-        {q:'\"Where does it hurt?\" is asking about:',opts:['your name','your age','the location of your pain','your temperature'],ans:2,exp:'\"Where does it hurt?\" = Onde dói? The doctor wants to know the location.'},
-        {q:'\"The doctor will prescribe medicine\" means the doctor will:',opts:['perform surgery','write a medicine order','take an X-ray','admit you to hospital'],ans:1,exp:'Prescribe = receitar. The doctor writes what medicines you need.'},
-        {q:'\"I have had a fever ___ two days.\"',opts:['since','for','ago','during'],ans:1,exp:'\"For\" + duration: I have had this FOR two days. \"Since\" + specific time: since Monday.'},
-        {q:'What do you say when you arrive at the clinic?',opts:['I want to see the manager.','Good morning, I need to see a doctor.','I am looking for the pharmacy.','Can I have the menu, please?'],ans:1,exp:'\"Good morning, I need to see a doctor.\" = Bom dia, preciso de ver um médico.'},
+        {q:'"Are you a teacher?" → He asked ___ I was a teacher.',opts:['what','where','if','that'],ans:2,exp:'Yes/No question → "asked IF..." No question mark!'},
+        {q:'"Where do you live?" → She asked where I ___.',opts:['live','lives','lived','living'],ans:2,exp:'"lived" — verb goes back a tense. "Where do you live?" → asked where I LIVED.'},
+        {q:'"What time is it?" → He asked what time ___.',opts:['is it','it was','was it','it is'],ans:1,exp:'Reported question uses statement word order: "what time IT WAS" not "was it".'},
+        {q:'In reported questions:',opts:['Use a question mark','Keep question word order','Use statement word order','Use "said"'],ans:2,exp:'Reported questions use STATEMENT word order and NO question mark.'},
+        {q:'"Why did you leave?" → She asked why I ___ left.',opts:['have','has','had','did'],ans:2,exp:'"had left" — past simple question → past perfect in reported speech.'},
       ]},
-
-      {id:'l1h3', title:'Medicine & Treatment', titlePt:'Medicamentos e Tratamento', icon:'💊', xp:20, learn:{
+      {id:'l1h3', title:'Reported Commands & Requests', titlePt:'Ordens e Pedidos no Discurso Indirecto', icon:'📢', xp:25, learn:{
         explanation:{
-          en:'Key medical vocabulary: tablet / pill (comprimido), syrup (xarope), injection (injecção), ointment (pomada), dose (dose), prescription (receita). To say when to take medicine: "Take two tablets three times a day", "Take it with food", "Take it before bed".',
-          pt:'Vocabulário médico essencial: tablet/pill (comprimido), syrup (xarope), injection (injecção), ointment (pomada), dose (dose), prescription (receita). Para dizer quando tomar medicamentos: "Take two tablets three times a day", "Take it with food", "Take it before bed".'
+          en:'To report commands and requests, use TELL or ASK + object + TO + infinitive. "Close the door!" → He told me to close the door. "Please help me." → She asked me to help her. Negative: "Don\'t run!" → He told me NOT to run.',
+          pt:'Para reportar ordens e pedidos, usa TELL ou ASK + objecto + TO + infinitivo. "Close the door!" → He told me to close the door. "Please help me." → She asked me to help her. Negativo: "Don\'t run!" → He told me NOT to run.'
         },
         examples:[
-          {en:'Take one tablet twice a day after meals.', pt:'Toma um comprimido duas vezes por dia depois das refeições.'},
-          {en:'Apply the ointment to the affected area.', pt:'Aplica a pomada na área afectada.'},
-          {en:'You need an injection of antibiotics.', pt:'Precisas de uma injecção de antibióticos.'},
+          {en:'"Sit down!" → The teacher told us to sit down.', pt:'"Sentai-vos!" → O professor disse-nos para nos sentarmos.'},
+          {en:'"Please open the window." → She asked me to open the window.', pt:'"Por favor abre a janela." → Ela pediu-me para abrir a janela.'},
+          {en:'"Don\'t be late!" → He told her not to be late.', pt:'"Não chegues tarde!" → Ele disse-lhe para não chegar tarde.'},
         ],
         practice:[
-          {q:'\"Tablet\" means:', opts:['xarope','pomada','comprimido','receita'], ans:2, exp:'tablet / pill = comprimido.'},
-          {q:'\"Three times a day\" means:', opts:['every 3 days','3 times in 24 hours','at 3pm','once every 3 hours'], ans:1, exp:'Three times a day = de manhã, à tarde e à noite.'},
+          {q:'Commands use "told" + object + ___:', opts:['that','if','to + verb','verb-ing'], ans:2, exp:'"Told + object + TO + infinitive": He told me TO go.'},
+          {q:'"Don\'t speak!" → She told him ___ speak.', opts:['not to','to not','don\'t','not'], ans:0, exp:'Negative command: "told him NOT TO speak."'},
         ],
       }, qs:[
-        {q:'\"Take two tablets ___ a day\" (3 times)',opts:['once','twice','three times','four times'],ans:2,exp:'Three times a day = take it in the morning, afternoon, and evening.'},
-        {q:'What is a \"prescription\"?',opts:['A type of medicine','A medical certificate','A doctor\'s written order for medicine','A bill from the hospital'],ans:2,exp:'Prescription = receita médica. The paper the doctor gives you to get medicine at the pharmacy.'},
-        {q:'\"Apply the ointment\" means:',opts:['Swallow the cream','Put the cream on the skin','Inject the medicine','Mix with water'],ans:1,exp:'Apply = aplicar. Ointment = pomada. You apply it to the skin.'},
-        {q:'\"Take it with food\" means:',opts:['Mix the medicine with food','Take the medicine during or after a meal','Only take it before eating','Eat the medicine'],ans:1,exp:'\"Take with food\" = toma com a refeição. This protects the stomach.'},
-        {q:'Which word means \"xarope\"?',opts:['tablet','injection','ointment','syrup'],ans:3,exp:'syrup = xarope. Liquid medicine you drink, often for coughs.'},
+        {q:'"Sit down!" → The teacher told us ___ down.',opts:['sit','sitting','to sit','that sit'],ans:2,exp:'"Told + object + TO + infinitive". told us TO SIT down.'},
+        {q:'"Please help me." → She asked me ___ her.',opts:['help','helping','to help','that help'],ans:2,exp:'"Asked + object + TO + infinitive". asked me TO HELP her.'},
+        {q:'"Don\'t touch that!" → He told me ___ that.',opts:['not touch','to not touch','not to touch','don\'t touch'],ans:2,exp:'Negative: "told me NOT TO touch". NOT TO + infinitive.'},
+        {q:'Which word is used for POLITE reported requests?',opts:['told','said','asked','ordered'],ans:2,exp:'"Asked" for polite requests. "Told" for direct commands.'},
+        {q:'"Be quiet!" → She told them ___ quiet.',opts:['being','be','to be','is'],ans:2,exp:'"Told them TO BE quiet." — to + base verb.'},
       ]},
-
-      {id:'l1h4', title:'Healthy Habits', titlePt:'Hábitos Saudáveis', icon:'💪', xp:20, learn:{
+      {id:'l1h4', title:'Telling Stories — Narrative Tenses', titlePt:'Contar Histórias — Tempos Narrativos', icon:'📚', xp:30, learn:{
         explanation:{
-          en:'Talking about health and habits uses the Simple Present: "I exercise three times a week", "She drinks 8 glasses of water a day". Advice uses "should/shouldn\'t": "You should sleep 8 hours", "You shouldn\'t eat too much sugar".',
-          pt:'Falar sobre saúde e hábitos usa o Presente Simples: "I exercise three times a week", "She drinks 8 glasses of water a day". Conselhos usam "should/shouldn\'t": "You should sleep 8 hours" (deves dormir 8 horas), "You shouldn\'t eat too much sugar" (não deves comer demasiado açúcar).'
+          en:'Good storytelling uses a mix of tenses: Past Simple for the main sequence of events ("I arrived, I saw, I decided..."), Past Continuous for background actions ("It was raining..."), and Past Perfect for events that happened before ("I had already eaten...").',
+          pt:'Uma boa narrativa usa uma mistura de tempos verbais: Passado Simples para a sequência principal ("I arrived, I saw..."), Passado Contínuo para acções de fundo ("It was raining..."), e Passado Perfeito para eventos anteriores ("I had already eaten...").'
         },
         examples:[
-          {en:'You should drink at least 2 litres of water a day.', pt:'Deves beber pelo menos 2 litros de água por dia.'},
-          {en:'I try to exercise for 30 minutes every day.', pt:'Tento fazer exercício durante 30 minutos todos os dias.'},
-          {en:'You shouldn\'t smoke — it\'s very bad for your lungs.', pt:'Não deves fumar — é muito mau para os teus pulmões.'},
+          {en:'I was walking home when I heard a noise.', pt:'Eu estava a andar para casa quando ouvi um barulho.'},
+          {en:'She had already left when I arrived.', pt:'Ela já tinha ido embora quando eu cheguei.'},
+          {en:'It was a dark night and the streets were empty.', pt:'Era uma noite escura e as ruas estavam vazias.'},
         ],
         practice:[
-          {q:'Which is good advice for health?', opts:['You should eat fast food every day.','You should exercise regularly.','You shouldn\'t drink water.','You should sleep 3 hours.'], ans:1, exp:'Regular exercise = good health habit.'},
-          {q:'\"Lungs\" are used for:', opts:['digesting food','pumping blood','breathing air','thinking'], ans:2, exp:'Lungs (pulmões) = the organs for breathing.'},
+          {q:'The background of a story uses:', opts:['Past Simple','Past Continuous','Present Simple','Future Simple'], ans:1, exp:'Past Continuous sets the SCENE/background: "It was raining, people were walking..."'},
+          {q:'"She had already left." This means:', opts:['She left at the same time','She left before','She will leave','She is leaving'], ans:1, exp:'Past Perfect = action that happened BEFORE another past event.'},
         ],
       }, qs:[
-        {q:'\"You ___ exercise more. It\'s good for you.\"',opts:['shouldn\'t','mustn\'t','should','can\'t'],ans:2,exp:'SHOULD = positive advice. \"You should exercise\" = É recomendável que faças exercício.'},
-        {q:'Which of these is a HEALTHY habit?',opts:['Sleeping 3 hours a night','Eating vegetables every day','Drinking too much soda','Skipping breakfast every day'],ans:1,exp:'Eating vegetables daily is a healthy habit! 🥦'},
-        {q:'\"You shouldn\'t eat too much salt\" gives:',opts:['a command','advice against something','permission','a fact'],ans:1,exp:'Shouldn\'t = advice NOT to do something. \'You shouldn\'t\' = não deves.'},
-        {q:'Complete: \"She ___ 8 glasses of water every day.\"',opts:['drink','drank','drinks','drinking'],ans:2,exp:'She + drinks (3rd person singular, Simple Present for habits).'},
-        {q:'\"Balanced diet\" means:',opts:['Only eating fruit','Eating all types of food in correct amounts','Eating only protein','Skipping dinner'],ans:1,exp:'A balanced diet = dieta equilibrada — all food groups in the right amounts.'},
+        {q:'"I ___ to music when the phone rang." (listen)',opts:['listen','was listening','listened','am listening'],ans:1,exp:'Background action interrupted = Past Continuous: "was listening".'},
+        {q:'Past Perfect is used for:',opts:['actions happening now','the main events of a story','actions before another past event','future plans'],ans:2,exp:'Past Perfect (had + pp) = an event that happened BEFORE the main past story.'},
+        {q:'"She was tired because she ___ all day." (work)',opts:['worked','has worked','had worked','works'],ans:2,exp:'"Had worked" — Past Perfect. The working happened before she became tired.'},
+        {q:'Which sequence is correct for storytelling?',opts:['Future→Present→Past','Past Simple for events, Past Continuous for background','Only Past Simple','Present Tense for all'],ans:1,exp:'Best storytelling: Past Simple (events) + Past Continuous (background) + Past Perfect (earlier events).'},
+        {q:'"While Ana ___, Pedro arrived." (cook)',opts:['cooked','was cooking','had cooked','is cooking'],ans:1,exp:'"Was cooking" — background/ongoing action at the time of arrival.'},
       ]},
-
-      {id:'l1h5', title:'Emergency Phrases', titlePt:'Frases de Emergência', icon:'🚨', xp:25, learn:{
+      {id:'l1h5', title:'Linking Words — Connectors', titlePt:'Palavras de Ligação — Conectores', icon:'🔗', xp:25, learn:{
         explanation:{
-          en:'In an emergency, you need to be clear and quick. Key phrases: "Call an ambulance!", "I need help!", "It\'s an emergency!", "Someone has fainted!", "There has been an accident!". Always state what happened and where you are.',
-          pt:'Numa emergência, precisas de ser claro e rápido. Frases-chave: "Call an ambulance!" (Chama uma ambulância!), "I need help!" (Preciso de ajuda!), "It\'s an emergency!" (É uma emergência!), "Someone has fainted!" (Alguém desmaiou!), "There has been an accident!" (Houve um acidente!).'
+          en:'Connectors make your speech and writing flow naturally. Time: first, then, after that, finally, meanwhile, suddenly. Cause & Effect: because, so, as a result, therefore. Contrast: but, however, although, despite. Addition: also, in addition, moreover, besides.',
+          pt:'Os conectores tornam o teu discurso e escrita mais fluentes. Tempo: first, then, after that, finally, meanwhile, suddenly. Causa e Efeito: because, so, as a result, therefore. Contraste: but, however, although, despite. Adição: also, in addition, moreover.'
         },
         examples:[
-          {en:'Call an ambulance! My father has collapsed.', pt:'Chama uma ambulância! O meu pai caiu.'},
-          {en:'Help! There has been an accident on the road.', pt:'Ajuda! Houve um acidente na estrada.'},
-          {en:'I need a doctor immediately — she is unconscious.', pt:'Preciso de um médico imediatamente — ela está inconsciente.'},
+          {en:'First I studied, then I went out.', pt:'Primeiro estudei, depois saí.'},
+          {en:'Although it was late, she kept working.', pt:'Apesar de ser tarde, ela continuou a trabalhar.'},
+          {en:'I was tired. However, I finished the task.', pt:'Estava cansado. No entanto, terminei a tarefa.'},
         ],
         practice:[
-          {q:'In an emergency you should first:', opts:['Check your phone','Call for help','Take a photo','Run away'], ans:1, exp:'Always call for help first — police, ambulance, etc.'},
-          {q:'\"Fainted\" means:', opts:['ran away','fell asleep','lost consciousness briefly','broke a bone'], ans:2, exp:'Fainted = desmaiou — temporarily lost consciousness.'},
+          {q:'"However" expresses:', opts:['addition','time','contrast','cause'], ans:2, exp:'"However" = no entanto. It introduces a CONTRAST or unexpected idea.'},
+          {q:'Which word introduces a result?', opts:['although','therefore','meanwhile','first'], ans:1, exp:'"Therefore" = portanto — introduces a result or conclusion.'},
         ],
       }, qs:[
-        {q:'\"Call an ambulance!\" is used when:',opts:['you are lost','someone is seriously injured or ill','you cannot find a taxi','the shop is closed'],ans:1,exp:'\"Call an ambulance!\" = Chama uma ambulância! For medical emergencies.'},
-        {q:'\"Someone has fainted\" means:',opts:['someone fell asleep on purpose','someone lost consciousness briefly','someone is running away','someone is laughing'],ans:1,exp:'Fainted = desmaiou. Lost consciousness, usually briefly.'},
-        {q:'What should you tell emergency services first?',opts:['Your school name','What happened and where you are','What you had for lunch','Your passport number'],ans:1,exp:'Always say WHAT happened and WHERE you are so help can find you.'},
-        {q:'\"Unconscious\" means:',opts:['very angry','sleeping normally','not able to respond or wake up','very hungry'],ans:2,exp:'Unconscious = sem consciência. Not awake, not responding — serious!'},
-        {q:'\"There has been an accident!\" uses which tense?',opts:['Simple Present','Simple Past','Present Perfect','Future'],ans:2,exp:'\"Has been\" = Present Perfect. Recent event with present relevance — perfect for emergencies.'},
+        {q:'"___ it was raining, we went out."',opts:['Because','So','Although','Therefore'],ans:2,exp:'"Although" = apesar de. Introduces a contrasting fact.'},
+        {q:'"I studied hard, ___ I passed the exam."',opts:['although','so','despite','meanwhile'],ans:1,exp:'"So" = portanto, então. It introduces a RESULT.'},
+        {q:'Which word shows a sequence in time?',opts:['however','therefore','meanwhile','also'],ans:2,exp:'"Meanwhile" = entretanto. Something happening at the same time.'},
+        {q:'"___, let me explain the problem." (to begin)',opts:['Finally','Therefore','First of all','Meanwhile'],ans:2,exp:'"First of all" = em primeiro lugar. Used to start an explanation.'},
+        {q:'"She worked hard. ___, she was promoted."',opts:['Although','However','As a result','Despite'],ans:2,exp:'"As a result" = como resultado. Shows cause and effect.'},
       ]},
-
+      {id:'l1h6', title:'Reporting Verbs', titlePt:'Verbos de Relato', icon:'📝', xp:25, learn:{
+        explanation:{
+          en:'Instead of always saying "said", use reporting verbs for more precise meaning: claim (afirmar), admit (admitir), deny (negar), promise (prometer), suggest (sugerir), warn (avisar), explain (explicar), complain (queixar-se), announce (anunciar).',
+          pt:'Em vez de usar sempre "said", usa verbos de relato para maior precisão: claim (afirmar), admit (admitir), deny (negar), promise (prometer), suggest (sugerir), warn (avisar), explain (explicar), complain (queixar-se), announce (anunciar).'
+        },
+        examples:[
+          {en:'She admitted she had made a mistake.', pt:'Ela admitiu que tinha cometido um erro.'},
+          {en:'He promised to help me the next day.', pt:'Ele prometeu ajudar-me no dia seguinte.'},
+          {en:'They warned us not to go there at night.', pt:'Eles avisaram-nos para não irmos lá à noite.'},
+        ],
+        practice:[
+          {q:'"Deny" means:', opts:['agree with something','say something is NOT true','ask a question','complain'], ans:1, exp:'"Deny" = negar. To say that something is not true.'},
+          {q:'"He promised to help." This means:', opts:['He said he might help','He refused to help','He gave his word he would help','He suggested helping'], ans:2, exp:'"Promise" = prometer. A commitment to do something.'},
+        ],
+      }, qs:[
+        {q:'"She ___ that she hadn\'t taken the money." (said it wasn\'t true)',opts:['admitted','denied','promised','warned'],ans:1,exp:'"Denied" = negou. To say something is NOT true.'},
+        {q:'"He ___ making a mistake." (accepted it was true)',opts:['denied','warned','admitted','suggested'],ans:2,exp:'"Admitted" = admitiu. To accept that something is true.'},
+        {q:'"They ___ us not to swim in the river." (told us of danger)',opts:['suggested','promised','claimed','warned'],ans:3,exp:'"Warned" = avisou. To tell someone about a danger.'},
+        {q:'"She ___ going to the beach." (gave the idea)',opts:['denied','suggested','warned','complained'],ans:1,exp:'"Suggested" = sugeriu. To put forward an idea.'},
+        {q:'"He ___ to call me later." (gave his word)',opts:['warned','suggested','denied','promised'],ans:3,exp:'"Promised" = prometeu. To give your word you will do something.'},
+      ]},
     ]
   }
 ];

@@ -1,105 +1,142 @@
 // ═══════════════════════════════════════════════════════
-//  EnglishFlow — js/data/a1/unit13.js
+//  EnglishFlow v2.0 — js/data/a1/unit13.js
 // ═══════════════════════════════════════════════════════
-// Unit ID: u1i
-// Part of UNITS_A1 — Technology & Everyday Life
+// Unit ID: u1i  |  CEFR: A2
+// Conditionals (Zero → Third + Wish)
 
 const UNITS_A1_UNIT13 = [
   {
-    id:'u1i', cefr:'A1', title:'Technology & Everyday Life', titlePt:'Tecnologia e Vida Quotidiana',
-    desc:'English for smartphones, internet & everyday tech 📱',
-    descPt:'Inglês para smartphones, internet e tecnologia do dia-a-dia 📱',
-    color:'#00bcd4', icon:'📱', premium:false,
+    id:'u1i', cefr:'A2', title:'Conditionals', titlePt:'Condicionais',
+    desc:'Express real and imaginary situations with IF 🔀',
+    descPt:'Expressa situações reais e imaginárias com IF 🔀',
+    color:'#00bcd4', icon:'🔀', premium:false,
     lessons:[
-
-      {id:'l1i1', title:'Smartphone Vocabulary', titlePt:'Vocabulário do Smartphone', icon:'📱', xp:20, learn:{
+      {id:'l1i1', title:'Zero Conditional — General Truths', titlePt:'Condicional Zero — Verdades Gerais', icon:'🌍', xp:20, learn:{
         explanation:{
-          en:'Essential smartphone words: screen (ecrã), battery (bateria), charger (carregador), app (aplicação), download (descarregar), upload (carregar), Wi-Fi, data (dados móveis), camera (câmara), storage (armazenamento). We \"turn on/off\" a phone, \"charge\" the battery, and \"unlock\" the screen.',
-          pt:'Palavras essenciais de smartphone: screen (ecrã), battery (bateria), charger (carregador), app (aplicação), download (descarregar), upload (carregar), Wi-Fi, data (dados móveis), camera (câmara), storage (armazenamento). Ligamos/desligamos (turn on/off) o telemóvel, carregamos (charge) a bateria e desbloqueamos (unlock) o ecrã.'
+          en:'Zero Conditional = IF + Present Simple + Present Simple. Used for facts, laws of nature, and things that are always true. "If you heat water to 100°C, it boils." Both parts use Present Simple. Can also use WHEN instead of IF.',
+          pt:'Condicional Zero = IF + Presente Simples + Presente Simples. Usado para factos, leis da natureza e coisas que são sempre verdade. "If you heat water to 100°C, it boils." Ambas as partes usam Presente Simples. Podes também usar WHEN em vez de IF.'
         },
         examples:[
-          {en:'My battery is dead. Can I borrow your charger?', pt:'A minha bateria morreu. Posso pedir emprestado o teu carregador?'},
-          {en:'Download the EnglishFlow app for free.', pt:'Descarrega a aplicação EnglishFlow de graça.'},
-          {en:'I have no Wi-Fi — I\'ll use mobile data.', pt:'Não tenho Wi-Fi — vou usar dados móveis.'},
+          {en:'If you mix blue and yellow, you get green.', pt:'Se misturares azul e amarelo, obténs verde.'},
+          {en:'Water freezes if the temperature goes below 0°C.', pt:'A água congela se a temperatura baixar dos 0°C.'},
+          {en:'If it rains, the streets get wet.', pt:'Se chover, as ruas ficam molhadas.'},
         ],
         practice:[
-          {q:'\"Charger\" means:', opts:['carregador','ecrã','câmara','aplicação'], ans:0, exp:'charger = carregador. You use it to charge the battery.'},
-          {q:'\"Download\" means:', opts:['tirar uma foto','desligar o telemóvel','descarregar um ficheiro','ligar ao Wi-Fi'], ans:2, exp:'Download = descarregar. Getting data FROM the internet TO your device.'},
+          {q:'Zero Conditional uses:', opts:['Past + Would','Present + Present','Present + Future','Past + Past'], ans:1, exp:'IF + Present Simple, Present Simple. Both sides are present tense.'},
+          {q:'"If you don\'t sleep, you ___ tired." ', opts:['feel','felt','would feel','will feel'], ans:0, exp:'Zero Conditional: "feel" — present simple on both sides.'},
         ],
       }, qs:[
-        {q:'\"My battery is dead\" means:',opts:['My phone is broken','The phone has no power left','The phone was stolen','The screen is cracked'],ans:1,exp:'\"Battery is dead\" = bateria morreu / descarregou. No power!'},
-        {q:'Which word means \"ecrã\"?',opts:['battery','screen','charger','app'],ans:1,exp:'screen = ecrã. The display you look at on your phone.'},
-        {q:'\"I need to ___ my phone. The battery is at 2%.\"',opts:['upgrade','unlock','charge','download'],ans:2,exp:'Charge = carregar. You charge the battery using a charger.'},
-        {q:'\"Upload\" is the opposite of:',opts:['turn on','connect','download','save'],ans:2,exp:'Download = from internet to device. Upload = from device to internet.'},
-        {q:'\"I have no signal\" means:',opts:['My phone is off','I cannot make calls or use data','My screen is broken','My battery is full'],ans:1,exp:'No signal = sem sinal. You cannot call, text, or use the internet.'},
+        {q:'Zero Conditional is for:',opts:['imaginary situations','past regrets','general truths and facts','future predictions'],ans:2,exp:'Zero Conditional = always true situations, facts, laws of nature.'},
+        {q:'"If you ___ iron, it melts." (heat enough)',opts:['heated','heat','would heat','will heat'],ans:1,exp:'Zero Conditional: IF + Present Simple. "If you HEAT iron..."'},
+        {q:'"Plants die if they ___ enough water."',opts:['don\'t get','didn\'t get','wouldn\'t get','won\'t get'],ans:0,exp:'"don\'t get" — present simple negative in Zero Conditional.'},
+        {q:'Can you use WHEN instead of IF in Zero Conditional?',opts:['Never','Sometimes','Always','Only in questions'],ans:1,exp:'Yes! "When" is often used instead of "if" for general truths.'},
+        {q:'"If you ___ in the sun too long, you get sunburned."',opts:['stayed','would stay','stay','will stay'],ans:2,exp:'"stay" — present simple. Zero Conditional: fact/truth.'},
       ]},
-
-      {id:'l1i2', title:'Social Media & Messaging', titlePt:'Redes Sociais e Mensagens', icon:'💬', xp:20, learn:{
+      {id:'l1i2', title:'First Conditional — Real Future', titlePt:'Primeiro Condicional — Futuro Real', icon:'🚀', xp:25, learn:{
         explanation:{
-          en:'Social media vocabulary: post (publicação), share (partilhar), like (gostar/curtir), comment (comentário), follow (seguir), profile (perfil), feed (feed), story (história), message (mensagem), group (grupo). We "send" messages, "upload" photos, and "scroll" through the feed.',
-          pt:'Vocabulário das redes sociais: post (publicação), share (partilhar), like (gostar/curtir), comment (comentário), follow (seguir), profile (perfil), feed (feed), story (história), message (mensagem), group (grupo). "Enviamos" mensagens, "carregamos" fotos e "fazemos scroll" pelo feed.'
+          en:'First Conditional = IF + Present Simple + WILL + base verb. Used for REAL and POSSIBLE future situations. "If it rains, I will stay home." The "if" clause uses present tense even though it refers to the future!',
+          pt:'Primeiro Condicional = IF + Presente Simples + WILL + verbo base. Usado para situações futuras REAIS e POSSÍVEIS. "If it rains, I will stay home." A oração com "if" usa o presente mesmo que se refira ao futuro!'
         },
         examples:[
-          {en:'She posted a photo and got 200 likes.', pt:'Ela publicou uma foto e recebeu 200 gostos.'},
-          {en:'Can you send me the file on WhatsApp?', pt:'Podes enviar-me o ficheiro no WhatsApp?'},
-          {en:'I follow 500 people on Instagram.', pt:'Eu sigo 500 pessoas no Instagram.'},
+          {en:'If I study hard, I will pass the exam.', pt:'Se estudar muito, vou passar no exame.'},
+          {en:'She will call you if she has time.', pt:'Ela vai ligar-te se tiver tempo.'},
+          {en:'If you help me, I won\'t forget it.', pt:'Se me ajudares, não me esquecerei.'},
         ],
         practice:[
-          {q:'\"Like\" on a social media post means:', opts:['to dislike a post','to show you approve of something','to delete the post','to share the post'], ans:1, exp:'Like = curtir/gostar. Show approval with a tap or click.'},
-          {q:'\"Follow\" someone on social media means:', opts:['to copy their posts','to subscribe to see their content','to block them','to send them money'], ans:1, exp:'Follow = seguir. Their posts appear in your feed.'},
+          {q:'First Conditional formula:', opts:['If + Past, would + verb','If + Present, will + verb','If + Past, will + verb','If + Present, would + verb'], ans:1, exp:'IF + Present Simple, WILL + base verb.'},
+          {q:'"If she ___ late, the boss will be angry."', opts:['is','was','will be','would be'], ans:0, exp:'IF clause: present simple. "If she IS late..."'},
         ],
       }, qs:[
-        {q:'\"She ___ a selfie and posted it online.\"',opts:['wrote','took','made','drew'],ans:1,exp:'\"Took a selfie\" — we always TAKE a photo/selfie.'},
-        {q:'\"Go viral\" means:',opts:['get a virus on your phone','become very popular and shared widely','delete your account','lose all your followers'],ans:1,exp:'Go viral = tornar-se viral. Shared by millions — very popular very fast!'},
-        {q:'What does \"unfollow\" mean?',opts:['Start following someone new','Stop seeing someone\'s posts in your feed','Report someone','Block someone permanently'],ans:1,exp:'Unfollow = deixar de seguir. Their posts will no longer appear in your feed.'},
-        {q:'\"DM\" stands for:',opts:['Daily Message','Direct Message','Digital Media','Data Megabytes'],ans:1,exp:'DM = Direct Message. A private message to someone, not public.'},
-        {q:'\"I saw your ___ — it was so funny!\"',opts:['signal','battery','story','charger'],ans:2,exp:'Story = a short post visible for 24 hours. Common on WhatsApp, Instagram.'},
+        {q:'"If it rains, we ___ the picnic."',opts:['cancel','will cancel','cancelled','would cancel'],ans:1,exp:'First Conditional: If + Present → WILL + verb. "will cancel."'},
+        {q:'"If you ___ hard, you will succeed."',opts:['work','worked','will work','would work'],ans:0,exp:'IF clause = present simple: "If you WORK hard..."'},
+        {q:'First Conditional expresses:',opts:['imaginary situations','impossible past regrets','real/possible future situations','general truths'],ans:2,exp:'First Conditional = real and possible future: it might actually happen!'},
+        {q:'"We won\'t catch the bus if we ___."',opts:['don\'t hurry','didn\'t hurry','wouldn\'t hurry','not hurry'],ans:0,exp:'"don\'t hurry" — present simple negative in IF clause.'},
+        {q:'Which sentence uses First Conditional correctly?',opts:['If I will study, I pass.','If I study, I will pass.','If I studied, I will pass.','If I study, I would pass.'],ans:1,exp:'"If I STUDY (present), I WILL pass (will + base)." ✓'},
       ]},
-
-      {id:'l1i3', title:'Using a Computer', titlePt:'Usar um Computador', icon:'💻', xp:20, learn:{
+      {id:'l1i3', title:'Second Conditional — Hypothetical', titlePt:'Segundo Condicional — Hipotético', icon:'💭', xp:30, learn:{
         explanation:{
-          en:'Computer vocabulary: keyboard (teclado), mouse (rato), screen/monitor (ecrã/monitor), file (ficheiro), folder (pasta), save (guardar), copy (copiar), paste (colar), print (imprimir), delete (eliminar), password (senha). Common actions: "open a file", "save a document", "print a page".',
-          pt:'Vocabulário de computador: keyboard (teclado), mouse (rato), screen/monitor (ecrã/monitor), file (ficheiro), folder (pasta), save (guardar), copy (copiar), paste (colar), print (imprimir), delete (eliminar), password (senha). Acções comuns: "open a file" (abrir um ficheiro), "save a document" (guardar um documento), "print a page" (imprimir uma página).'
+          en:'Second Conditional = IF + Past Simple + WOULD + base verb. Used for IMAGINARY or UNLIKELY present/future situations. "If I had a million dollars, I would travel the world." (I don\'t have a million dollars.) Note: use WERE instead of WAS with "if I/he/she/it".',
+          pt:'Segundo Condicional = IF + Passado Simples + WOULD + verbo base. Usado para situações imaginárias ou improváveis. "If I had a million dollars, I would travel the world." (Não tenho um milhão de dólares.) Nota: usa WERE em vez de WAS com "if I/he/she/it".'
         },
         examples:[
-          {en:'Save the document before you close it.', pt:'Guarda o documento antes de o fechar.'},
-          {en:'I need to print this form for the bank.', pt:'Preciso de imprimir este formulário para o banco.'},
-          {en:'Copy the text and paste it into the email.', pt:'Copia o texto e cola-o no e-mail.'},
+          {en:'If I won the lottery, I would buy a house.', pt:'Se ganhasse na lotaria, compraria uma casa.'},
+          {en:'She would be happier if she lived near the sea.', pt:'Ela seria mais feliz se vivesse perto do mar.'},
+          {en:'If I were you, I would apologise.', pt:'Se eu fosse tu, pediria desculpa.'},
         ],
         practice:[
-          {q:'\"Save\" a document means:', opts:['Print it','Delete it','Store it so you don\'t lose your work','Share it online'], ans:2, exp:'Save = guardar. Never lose your work!'},
-          {q:'\"Keyboard\" is:', opts:['the screen','the device you type on','the mouse','the printer'], ans:1, exp:'keyboard = teclado. You type letters and numbers on it.'},
+          {q:'Second Conditional expresses:', opts:['real future','general truths','imaginary/unlikely situations','past regrets'], ans:2, exp:'Second Conditional = HYPOTHETICAL — not real or unlikely to happen.'},
+          {q:'"If I ___ a bird, I would fly home."', opts:['am','was','were','will be'], ans:2, exp:'Use WERE (not was) in Second Conditional: "If I WERE a bird..."'},
         ],
       }, qs:[
-        {q:'\"Delete\" a file means:',opts:['Copy it','Open it','Remove/erase it','Rename it'],ans:2,exp:'Delete = eliminar/apagar. Permanently remove a file.'},
-        {q:'Which word means \"pasta\" (in a computer)?',opts:['file','folder','screen','keyboard'],ans:1,exp:'folder = pasta. A folder contains files and keeps them organised.'},
-        {q:'\"I forgot my ___ and cannot log in.\"',opts:['keyboard','password','folder','file'],ans:1,exp:'password = senha. You need it to access your account.'},
-        {q:'\"Copy and paste\" is used to:',opts:['print a document','duplicate and move text or files','delete files','turn off the computer'],ans:1,exp:'Copy (Ctrl+C) + Paste (Ctrl+V) = duplicate text or files quickly!'},
-        {q:'\"Print\" a document means:',opts:['Save it online','Make a paper copy of it','Send it by email','Delete it'],ans:1,exp:'Print = imprimir. Creating a physical paper version of a digital document.'},
+        {q:'"If I ___ more money, I would travel more."',opts:['have','had','would have','will have'],ans:1,exp:'Second Conditional IF clause: Past Simple. "If I HAD more money..."'},
+        {q:'"She would learn faster if she ___ more."',opts:['practised','practises','will practise','has practised'],ans:0,exp:'"practised" — Past Simple in IF clause.'},
+        {q:'"If I were the president, I ___ build more schools."',opts:['will','would','should','could'],ans:1,exp:'"WOULD build" — WOULD + base verb in the result clause.'},
+        {q:'"If I were you" is used to:',opts:['describe a past event','give advice about a hypothetical situation','make a prediction','ask a question'],ans:1,exp:'"If I were you, I would..." is a classic way to give ADVICE.'},
+        {q:'Second Conditional uses ___ in the IF clause.',opts:['present simple','past simple','will','past perfect'],ans:1,exp:'Second Conditional: IF + PAST SIMPLE, would + base verb.'},
       ]},
-
-      {id:'l1i4', title:'Online Safety', titlePt:'Segurança Online', icon:'🔒', xp:25, learn:{
+      {id:'l1i4', title:'Third Conditional — Past Regrets', titlePt:'Terceiro Condicional — Arrependimentos', icon:'😔', xp:30, learn:{
         explanation:{
-          en:'Online safety vocabulary: scam (burla), virus (vírus), spam (lixo electrónico), hack (pirataria), phishing (phishing — trying to steal your data), privacy (privacidade), report (denunciar), block (bloquear). Never share personal details — phone number, address, PIN — with strangers online.',
-          pt:'Vocabulário de segurança online: scam (burla), virus (vírus), spam (lixo electrónico), hack (pirataria), phishing (phishing — tentar roubar os teus dados), privacy (privacidade), report (denunciar), block (bloquear). Nunca partilhes dados pessoais — número de telemóvel, morada, PIN — com desconhecidos online.'
+          en:'Third Conditional = IF + Past Perfect + WOULD HAVE + past participle. Used for IMAGINARY situations in the PAST — things that didn\'t happen. "If I had studied harder, I would have passed." (But I didn\'t study hard and I didn\'t pass.)',
+          pt:'Terceiro Condicional = IF + Passado Perfeito + WOULD HAVE + particípio passado. Usado para situações imaginárias NO PASSADO — coisas que não aconteceram. "If I had studied harder, I would have passed." (Mas não estudei muito e não passei.)'
         },
         examples:[
-          {en:'That email looks like a scam — don\'t click the link!', pt:'Esse e-mail parece uma burla — não cliques no link!'},
-          {en:'Block and report anyone who harasses you online.', pt:'Bloqueia e denuncia qualquer pessoa que te assedia online.'},
-          {en:'Never share your password with anyone.', pt:'Nunca partilhes a tua senha com ninguém.'},
+          {en:'If I had left earlier, I wouldn\'t have missed the bus.', pt:'Se tivesse saído mais cedo, não teria perdido o autocarro.'},
+          {en:'She would have passed if she had studied.', pt:'Ela teria passado se tivesse estudado.'},
+          {en:'If it hadn\'t rained, we would have had a picnic.', pt:'Se não tivesse chovido, teríamos feito um piquenique.'},
         ],
         practice:[
-          {q:'\"Spam\" is:', opts:['a type of virus','unwanted junk email or messages','a social media app','a type of password'], ans:1, exp:'Spam = lixo electrónico. Unwanted/unsolicited messages.'},
-          {q:'\"Block\" someone online means:', opts:['send them a message','stop them from contacting you','report them to police','share their profile'], ans:1, exp:'Block = bloquear. They can no longer contact you.'},
+          {q:'Third Conditional is about:', opts:['real future','imaginary past','general truths','hypothetical present'], ans:1, exp:'Third Conditional = IMAGINARY PAST — things that didn\'t happen.'},
+          {q:'"If I had known, I ___ have told you."', opts:['will','would','should','could'], ans:1, exp:'"WOULD have told" — result clause in Third Conditional.'},
         ],
       }, qs:[
-        {q:'\"Phishing\" is:',opts:['a type of social media','a way to strengthen your password','an attempt to steal personal data by pretending to be trustworthy','a free app for learning'],ans:2,exp:'Phishing = phishing. Criminals pretend to be a bank or company to steal your info.'},
-        {q:'\"Your account has been hacked\" means:',opts:['you forgot your password','someone else illegally accessed your account','your account was deleted','you created a new account'],ans:1,exp:'Hacked = pirateado. Someone broke into your account illegally.'},
-        {q:'Which personal information should you NEVER share online with strangers?',opts:['Your country','Your language','Your PIN and bank details','Your favourite colour'],ans:2,exp:'NEVER share PIN, passwords, bank details, address, or phone number with strangers online.'},
-        {q:'What should you do if someone sends you suspicious messages?',opts:['Reply immediately','Click all the links','Block and report them','Share their messages with friends'],ans:2,exp:'Block and report! This protects you and helps the platform remove dangerous accounts.'},
-        {q:'A \"strong\" password should be:',opts:['your birthday','your name','a short common word','long with letters, numbers and symbols'],ans:3,exp:'Strong password = long, mixed (letters + numbers + symbols). Hard to guess!'},
+        {q:'Third Conditional IF clause uses:',opts:['present simple','past simple','past perfect','would + verb'],ans:2,exp:'IF + Past Perfect (had + past participle).'},
+        {q:'"If she had arrived on time, she ___ the beginning."',opts:['would see','would have seen','will see','sees'],ans:1,exp:'"WOULD HAVE SEEN" — result clause: would have + past participle.'},
+        {q:'"If I ___ the map, I wouldn\'t have got lost."',opts:['checked','had checked','have checked','would check'],ans:1,exp:'"had checked" — Past Perfect in the IF clause.'},
+        {q:'Third Conditional expresses:',opts:['general facts','possible future','unreal past situations','present habits'],ans:2,exp:'Third Conditional = something that DIDN\'T happen in the past, and imagining a different outcome.'},
+        {q:'"If it hadn\'t been so cold, we ___ swimming."',opts:['would go','went','would have gone','will go'],ans:2,exp:'"would have gone" — result in Third Conditional.'},
       ]},
-
+      {id:'l1i5', title:'Wish & If Only', titlePt:'Wish e If Only (Desejos)', icon:'⭐', xp:25, learn:{
+        explanation:{
+          en:'"Wish" and "If only" express regrets and desires. For present situations you want to be different, use "wish/if only" + Past Simple: "I wish I spoke Spanish." For past regrets, use "wish/if only" + Past Perfect: "I wish I had studied more."',
+          pt:'"Wish" e "If only" expressam arrependimentos e desejos. Para situações presentes que queres que sejam diferentes, usa "wish/if only" + Passado Simples: "I wish I spoke Spanish." Para arrependimentos passados, usa "wish/if only" + Passado Perfeito: "I wish I had studied more."'
+        },
+        examples:[
+          {en:'I wish I could fly. (impossible dream)', pt:'Queria poder voar. (sonho impossível)'},
+          {en:'If only I had more time! (present desire)', pt:'Oxalá tivesse mais tempo! (desejo presente)'},
+          {en:'I wish I had listened to my teacher. (past regret)', pt:'Queria ter ouvido o meu professor. (arrependimento passado)'},
+        ],
+        practice:[
+          {q:'"I wish I ___ taller." (I am short)', opts:['am','was/were','had been','will be'], ans:1, exp:'"Wish" + past simple for present desires: "I wish I WERE taller."'},
+          {q:'For PAST regrets with "wish", use:', opts:['past simple','past continuous','past perfect','present simple'], ans:2, exp:'"Wish" + past perfect for past regrets: "I wish I HAD studied."'},
+        ],
+      }, qs:[
+        {q:'"I wish I ___ more money." (right now)',opts:['have','had','have had','will have'],ans:1,exp:'"Wish" + past simple for present wishes: "I wish I HAD more money."'},
+        {q:'"If only I ___ so rude to her!" (past regret)',opts:['wasn\'t','hadn\'t been','am not','won\'t be'],ans:1,exp:'"hadn\'t been" — If only + past perfect for past regrets.'},
+        {q:'"I wish I ___ how to cook." (present)',opts:['know','knew','had known','would know'],ans:1,exp:'"knew" — past simple with "wish" for present situations.'},
+        {q:'Which expresses a PAST regret?',opts:['I wish I lived near the beach.','I wish I had called her.','I wish it stopped raining.','If only I were taller.'],ans:1,exp:'"I wish I HAD called her." — Past perfect = past regret.'},
+        {q:'"If only I ___ harder at school!" (regret)',opts:['studied','had studied','study','would study'],ans:1,exp:'"had studied" — Past Perfect. Regret about something in the past.'},
+      ]},
+      {id:'l1i6', title:'Conditionals — Mixed Practice', titlePt:'Condicionais — Prática Mista', icon:'🎯', xp:35, learn:{
+        explanation:{
+          en:'Quick summary: Zero (If + Present, Present) = always true. First (If + Present, Will) = real future. Second (If + Past, Would) = imaginary present. Third (If + Past Perfect, Would Have) = imaginary past. Wish + Past = present desire. Wish + Past Perfect = past regret.',
+          pt:'Resumo rápido: Zero (If + Presente, Presente) = sempre verdade. Primeiro (If + Presente, Will) = futuro real. Segundo (If + Passado, Would) = presente imaginário. Terceiro (If + Passado Perfeito, Would Have) = passado imaginário. Wish + Passado = desejo presente. Wish + Past Perfect = arrependimento passado.'
+        },
+        examples:[
+          {en:'Zero: If water reaches 100°C, it boils.', pt:'Zero: Se a água atingir 100°C, ferve.'},
+          {en:'Second: If I were rich, I would help everyone.', pt:'Segundo: Se eu fosse rico, ajudaria toda a gente.'},
+          {en:'Third: If she had studied, she would have passed.', pt:'Terceiro: Se ela tivesse estudado, teria passado.'},
+        ],
+        practice:[
+          {q:'Which conditional: "If I had money, I would travel"?', opts:['Zero','First','Second','Third'], ans:2, exp:'If + Past Simple + Would = Second Conditional. HYPOTHETICAL present.'},
+          {q:'Which conditional: "If you heat ice, it melts"?', opts:['Zero','First','Second','Third'], ans:0, exp:'If + Present + Present = Zero Conditional. GENERAL TRUTH.'},
+        ],
+      }, qs:[
+        {q:'Identify: "If it rains tomorrow, we will cancel."',opts:['Zero','First','Second','Third'],ans:1,exp:'If + Present Simple, WILL = First Conditional. Real possible future.'},
+        {q:'Identify: "If I had studied, I would have passed."',opts:['Zero','First','Second','Third'],ans:3,exp:'If + Past Perfect, WOULD HAVE = Third Conditional. Imaginary past.'},
+        {q:'Identify: "If I were you, I would apologise."',opts:['Zero','First','Second','Third'],ans:2,exp:'If + Past Simple (were), WOULD = Second Conditional. Hypothetical.'},
+        {q:'"I wish I ___ the lottery." (imagining winning right now)',opts:['win','won','had won','would win'],ans:1,exp:'"won" — Wish + Past Simple for PRESENT desires.'},
+        {q:'Complete: "If she ___ harder, she would have got the job."',opts:['tried','tries','had tried','would try'],ans:2,exp:'Third Conditional: IF + Past Perfect: "had tried."'},
+      ]},
     ]
   }
 ];
