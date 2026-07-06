@@ -11,6 +11,7 @@
    │ tabs/profile.css│ Profile + Edit modal                 │
    │ tabs/leaderboard│ Leaderboard (full Duolingo redesign) │
    │ tabs/about.css  │ About page                           │
+   │ tabs/settings   │ Settings (appearance/lang/sound/etc) │
    └─────────────────┴──────────────────────────────────────┘
    ═══════════════════════════════════════════════════════════ */
 
@@ -21,3 +22,4 @@
 @import url('tabs/profile.css');
 @import url('tabs/leaderboard.css');
 @import url('tabs/about.css');
+@import url('tabs/settings.css');
