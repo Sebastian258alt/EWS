@@ -1,0 +1,25 @@
+/* ═══════════════════════════════════════════════════════════
+   TABS.CSS — Tab styles orchestrator  v4.0
+   English With Sebastian
+
+   Each tab has its own file — edit only that file:
+   ┌─────────────────┬──────────────────────────────────────┐
+   │ tabs/home.css   │ Home, dashboard, cards, curriculum   │
+   │ tabs/grammar.css│ Grammar Lab                          │
+   │ tabs/sounds.css │ Sound Lab                            │
+   │ tabs/ai.css     │ AI Chat                              │
+   │ tabs/profile.css│ Profile + Edit modal                 │
+   │ tabs/leaderboard│ Leaderboard (full Duolingo redesign) │
+   │ tabs/about.css  │ About page                           │
+   │ tabs/settings   │ Settings (appearance/lang/sound/etc) │
+   └─────────────────┴──────────────────────────────────────┘
+   ═══════════════════════════════════════════════════════════ */
+
+@import url('home.css');
+@import url('grammar.css');
+@import url('sounds.css');
+@import url('ai.css');
+@import url('profile.css');
+@import url('leaderboard.css');
+@import url('about.css');
+@import url('settings.css');
