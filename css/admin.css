@@ -1,0 +1,221 @@
+/* ═══════════════════════════════════════════════════════════
+   admin.css — reuses the design tokens from ../css/base.css
+   (colors, spacing, radii) so the panel matches the main app.
+   ═══════════════════════════════════════════════════════════ */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Nunito', system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+/* ── Gate (login / unauthorized) ─────────────────────────── */
+.gate-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+}
+
+.gate-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--space-8);
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+}
+
+.gate-card h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: var(--text-2xl);
+  margin: 0 0 var(--space-2);
+}
+
+.gate-card p {
+  color: var(--muted);
+  font-size: var(--text-sm);
+  margin: 0 0 var(--space-6);
+}
+
+/* ── App shell ────────────────────────────────────────────── */
+.app-shell {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: var(--text-lg);
+  margin: 0 0 var(--space-5);
+}
+
+.nav-group-label {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted2);
+  margin: var(--space-4) 0 var(--space-2);
+}
+
+.nav-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  padding: var(--space-3) var(--space-3);
+  border-radius: var(--r);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  margin-bottom: 2px;
+}
+
+.nav-link:hover { background: var(--surface2); }
+.nav-link.active { background: var(--accent-soft); color: var(--blue2); font-weight: 700; }
+
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+  font-size: var(--text-xs);
+  color: var(--muted);
+}
+
+.main {
+  padding: var(--space-6);
+  overflow-x: auto;
+}
+
+.view-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-5);
+}
+
+.view-title {
+  font-family: 'Syne', sans-serif;
+  font-size: var(--text-xl);
+  margin: 0;
+}
+
+/* ── Cards / dashboard ────────────────────────────────────── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-4);
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: var(--space-5);
+}
+
+.stat-label { color: var(--muted); font-size: var(--text-sm); margin-bottom: var(--space-2); }
+.stat-value { font-size: var(--text-2xl); font-weight: 800; }
+
+/* ── Table ────────────────────────────────────────────────── */
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--r); }
+
+.admin-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.admin-table th, .admin-table td {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.admin-table th { background: var(--surface2); color: var(--muted); font-weight: 700; }
+.admin-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+.row-actions { display: flex; gap: var(--space-2); }
+
+.json-preview { color: var(--teal); font-size: var(--text-xs); }
+.color-swatch { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: middle; }
+
+/* ── Forms ────────────────────────────────────────────────── */
+.crud-form {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--space-6);
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.field label { display: block; font-size: var(--text-sm); font-weight: 700; margin-bottom: var(--space-1); }
+.field .req { color: var(--danger); }
+.field input[type="text"], .field input[type="number"], .field textarea, .field select {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  color: var(--text);
+  padding: var(--space-3);
+  font-family: inherit;
+  font-size: var(--text-base);
+}
+.field textarea { resize: vertical; font-family: 'Menlo', 'Consolas', monospace; font-size: var(--text-sm); }
+.field .hint { font-size: var(--text-xs); color: var(--muted2); margin-top: var(--space-1); }
+
+.form-actions { display: flex; gap: var(--space-3); }
+
+/* ── Buttons ──────────────────────────────────────────────── */
+.btn {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  color: var(--text);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--r);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+.btn:hover { background: var(--surface3); }
+.btn-primary { background: var(--blue); border-color: var(--blue); color: #fff; }
+.btn-primary:hover { background: var(--blue2); }
+.btn-danger { background: transparent; border-color: var(--red); color: var(--red); }
+.btn-danger:hover { background: rgba(255,61,92,0.1); }
+.btn-sm { padding: 4px var(--space-3); font-size: var(--text-xs); }
+
+/* ── Alerts / status ─────────────────────────────────────── */
+.status-msg:empty { display: none; }
+.alert { padding: var(--space-3) var(--space-4); border-radius: var(--r); margin-bottom: var(--space-4); font-size: var(--text-sm); }
+.alert-error { background: rgba(255,61,92,0.1); border: 1px solid var(--red); color: var(--red); }
+
+/* ── Modal ────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  display: flex; align-items: center; justify-content: center; z-index: 1000;
+}
+.modal {
+  background: var(--surface); border: 1px solid var(--border2); border-radius: var(--r-lg);
+  padding: var(--space-6); max-width: 420px;
+}
+.modal h3 { margin-top: 0; }
+
+@media (max-width: 720px) {
+  .app-shell { grid-template-columns: 1fr; }
+  .sidebar { border-right: none; border-bottom: 1px solid var(--border); }
+}
