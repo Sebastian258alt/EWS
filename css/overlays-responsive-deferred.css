@@ -1,0 +1,165 @@
+/* ─── RESPONSIVE — deferred (hidden-tab only) ────────────────
+   Split from the original overlays-responsive.css. Everything
+   here belongs to a tab that isn't visible on first paint:
+   quiz/lesson (tab-quiz, tab-lesson), game modal, grammar/sounds/
+   settings tabs, and the profile "about creator" panel. Safe to
+   defer — none of it renders before the user navigates there.
+   ─────────────────────────────────────────────────────────── */
+@media (max-width:480px) {
+  .q-text { font-size:var(--text-base); }
+  .game-scrambled { font-size:1.7rem; letter-spacing:5px; }
+  .pron-word { font-size:2rem; }
+  .about-stats-grid { grid-template-columns:repeat(2,1fr); gap:var(--space-4); }
+  .about-name { font-size:var(--text-lg); }
+  .social-grid { grid-template-columns:repeat(3,1fr); }
+  .gram-hero h2,.sounds-hero h2,.set-hero h2 { font-size:var(--text-xl); }
+  /* .bnav/.bn match no element in the markup (bottom-nav uses class "mn") — dead selector, left as-is */
+  .bnav .bn span { font-size:0.55rem; }
+}
+@media (min-width:600px) {
+  .pm-box,.game-box { max-width:480px; }
+  /* .bnav half of the original combined ".topbar,.bnav" rule — dead selector, see note above */
+  .bnav {
+    max-width:var(--content-max);
+    left:50%;
+    right:auto;
+    transform:translateX(-50%);
+    width:100%;
+  }
+  .chat-win { height:400px; }
+  .about-stats-grid { grid-template-columns:repeat(4,1fr); }
+}
+
+/* Chat retry button (AI tab) */
+.chat-retry-container {
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0 0.2rem;
+}
+.chat-retry-btn {
+  background: linear-gradient(135deg, var(--orange), var(--red));
+  color: white;
+  border: none;
+  border-radius: var(--r-pill);
+  padding: 0.4rem 1.2rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.chat-retry-btn:hover {
+  transform: scale(1.05);
+  box-shadow: var(--glow-b);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   📘 LESSON LEARN FLOW — v2.0 (tab-lesson, hidden until opened)
+   Explanation → Examples → Practice screens (before the quiz)
+   Reuses .quiz-wrap / .gram-* / .qopt / .fb-* tokens so it feels
+   native to the rest of the app.
+   ═══════════════════════════════════════════════════════════ */
+
+.ltitle {
+  flex: 1; font-weight: 900; font-size: .95rem;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.lstep-bar {
+  display: flex; gap: .4rem; padding: 0 1.2rem .9rem;
+}
+.lstep-dot {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: .3rem;
+  opacity: .4; transition: opacity .25s var(--ease);
+}
+.lstep-dot.on { opacity: 1; }
+.lstep-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .68rem; font-weight: 900;
+  background: var(--surface2); color: var(--muted);
+  border: 1.5px solid var(--border);
+}
+.lstep-dot.on .lstep-num { background: var(--blue); color: #fff; border-color: var(--blue); }
+.lstep-dot.curr .lstep-num { box-shadow: var(--glow-b); transform: scale(1.12); }
+.lstep-lbl { font-size: .62rem; font-weight: 800; color: var(--muted); text-align: center; }
+.lstep-dot.on .lstep-lbl { color: var(--text); }
+
+.lesson-body { flex: 1; padding: 0 1.2rem 1.2rem; }
+
+.lesson-section { margin-bottom: 1rem; }
+
+.lexp-block {
+  background: var(--surface2); border-radius: 12px; padding: .9rem 1rem;
+  margin-bottom: .7rem; border-left: 3px solid var(--blue2);
+}
+.lexp-block.lexp-pt { border-left-color: var(--teal); }
+.lexp-flag {
+  display: inline-block; font-size: .68rem; font-weight: 900;
+  text-transform: uppercase; letter-spacing: 1px; color: var(--blue2);
+  margin-bottom: .4rem;
+}
+.lexp-block.lexp-pt .lexp-flag { color: var(--teal); }
+.lexp-block p { font-size: .9rem; line-height: 1.65; font-weight: 600; color: var(--text); margin: 0; }
+
+.lesson-foot {
+  padding: .8rem 1.2rem calc(1rem + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--border);
+}
+.lesson-foot .fb-cont { width: 100%; }
+
+.lesson-pdone { display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 2rem; }
+.lesson-pdone .res-emoji { font-size: 3rem; margin-bottom: .6rem; }
+.lesson-pdone .res-title { font-size: 1.1rem; font-weight: 900; margin-bottom: .4rem; }
+.lesson-pdone .res-sub { font-size: .85rem; color: var(--muted); font-weight: 700; max-width: 320px; line-height: 1.5; }
+
+@media (max-width: 380px) {
+  .lstep-lbl { display: none; }
+}
+
+/* ─── LESSON LANGUAGE TOGGLE — Feature A ──────────────────
+   llang-btn sits in .quiz-toprow between .ltitle and the edge.
+   lang-fade dims the "other" language in examples.
+   lexp-also is a collapsible details for the secondary language.
+   ──────────────────────────────────────────────────────── */
+
+.llang-btn {
+  flex-shrink: 0;
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-pill);
+  padding: .22rem .6rem;
+  font-size: .72rem;
+  font-weight: 900;
+  cursor: pointer;
+  color: var(--text);
+  transition: background .18s var(--ease), border-color .18s var(--ease), color .18s var(--ease), transform .15s;
+  white-space: nowrap;
+  font-family: 'Nunito', sans-serif;
+  letter-spacing: .3px;
+  line-height: 1.6;
+}
+.llang-btn:hover  { background: var(--blue2); border-color: var(--blue2); color: #fff; }
+.llang-btn:active { transform: scale(.95); }
+
+/* dim the secondary-language line in the examples step */
+.lang-fade { opacity: .3; transition: opacity .2s var(--ease); }
+
+/* collapsible "see in other language" block on the explanation step */
+.lexp-also {
+  margin-top: .55rem;
+}
+.lexp-also > summary {
+  font-size: .76rem;
+  font-weight: 800;
+  color: var(--blue2);
+  cursor: pointer;
+  padding: .25rem 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  user-select: none;
+}
+.lexp-also > summary::-webkit-details-marker { display: none; }
+.lexp-also > summary::before { content: '▶'; font-size: .6rem; transition: transform .18s; }
+.lexp-also[open] > summary::before { transform: rotate(90deg); }
