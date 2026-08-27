@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>EnglishFlow 🌊 – Learn English With Flow</title>
+
+  <!-- SEO: description, canonical, robots -->
+  <meta name="description" content="EnglishFlow is a fun, gamified way to learn English online — interactive lessons, games, an AI tutor, and streaks/XP to keep you motivated. Free to start, works on web and mobile.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://englishflowmz.vercel.app/">
+  <link rel="alternate" hreflang="en" href="https://englishflowmz.vercel.app/">
+  <link rel="alternate" hreflang="pt" href="https://englishflowmz.vercel.app/">
+  <link rel="alternate" hreflang="x-default" href="https://englishflowmz.vercel.app/">
+
+  <!-- Open Graph / Facebook, WhatsApp, LinkedIn -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="EnglishFlow">
+  <meta property="og:url" content="https://englishflowmz.vercel.app/">
+  <meta property="og:title" content="EnglishFlow 🌊 – Learn English With Flow">
+  <meta property="og:description" content="The English app that actually has a personality. Interactive lessons, games, an AI tutor, and gamified streaks to help you learn English — free to start.">
+  <meta property="og:image" content="https://englishflowmz.vercel.app/icons/icon-512.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="pt_PT">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="EnglishFlow 🌊 – Learn English With Flow">
+  <meta name="twitter:description" content="The English app that actually has a personality. Interactive lessons, games, an AI tutor, and gamified streaks to help you learn English — free to start.">
+  <meta name="twitter:image" content="https://englishflowmz.vercel.app/icons/icon-512.png">
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "EnglishFlow",
+    "url": "https://englishflowmz.vercel.app/",
+    "description": "A gamified web and mobile app for learning English with interactive lessons, games, an AI tutor, streaks and XP.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <!-- PWA Manifests -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#3d7eff">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- Favicons tradicionais -->
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="EnglishFlow" />
+
+  <!-- Preconnect to external origins so DNS+TLS is ready when scripts arrive -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://xlpwrwourxcanpyfnivz.supabase.co" crossorigin>
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://xlpwrwourxcanpyfnivz.supabase.co">
+
+  <!-- Fonts: <link> instead of CSS @import — avoids render-blocking chain -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Nunito:wght@400;600;700;800;900&family=Syne:wght@700;800&family=Black+Han+Sans&display=swap">
+
+  <!-- CSS -->
+  <!-- Flattened from css/style.css's @import chain (Sprint 2 / MC1) — same cascade order, no render-blocking waterfall -->
+  <!-- Step 3.2 — Critical Rendering: the 7 files below (base/auth/layout/home-*)
+       style the auth gate and the Home tab, which is what's visible at first
+       paint, so they stay render-blocking. Position in this list (not load
+       completion time) still determines CSS cascade order for the deferred
+       links further down, so nothing here was reordered — only some links'
+       `media` attribute changed. overlays-fx.css and overlays-responsive.css
+       also stay eager for now: both mix first-paint-critical rules (the
+       auth screen's Tutorial link; the Home hero's mobile breakpoint) with
+       non-critical ones, and weren't safe to split mechanically — flagged
+       for a follow-up, not touched in this step. -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/tabs/home-hero.css">
+  <link rel="stylesheet" href="css/tabs/home-dashboard.css">
+  <link rel="stylesheet" href="css/tabs/home-cards.css">
+  <link rel="stylesheet" href="css/tabs/home-curriculum.css">
+  <!-- Step 3.2 — everything below styles a tab or overlay that isn't visible
+       at first paint (already lazy-loaded in JS since Step 3.1) and was
+       confirmed (grep across every file) to contain no selector touching
+       .home-*/.topbar/.auth-*/.tab/.nav-*. Loaded non-blocking via the
+       standard media=print swap-to-all-on-load pattern — no JS execution
+       required, degrades to a normal blocking <link> via <noscript> if
+       scripting is off. -->
+  <link rel="stylesheet" href="css/tabs/grammar.css" media="print" onload="this.media='all';this.onload=null;">
+  <noscript><link rel="stylesheet" href="css/tabs/grammar.css"></noscript>
+  <link rel="stylesheet" href="css/tabs/sounds.css" media="print" onload="this.media='all';this.onload=null;">
+  <noscript><link rel="stylesheet" href="css/tabs/sounds.css"></noscript>
+  <link rel="stylesheet" href="css/tabs/ai.css" media="print" onload="this.media='all';this.onload=null;">
+  <noscript><link rel="stylesheet" href="css/tabs/ai.css"></noscript>
+  <link rel="stylesheet" href="css/tabs/profile.css" media="print" onload="this.media='all';this.onload=null;">
+  <noscript><link rel="stylesheet" href="css/tabs/profile.css"></noscript>
+  <link rel="stylesheet" href="css/tabs/leaderboard.css" media="print" onload="this.media='all';this.onload=null;">
+  <noscript><link rel="stylesheet" href="css/tabs/leaderboard.css"></noscript>
+  <link rel="stylesheet" href="css/tabs/about.css" media="print" onload="this.media='all';this.onload=null;">
+  <noscript><link rel="stylesheet" href="css/tabs/about.css"></noscript>
+  <link rel="stylesheet" href="css/tabs/settings.css" media="print" onload="this.media='all';this.onload=null;">
+  <noscript><link rel="stylesheet" href="css/tabs/settings.css"></noscript>
+  <link rel="stylesheet" href="css/overlays-quiz.css" media="print" onload="this.media='all';this.onload=null;">
+  <noscript><link rel="stylesheet" href="css/overlays-quiz.css"></noscript>
+  <link rel="stylesheet" href="css/overlays-game.css" media="print" onload="this.media='all';this.onload=null;">
+  <noscript><link rel="stylesheet" href="css/overlays-game.css"></noscript>
+  <link rel="stylesheet" href="css/overlays-modals.css" media="print" onload="this.media='all';this.onload=null;">
+  <noscript><link rel="stylesheet" href="css/overlays-modals.css"></noscript>
+  <!-- overlays-fx.css stays eager here, in its original cascade position — see note above -->
+  <link rel="stylesheet" href="css/overlays-fx.css">
+  <!-- overlays-responsive.css stays eager here, in its original cascade position — see note above -->
+  <link rel="stylesheet" href="css/overlays-responsive.css">
+  <link rel="stylesheet" href="css/overlays-gamification.css" media="print" onload="this.media='all';this.onload=null;">
+  <noscript><link rel="stylesheet" href="css/overlays-gamification.css"></noscript>
+  <link rel="stylesheet" href="css/flowy.css" media="print" onload="this.media='all';this.onload=null;">
+  <noscript><link rel="stylesheet" href="css/flowy.css"></noscript>
+</head>
+<body>
+<script src="js/debug-panel.js"></script>
+<div class="bg-grid"></div>
+<div class="bubbles" id="bubbles"></div>
+
+<!-- LOADING SCREEN -->
+<div id="loading-screen">
+  <div class="load-logo">English<em>Flow</em></div>
+  <div class="load-bar-bg"><div class="load-bar-fill"></div></div>
+  <div class="load-msg" id="loadMsg" data-i18n="loadMsg0">Warming up your brain cells... 🧠</div>
+</div>
+
+<!-- TOASTS -->
+<div class="toast" id="toast"></div>
+<div class="xppop" id="xppop"></div>
+
+<!-- LEVEL UP -->
+<div class="lu-overlay" id="luOverlay" role="dialog" aria-modal="true" aria-labelledby="luTitle">
+  <div class="lu-emoji">🏆</div>
+  <h2 id="luTitle" data-i18n="levelUp">LEVEL UP!!! 🎉</h2>
+  <p id="luText" data-i18n="levelUpText" data-i18n-html="You reached Level {n}!">You reached Level 2!</p>
+  <button onclick="closeLU()" id="luBtn" data-i18n="letsGo">LET'S GOOOO! 🚀</button>
+</div>
+
+<!-- GAME MODAL -->
+<div class="game-modal" id="gameModal" role="dialog" aria-modal="true" aria-labelledby="gameTitle" onclick="if(event.target===this) closeGame()">
+  <div class="game-box">
+    <div class="game-title" id="gameTitle" data-i18n="gameTitle">🔤 Word Scramble Madness</div>
+    <div class="game-hint" id="gameHint"></div>
+    <div class="game-scrambled" id="scrambledWord">READY?</div>
+    <div class="game-timer" id="gameTimer">⏳ 30</div>
+    <input class="game-input" id="gameInput" placeholder="Type the answer..." autocomplete="off">
+    <div class="game-score" id="gameScore" data-i18n="score">Score: 0</div>
+    <div class="game-combo" id="gameCombo"></div><br>
+    <button class="game-btn" onclick="checkWord()" data-i18n="submitBtn">🎯 Submit!</button>
+    <button class="game-btn game-btn-end" onclick="endGame()" data-i18n="surrenderBtn">💀 Surrender</button><br>
+    <button class="game-skip" onclick="skipWord()" data-i18n="skipBtn">Skip this one (coward 😤)</button>
+  </div>
+</div>
+
+<!-- SEARCH MODAL -->
+<div class="srch-overlay" id="srchOverlay" role="dialog" aria-modal="true" aria-label="Search" onclick="closeSrchEv(event)">
+  <div class="srch-box">
+    <div class="srch-top">
+      <span class="srch-icon">🔍</span>
+      <input class="srch-input" id="srchInput" placeholder="Search lessons, grammar, sounds..." data-i18n-placeholder="searchPlaceholder" autocomplete="off">
+      <button class="srch-x" onclick="closeSrch()">✕</button>
+    </div>
+    <div class="srch-results" id="srchResults"><div class="srch-empty" data-i18n="searchEmpty">Start typing to search... 🔎</div></div>
+  </div>
+</div>
+
+<!-- LEADERBOARD MODAL -->
+<div class="lb-overlay" id="lb-modal" role="dialog" aria-modal="true" aria-label="Top Learners" onclick="closeLBEv(event)"></div>
+
+<!-- SUPPORT / APOIO OVERLAY -->
+<div class="overlay" id="pmOverlay" role="dialog" aria-modal="true" aria-label="Support EnglishFlow">
+  <div class="pm-box" id="pmBox">
+    <!-- content injected dynamically by js/premium.js -->
+  </div>
+</div>
+
+<!-- TUTORIAL OVERLAY -->
+<div class="tut-overlay" id="tutOverlay" role="dialog" aria-modal="true" aria-labelledby="tutTitle">
+  <div class="tut-box">
+    <button class="tut-close" onclick="closeTutorial()" aria-label="Fechar tutorial">✕</button>
+    <div class="tut-steps">
+      <div class="tut-step active" id="tut-1">
+        <div class="tut-icon">🎓</div>
+        <div class="tut-step-num">1 / 3</div>
+        <h3 class="tut-title" id="tutTitle">Bem-vindo ao EnglishFlow!</h3>
+        <p class="tut-desc">A plataforma de inglês feita a pensar em ti — moçambicano ou não, xitimela ou novato, aqui toda a gente aprende. <strong>100% grátis, sem conversa.</strong></p>
+        <div class="tut-tip">
+          <span class="tut-tip-icon">🇲🇿</span>
+          <span>Tens suporte em Português de Moçambique — podes mudar a língua nas definições.</span>
+        </div>
+        <button class="tut-btn" onclick="tutNext()">Vamos lá! →</button>
+      </div>
+      <div class="tut-step" id="tut-2">
+        <div class="tut-icon">🔐</div>
+        <div class="tut-step-num">2 / 3</div>
+        <h3 class="tut-title">Como entrar na app?</h3>
+        <p class="tut-desc">Tens <strong>duas formas</strong> de criar a tua conta:</p>
+        <div class="tut-options">
+          <div class="tut-option">
+            <span class="tut-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"/><path d="M3.964 10.707A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.707V4.961H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.039l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.961L3.964 7.293C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
+            </span>
+            <div>
+              <strong>Google</strong> — clica em "Continuar com Google", escolhe a tua conta e pronto. Mais rápido que um <em>chapeiro</em>! 🚌
+            </div>
+          </div>
+          <div class="tut-option">
+            <span class="tut-opt-icon">👤</span>
+            <div>
+              <strong>Username + Password</strong> — cria um nome de utilizador e uma senha. Usa pelo menos 8 caracteres, uma maiúscula e um número.
+            </div>
+          </div>
+        </div>
+        <button class="tut-btn" onclick="tutNext()">Percebo! →</button>
+      </div>
+      <div class="tut-step" id="tut-3">
+        <div class="tut-icon">🚀</div>
+        <div class="tut-step-num">3 / 3</div>
+        <h3 class="tut-title">O que podes fazer aqui?</h3>
+        <div class="tut-features">
+          <div class="tut-feat"><span>🎯</span><span>Lições interactivas com XP e corações</span></div>
+          <div class="tut-feat"><span>🤖</span><span>Tutor IA — tira dúvidas 24/7 em PT ou EN</span></div>
+          <div class="tut-feat"><span>🎮</span><span>Word Scramble — jogo de vocabulário com combos</span></div>
+          <div class="tut-feat"><span>🔊</span><span>Sound Lab — domina os sons difíceis do inglês</span></div>
+          <div class="tut-feat"><span>🏆</span><span>Leaderboard — compete com outros aprendentes</span></div>
+          <div class="tut-feat"><span>🔥</span><span>Streaks diários — não quebres a sequência!</span></div>
+        </div>
+        <button class="tut-btn tut-btn-final" onclick="closeTutorial()">Começar a aprender! 🎉</button>
+      </div>
+    </div>
+    <div class="tut-dots">
+      <span class="tut-dot active" id="tdot-1"></span>
+      <span class="tut-dot" id="tdot-2"></span>
+      <span class="tut-dot" id="tdot-3"></span>
+    </div>
+  </div>
+</div>
+
+<!-- AUTH SCREEN -->
+<div class="screen active" id="screen-auth">
+  <div class="auth-wrap">
+    <div class="mascot-wave" id="mascotEmoji" onclick="mascotTalk()" title="Click me!">🎓</div>
+    <div class="auth-logo">English<em>Flow</em></div>
+    <div class="auth-tagline" data-i18n="appTagline">🔥 The English app that actually has a personality</div>
+    <div class="auth-card">
+      <button type="button" class="abtn abtn-google" id="btn-google-login" onclick="signInWithGoogle()">
+        <svg class="google-icon" width="20" height="20" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4"/>
+          <path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"/>
+          <path d="M3.964 10.707A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.707V4.961H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.039l3.007-2.332z" fill="#FBBC05"/>
+          <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.961L3.964 7.293C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
+        </svg>
+        <span data-i18n="googleBtn">Continuar com Google</span>
+      </button>
+      <div class="aerror" id="g-err" role="alert" style="display:none"></div>
+      <div class="auth-help-row">
+        <button class="auth-help-link" onclick="openTutorial()" type="button">
+          <span>❓</span> Como funciona? Ver tutorial
+        </button>
+      </div>
+      <div class="auth-divider" aria-hidden="true"><span data-i18n="authOr">ou</span></div>
+      <div class="tab-row">
+        <button class="atab on" onclick="authTab('login',this)" data-i18n="loginTab">👋 Entrar</button>
+        <button class="atab" onclick="authTab('reg',this)" data-i18n="signupTab">✨ Criar Conta</button>
+      </div>
+      <div id="pane-login">
+        <input class="afield" id="l-user" type="text" placeholder="👤 Username" data-i18n-placeholder="userPlaceholder">
+        <input class="afield" id="l-pass" type="password" placeholder="🔒 Password" data-i18n-placeholder="passPlaceholder">
+        <button class="abtn abtn-green" onclick="doLogin()" data-i18n="loginBtn">🚀 Vamos Nessa!</button>
+        <div class="aerror" id="l-err" data-i18n="loginErr">❌ Credenciais erradas, colega.</div>
+      </div>
+      <div id="pane-reg" style="display:none">
+        <input class="afield" id="r-name" type="text" placeholder="😎 O teu nome" data-i18n-placeholder="namePlaceholder">
+        <input class="afield" id="r-user" type="text" placeholder="🆔 Escolhe um username" data-i18n-placeholder="newUserPlaceholder">
+        <input class="afield" id="r-pass" type="password" placeholder="🔑 Senha (mín. 8 caracteres)" data-i18n-placeholder="newPassPlaceholder" oninput="onPassInput(this.value)">
+        <div class="pass-strength-wrap" id="pass-strength-wrap">
+          <div class="pass-strength-bar-bg">
+            <div class="pass-strength-bar" id="pass-strength-bar"></div>
+          </div>
+          <div class="pass-strength-label" id="pass-strength-label"></div>
+          <div class="pass-rules">
+            <span class="pass-rule" id="pr-len">8+ caracteres</span>
+            <span class="pass-rule" id="pr-up">Maiúscula</span>
+            <span class="pass-rule" id="pr-low">Minúscula</span>
+            <span class="pass-rule" id="pr-num">Número</span>
+          </div>
+        </div>
+        <button class="abtn abtn-blue" onclick="doReg()" data-i18n="signupBtn">🎉 Criar Conta!</button>
+        <div class="aerror" id="r-err" data-i18n="regErr">Preenche tudo direitinho, please!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- APP SCREEN -->
+<div class="screen" id="screen-app">
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <button type="button" class="hamburger-btn" id="hamburgerBtn" onclick="toggleMenu()" title="Menu" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="tb-logo" id="topLogo" onclick="logoClick()">English<em>Flow</em></div>
+    <div class="tb-pills">
+      <div class="pill"><span>🔥</span><span id="tp-str">0</span></div>
+      <div class="pill"><span>⚡</span><span id="tp-xp">0</span></div>
+      <div class="pill"><span>❤️</span><span id="tp-hrt">5</span></div>
+      <div class="pill"><span>💎</span><span id="tp-gem">0</span></div>
+    </div>
+    <div class="tb-actions">
+      <button class="search-btn" onclick="openSrch()" title="Search">🔍</button>
+      <button class="icon-btn" onclick="toggleTheme()" title="Toggle theme">🌓</button>
+    </div>
+  </div>
+
+  <!-- SLIDE-IN HAMBURGER MENU -->
+  <div class="menu-overlay" id="menuOverlay" role="dialog" aria-modal="true" aria-label="Navigation menu" onclick="closeMenuEv(event)">
+    <nav class="menu-panel" id="menuPanel">
+      <div class="menu-panel-hdr">
+        <div class="tb-logo">English<em>Flow</em></div>
+        <button type="button" class="menu-close-btn" onclick="toggleMenu()" aria-label="Close menu">✕</button>
+      </div>
+      <button class="mn on" id="bn-home" onclick="goTab('home',this)"><div class="mn-ic">🏠</div><span data-i18n="navHome">Home</span></button>
+      <button class="mn" id="bn-grammar" onclick="goTab('grammar',this)"><div class="mn-ic">📖</div><span data-i18n="navGrammar">Grammar</span></button>
+      <button class="mn" id="bn-sounds" onclick="goTab('sounds',this)"><div class="mn-ic">🔊</div><span data-i18n="navSounds">Sounds</span></button>
+      <button class="mn" id="bn-ai" onclick="goTab('ai',this)"><div class="mn-ic">🤖</div><span data-i18n="navAI">AI Tutor</span></button>
+      <button class="mn" id="bn-prof" onclick="goTab('prof',this)"><div class="mn-ic">👤</div><span data-i18n="navProfile">Profile</span></button>
+      <div class="mn-divider"></div>
+      <button class="mn" id="bn-settings" onclick="goTab('settings',this)"><div class="mn-ic">⚙️</div><span data-i18n="navSettings">Settings</span></button>
+      <button class="mn mn-support" id="bn-support" onclick="openPM()"><div class="mn-ic">💛</div><span data-i18n="navSupport">Support</span></button>
+    </nav>
+  </div>
+
+  <!-- SCROLL AREA -->
+  <div class="app-scroll">
+
+    <!-- HOME TAB -->
+    <div class="tab on" id="tab-home">
+      <section class="home-hero" aria-labelledby="home-hero-title">
+        <div class="home-hero-bg" aria-hidden="true"></div>
+        <div class="home-hero-shine" aria-hidden="true"></div>
+        <div class="home-hero-inner">
+          <p class="home-hero-eyebrow" data-i18n="homeHeroEyebrow">Your learning hub</p>
+          <h1 class="home-hero-title" id="home-hero-title">
+            <span class="home-hero-greet" data-i18n="homeHeroGreet">Hey,</span>
+            <span class="home-hero-name" id="home-hero-name">Learner</span>
+            <span class="home-hero-wave" aria-hidden="true">👋</span>
+          </h1>
+          <p class="home-hero-sub" data-i18n="homeHeroSub">Level up your English with lessons, games, and your AI tutor — all in one place.</p>
+          <div class="home-hero-stats" role="list">
+            <div class="home-hero-stat" role="listitem">
+              <span class="home-hero-stat-val" id="home-hero-lvl">1</span>
+              <span class="home-hero-stat-lbl" data-i18n="homeHeroLevel">Level</span>
+            </div>
+            <div class="home-hero-stat" role="listitem">
+              <span class="home-hero-stat-val" id="home-hero-streak">0</span>
+              <span class="home-hero-stat-lbl" data-i18n="homeHeroStreak">Day streak</span>
+            </div>
+            <div class="home-hero-stat" role="listitem">
+              <span class="home-hero-stat-val" id="home-hero-xp">0</span>
+              <span class="home-hero-stat-lbl" data-i18n="homeHeroXP">Total XP</span>
+            </div>
+          </div>
+          <div class="home-hero-actions">
+            <button type="button" class="home-hero-cta home-hero-cta-primary" onclick="resumeLesson()" data-i18n="homeHeroCtaLearn">▶ Continue learning</button>
+            <button type="button" class="home-hero-cta home-hero-cta-secondary" onclick="startDailyChallenge()" data-i18n="homeHeroCtaChallenge">🎲 Daily challenge</button>
+            <button type="button" class="home-hero-cta home-hero-cta-ghost" onclick="goTab('ai',document.getElementById('bn-ai'))" data-i18n="homeHeroCtaAI">🤖 Ask AI Tutor</button>
+          </div>
+        </div>
+      </section>
+      <section class="student-dashboard" id="studentDashboard" aria-labelledby="sdash-title"></section>
+      <section class="home-features" aria-label="Progress and quick actions">
+        <div class="streak-card">
+          <div class="sc-icon-wrap" aria-hidden="true"><span class="sc-fire">🔥</span></div>
+          <div class="sc-info">
+            <h3 id="str-title" data-i18n="streakTitle">Start your streak today!</h3>
+            <p id="str-desc" data-i18n="streakDesc">Complete a lesson to begin 🫡</p>
+          </div>
+        </div>
+        <div class="goal-card">
+          <div class="goal-hdr" data-i18n="dailyGoal">📅 Daily Goal — 50 XP (you got this)</div>
+          <div class="bar-bg"><div class="bar-fill bar-green" id="daily-bar" style="width:0%"></div></div>
+          <div class="goal-meta"><span id="daily-done">0 XP earned today</span><span data-i18n="xpGoal">50 XP goal</span></div>
+        </div>
+        <div class="dc-card" id="dcCard" onclick="startDailyChallenge()" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();startDailyChallenge()}">
+          <div class="dc-ic" aria-hidden="true">🎲</div>
+          <div class="dc-info">
+            <h3 id="dcTitle" data-i18n="dailyChallenge">Daily Challenge</h3>
+            <p id="dcDesc" data-i18n="dailyChallengeDesc">Complete for +10 bonus XP! Don't be lazy 😤</p>
+          </div>
+        </div>
+        <div class="home-features-shortcuts">
+          <div class="shortcut-card" onclick="openLB()" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLB()}">
+            <span class="shortcut-ic" aria-hidden="true">🏆</span>
+            <div class="shortcut-body">
+              <div class="shortcut-title" data-i18n="leaderboard">Leaderboard</div>
+              <div class="shortcut-desc" data-i18n="leaderboardDesc">See how you rank this week</div>
+            </div>
+            <span class="sc-arr" aria-hidden="true">›</span>
+          </div>
+          <div class="shortcut-card" onclick="openGame()" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openGame()}">
+            <span class="shortcut-ic" aria-hidden="true">🎮</span>
+            <div class="shortcut-body">
+              <div class="shortcut-title" data-i18n="wordScramble">Word Scramble</div>
+              <div class="shortcut-desc" data-i18n="wordScrambleDesc">Quick game to earn extra XP</div>
+            </div>
+            <span class="sc-arr" aria-hidden="true">›</span>
+          </div>
+        </div>
+      </section>
+      <div id="curriculum"></div>
+    </div>
+
+    <!-- GRAMMAR TAB -->
+    <div class="tab" id="tab-grammar">
+      <div class="gram-hero"><h2 data-i18n="grammarTitle">📖 Grammar Lab</h2><p data-i18n="grammarSub">Master English grammar — one rule at a time 💪</p></div>
+      <div class="gram-sbar"><span>🔍</span><input id="gramSrch" placeholder="Search grammar topics..." data-i18n-placeholder="grammarSearch" oninput="filterGram()"></div>
+      <div class="gram-cats" id="gramCats"></div>
+      <div class="gram-list" id="gramList"></div>
+    </div>
+
+    <!-- SOUNDS TAB -->
+    <div class="tab" id="tab-sounds">
+      <div class="sounds-hero"><h2 data-i18n="soundsTitle">🔊 Sound Lab</h2><p data-i18n="soundsSub">Hear it, feel it, speak it — pronunciation mastery 🎤</p></div>
+      <div class="stabs">
+        <button class="stab on" onclick="showSP('practice',this)" data-i18n="practiceTab">🗣️ Practice</button>
+        <button class="stab" onclick="showSP('pairs',this)" data-i18n="pairsTab">👥 Pairs</button>
+        <button class="stab" onclick="showSP('twisters',this)" data-i18n="twistersTab">🌀 Twisters</button>
+        <button class="stab" onclick="showSP('difficult',this)" data-i18n="difficultTab">🎯 Sounds</button>
+      </div>
+      <div class="spanel on" id="sp-practice">
+        <div class="pron-nav">
+          <button class="pron-nav-btn" onclick="prevPW()">← Prev</button>
+          <span class="pron-ctr" id="pronCtr">1 / 20</span>
+          <button class="pron-nav-btn" onclick="nextPW()">Next →</button>
+        </div>
+        <div class="pron-card">
+          <div class="pron-word" id="pronWord">Hello</div>
+          <div class="pron-ipa" id="pronIpa">/həˈloʊ/</div>
+          <div class="pron-meaning" id="pronMeaning">A common greeting</div>
+          <div class="pron-btns">
+            <button class="pron-btn pb-hear" onclick="hearWord()" data-i18n="hearBtn">🔊 Hear it</button>
+            <button class="pron-btn pb-slow" onclick="hearWordSlow()" data-i18n="slowBtn">🐌 Slow</button>
+            <button class="pron-btn pb-rec" id="recBtn" onclick="toggleRecord()" data-i18n="recordBtn">🎤 Record</button>
+          </div>
+          <div class="pron-fb" id="pronFb"></div>
+        </div>
+        <div id="speechWarn" style="display:none;text-align:center;padding:1rem;color:var(--muted);font-size:.83rem;font-weight:700;margin-top:.8rem">⚠️ Speech recognition not supported in this browser. Try Chrome for recording!</div>
+      </div>
+      <div class="spanel" id="sp-pairs"><p style="color:var(--muted);font-size:.83rem;font-weight:700;margin-bottom:1rem" data-i18n="pairsNote">Click to hear the difference between confusable sounds! 👂</p><div id="pairsList"></div></div>
+      <div class="spanel" id="sp-twisters"><p style="color:var(--muted);font-size:.83rem;font-weight:700;margin-bottom:1rem" data-i18n="twistersNote">Practice these daily — your fluency will skyrocket! 🚀</p><div id="twistersList"></div></div>
+      <div class="spanel" id="sp-difficult"><p style="color:var(--muted);font-size:.83rem;font-weight:700;margin-bottom:1rem" data-i18n="difficultNote">Sounds that trip up Portuguese speakers 🇲🇿 — master these!</p><div id="diffList"></div></div>
+    </div>
+
+    <!-- AI CHAT TAB -->
+    <div class="tab" id="tab-ai">
+      <div class="ai-hero">
+        <div class="ai-av">🤖</div>
+        <div class="ai-info">
+          <h3 data-i18n="aiName">Flow AI Tutor</h3>
+          <p data-i18n="aiSub">Ask me anything about English! Grammar, vocabulary, pronunciation...</p>
+          <span class="ai-online" data-i18n="aiOnline">Online now</span>
+        </div>
+      </div>
+      <div class="chat-modes" id="chatModes" style="display:flex; gap:0.5rem; margin-bottom:0.8rem;">
+        <button class="chat-mode-btn on" onclick="setChatMode('normal', this)">💬 Normal</button>
+        <button class="chat-mode-btn" onclick="setChatMode('grammar', this)">📝 Grammar</button>
+        <button class="chat-mode-btn" onclick="setChatMode('pronunciation', this)">🎤 Pronunciation</button>
+        <button class="chat-mode-btn" onclick="setChatMode('vocabulary', this)">📚 Vocab</button>
+        <button class="chat-mode-btn" onclick="setChatMode('translation', this)">🔄 Translate</button>
+        <button class="chat-mode-btn" onclick="setChatMode('speaking', this)">🗣️ Speak</button>
+      </div>
+      <div class="ai-chips" id="aiChips"></div>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:.5rem">
+        <button class="chat-clear-btn" onclick="clearChat()" data-i18n="clearChat">🗑️ Clear chat</button>
+      </div>
+      <div class="chat-win" id="chatWin"></div>
+      <div class="chat-input-area">
+        <textarea class="chat-input" id="chatInput" placeholder="Ask Flow anything..." data-i18n-placeholder="chatPlaceholder" rows="1" onkeydown="handleChatKey(event)" oninput="autoResize(this)"></textarea>
+        <button class="chat-send-btn" id="chatSendBtn" onclick="sendChat()">➤</button>
+      </div>
+    </div>
+
+    <!-- PROFILE TAB -->
+    <div class="tab" id="tab-prof">
+      <div class="prof-hdr">
+        <div class="prof-av" id="p-av" onclick="openEditProfile()" title="Edit profile">
+          <span id="p-av-text">S</span>
+          <div class="prof-av-cam">✏️</div>
+        </div>
+        <div class="prof-name" id="p-name">Learner</div>
+        <div class="prof-lvl" id="p-lvl">Level 1 · Beginner</div>
+        <div id="p-lang-badge" class="prof-lang-badge">🌐 EN</div>
+        <div class="xp-section">
+          <div class="xp-lbl"><span id="p-xp-cur">0 XP</span><span id="p-xp-nxt">100 XP to next level</span></div>
+          <div class="bar-bg"><div class="bar-fill bar-xp" id="p-xp-bar" style="width:0%"></div></div>
+        </div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-bottom:.3rem">
+          <button class="prof-edit-btn" onclick="openEditProfile()">✏️ <span data-i18n="editProfile">Edit Profile</span></button>
+          <button class="logout-btn" onclick="doLogout()" data-i18n="logoutBtn">🚪 Log Out</button>
+        </div>
+      </div>
+      <div class="sgrid">
+        <div class="scard"><div class="sc-ic">🔥</div><div class="sc-num" id="ps-str">0</div><div class="sc-lbl" data-i18n="dayStreak">Day Streak</div></div>
+        <div class="scard"><div class="sc-ic">⚡</div><div class="sc-num" id="ps-xp">0</div><div class="sc-lbl" data-i18n="totalXP">Total XP</div></div>
+        <div class="scard"><div class="sc-ic">✅</div><div class="sc-num" id="ps-cor">0</div><div class="sc-lbl" data-i18n="correctAnswers">Correct Answers</div></div>
+        <div class="scard"><div class="sc-ic">📚</div><div class="sc-num" id="ps-les">0</div><div class="sc-lbl" data-i18n="lessonsDone">Lessons Done</div></div>
+        <div class="scard"><div class="sc-ic">🎯</div><div class="sc-num" id="ps-quiz">0</div><div class="sc-lbl" data-i18n="quizzesTaken">Quizzes Taken</div></div>
+        <div class="scard"><div class="sc-ic">🗣️</div><div class="sc-num" id="ps-pron">0</div><div class="sc-lbl" data-i18n="pronPractice">Pron. Practice</div></div>
+      </div>
+      <div class="sec-title" data-i18n="achievements">🎖️ Achievements</div>
+      <div class="ach-grid" id="achGrid"></div>
+
+      <!-- MEET THE CREATOR (hidden panel, revealed on click) -->
+      <div class="meet-creator-wrap">
+        <button class="meet-creator-card" id="meetCreatorBtn" onclick="toggleAboutCreator()">
+          <div class="mc-avatar"><img src="img/creator.jpg" alt="" width="480" height="480"></div>
+          <div class="mc-body">
+            <h3 data-i18n="meetCreator">Meet the Creator</h3>
+            <p data-i18n="meetCreatorDesc">The story, skills &amp; contact behind Flow</p>
+          </div>
+          <span class="mc-arr" id="mcChevron">›</span>
+        </button>
+        <div id="prof-about-creator" class="prof-about-creator-panel"></div>
+      </div>
+    </div>
+
+    <!-- SETTINGS TAB -->
+    <div class="tab" id="tab-settings">
+      <div class="set-hero"><h2 data-i18n="settings">⚙️ Settings</h2><p data-i18n="settingsSubtitle">Make EnglishFlow yours</p></div>
+
+      <!-- Appearance -->
+      <div class="sec-title" data-i18n="settingsAppearance">🎨 Appearance</div>
+      <div class="set-card">
+        <div class="set-row">
+          <span class="set-label" id="lbl-theme" data-i18n="darkLight">🌓 Dark / Light Mode</span>
+          <label class="set-switch">
+            <input type="checkbox" id="set-theme-switch" aria-labelledby="lbl-theme" onchange="toggleTheme()">
+            <span class="set-switch-track"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Language -->
+      <div class="sec-title" data-i18n="settingsLanguage">🌐 Language</div>
+      <div class="set-card">
+        <div class="set-lang-grid">
+          <button class="setting-toggle lang-btn" data-lang="en" onclick="setLang('en')">🇺🇸 English (US)</button>
+          <button class="setting-toggle lang-btn" data-lang="en-gb" onclick="setLang('en-gb')">🇬🇧 English (UK)</button>
+          <button class="setting-toggle lang-btn" data-lang="mz" onclick="setLang('mz')">🇲🇿 Português (MZ)</button>
+          <button class="setting-toggle lang-btn" data-lang="pt" onclick="setLang('pt')">🇧🇷 Português (BR)</button>
+          <button class="setting-toggle lang-btn" data-lang="pt-pt" onclick="setLang('pt-pt')">🇵🇹 Português (PT)</button>
+        </div>
+      </div>
+
+      <!-- Sound & Music -->
+      <div class="sec-title" data-i18n="settingsAudio">🔊 Sound &amp; Music</div>
+      <div class="set-card">
+        <div class="set-row">
+          <span class="set-label" id="lbl-mute" data-i18n="muteAll">Mute all sounds</span>
+          <label class="set-switch">
+            <input type="checkbox" id="set-mute" aria-labelledby="lbl-mute" onchange="onMuteToggle(this.checked)">
+            <span class="set-switch-track"></span>
+          </label>
+        </div>
+        <div class="set-slider-row" id="set-sfx-row">
+          <span class="set-label" id="lbl-sfxvol" data-i18n="sfxVolume">Sound effects volume</span>
+          <input type="range" class="set-slider" id="set-sfxvol" aria-labelledby="lbl-sfxvol" min="0" max="100" oninput="EWSAudio.setSfxVolume(this.value)">
+        </div>
+        <div class="set-row">
+          <span class="set-label" id="lbl-ambient" data-i18n="ambientMusic">Ambient music</span>
+          <label class="set-switch">
+            <input type="checkbox" id="set-ambient" aria-labelledby="lbl-ambient" onchange="onAmbientToggle(this.checked)">
+            <span class="set-switch-track"></span>
+          </label>
+        </div>
+        <div class="set-slider-row" id="set-amb-row">
+          <span class="set-label" id="lbl-ambvol" data-i18n="ambientVolume">Music volume</span>
+          <input type="range" class="set-slider" id="set-ambvol" aria-labelledby="lbl-ambvol" min="0" max="100" oninput="EWSAudio.setAmbientVolume(this.value)">
+        </div>
+        <div class="set-row">
+          <span class="set-label" id="lbl-vmute" data-i18n="muteVoice">Mute Flowy's voice</span>
+          <label class="set-switch">
+            <input type="checkbox" id="set-vmute" aria-labelledby="lbl-vmute" onchange="onVoiceMuteToggle(this.checked)">
+            <span class="set-switch-track"></span>
+          </label>
+        </div>
+        <div class="set-slider-row" id="set-voice-row">
+          <span class="set-label" id="lbl-voicevol" data-i18n="voiceVolume">Flowy's voice volume</span>
+          <input type="range" class="set-slider" id="set-voicevol" aria-labelledby="lbl-voicevol" min="0" max="100" oninput="EWSAudio.setVoiceVolume(this.value)">
+        </div>
+      </div>
+
+      <!-- Fun Stuff -->
+      <div class="sec-title" data-i18n="settingsFun">🎉 Fun Stuff</div>
+      <div class="set-card">
+        <div class="set-row">
+          <span class="set-label" id="lbl-disco" data-i18n="discoMode">🕺 Disco Mode</span>
+          <label class="set-switch">
+            <input type="checkbox" id="set-disco-switch" aria-labelledby="lbl-disco" onchange="toggleDisco()">
+            <span class="set-switch-track"></span>
+          </label>
+        </div>
+        <div class="set-row">
+          <span class="set-label" data-i18n="konami">🎮 Konami Code</span>
+          <span class="set-hint">↑↑↓↓←→←→BA</span>
+        </div>
+      </div>
+
+      <!-- Account -->
+      <div class="sec-title" data-i18n="settingsAccount">👤 Account</div>
+      <div class="set-card set-card-row">
+        <button class="prof-edit-btn" onclick="openEditProfile()">✏️ <span data-i18n="editProfile">Edit Profile</span></button>
+        <button class="logout-btn" onclick="doLogout()" data-i18n="logoutBtn">🚪 Log Out</button>
+        <button class="admin-access-btn" onclick="goToAdminPanel()" data-i18n="adminAccessBtn" title="Admin only">🔒 Restricted Access</button>
+      </div>
+    </div>
+
+  </div><!-- end app-scroll -->
+
+  <!-- QUIZ (dynamically rendered) -->
+  <div class="tab" id="tab-quiz"></div>
+
+  <!-- LESSON LEARN FLOW (dynamically rendered) -->
+  <div class="tab" id="tab-lesson"></div>
+
+  <!-- BOTTOM NAV removed — replaced by hamburger menu -->
+</div><!-- end screen-app -->
+
+<!-- FABs -->
+<div class="fab-container" id="fabContainer" style="display:none">
+  <button class="fab fab-continue" onclick="resumeLesson()">▶ Continue</button>
+  <button class="fab fab-game" onclick="openGame()">🎮 Scramble!</button>
+</div>
+
+<!-- EDIT PROFILE MODAL -->
+<div class="edit-overlay" id="editProfileOverlay" role="dialog" aria-modal="true" aria-labelledby="editProfileTitle" onclick="closeEditProfileEv(event)">
+  <div class="edit-box" id="editProfileBox">
+    <h3 id="editProfileTitle">✏️ Edit Profile</h3>
+    <div class="av-preview" id="editAvPreview">S</div>
+    <div class="edit-field-lbl">Display Name</div>
+    <input class="edit-input" id="editNameInput" type="text" maxlength="32" placeholder="Your name">
+    <div class="av-picker-title">Choose Avatar</div>
+    <div class="av-picker-grid" id="avPickerGrid"></div>
+    <div class="edit-actions">
+      <button class="edit-cancel-btn" onclick="closeEditProfile()">Cancel</button>
+      <button class="edit-save-btn" onclick="saveEditProfile()">💾 Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts: unit files are loaded dynamically from js/data/manifest.json -->
+<!-- To add a new unit: create the file and add its name to manifest.json. Nothing else needed. -->
+<script>
+// ═══════════════════════════════════════════════════════
+//  ENGLISHFLOW LOADER — Parallel script loading (FIXED v4.1)
+//  FIX: Unit files and feature scripts now load in parallel
+//  instead of sequentially, cutting load time by ~70%.
+// ═══════════════════════════════════════════════════════
+(function () {
+  function loadScript(src) {
+    return new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.src = src;
+      s.onload = resolve;
+      s.onerror = function () { reject(new Error('Failed: ' + src)); };
+      document.head.appendChild(s);
+    });
+  }
+
+  // ── Feature lazy loading (Step 3 — Phase 7 trim) ──────────────────
+  // Some feature modules are no longer part of Phase 7's eager batch
+  // below; they're fetched on first use instead. EWSLoadFeature(key, src)
+  // loads a script exactly once — the promise is cached so a second call
+  // (e.g. a second click before the first load finishes) reuses the same
+  // in-flight load, and a failed load is NOT cached, so the next attempt
+  // (e.g. the next click) gets a fresh retry instead of replaying the
+  // same failure forever.
+  var _featurePromises = {};
+  window.EWSLoadFeature = function (key, src) {
+    if (_featurePromises[key]) return _featurePromises[key];
+    _featurePromises[key] = loadScript(src).catch(function (err) {
+      delete _featurePromises[key];
+      throw err;
+    });
+    return _featurePromises[key];
+  };
+
+  // premium.js (~12KB) only powers the "Support" donation panel — nobody
+  // needs it until they tap the Support nav button. This shim is what
+  // index.html's onclick="openPM()" actually calls; it loads the real
+  // module on first tap, then hands off. premium.js's own top-level code
+  // reassigns window.openPM to the real implementation before its
+  // <script> tag's onload fires, so the follow-up call below already
+  // reaches the real function, not this shim (no infinite recursion).
+  window.openPM = function () {
+    window.EWSLoadFeature('premium', 'js/premium.js')
+      .then(function () { window.openPM(); })
+      .catch(function (err) {
+        console.error('[EnglishFlow] Failed to load premium.js:', err);
+        if (typeof showToast === 'function') {
+          showToast((typeof t === 'function' ? t('errorLoading') : 'Error loading: ') + 'Support');
+        }
+      });
+  };
+
+  // game.js (~4.3KB, Word Scramble) only powers the game modal — openGame()
+  // is the sole entry point reachable before the modal is visible (its
+  // closeGame/checkWord/endGame/skipWord onclick handlers live on modal
+  // markup that's hidden until openGame() adds the 'on' class, so they're
+  // unreachable until this shim's load completes). game.js declares
+  // openGame as a plain top-level function, which — like premium.js's
+  // openPM reassignment — overwrites this shim on window before the
+  // <script> tag's onload fires, so the follow-up call reaches the real
+  // implementation.
+  // Step 3.1 (data split): game.js's data (WORDS_FOR_GAME) now lives in its
+  // own file too, so both are fetched together before handing back to the
+  // real openGame() — same reasoning as premium.js/etc above, game.js's
+  // top-level `window.openGame = ...` assignment overwrites this shim
+  // before the follow-up call runs.
+  window.openGame = function () {
+    Promise.all([
+      window.EWSLoadFeature('game-data', 'js/data/game-data.js'),
+      window.EWSLoadFeature('game', 'js/game.js'),
+    ])
+      .then(function () { window.openGame(); })
+      .catch(function (err) {
+        console.error('[EnglishFlow] Failed to load game.js:', err);
+        if (typeof showToast === 'function') {
+          showToast((typeof t === 'function' ? t('errorLoading') : 'Error loading: ') + 'Game');
+        }
+      });
+  };
+
+  // quiz.js (~29KB, the whole quiz engine + Word Scramble badges) has four
+  // external entry points, called from index.html, lesson.js, data.js, and
+  // ui-curriculum.js: startLesson, startDailyChallenge, startQuizFromData,
+  // and resumeLesson. All four are plain top-level function declarations
+  // in quiz.js, so — like premium.js's openPM — loading the file overwrites
+  // every shim below at once with the real implementation, and this single
+  // EWSLoadFeature('quiz', ...) call is shared/cached across all four.
+  // Each shim forwards its original arguments through to the real function.
+  // NOTE: resumeLesson's real implementation delegates to lesson.js's
+  // openLesson() for its normal path (openLesson now has its own on-demand
+  // shim too, as of the Step 3.1 lesson.js follow-up — see below), only
+  // falling back to startLesson() if openLesson is somehow unavailable —
+  // so this shim adds one avoidable quiz.js fetch to the "Continue
+  // learning" button (the most common home-screen action) the first time
+  // it's tapped each session. Worth watching in practice; can special-case
+  // it later if it turns out to matter.
+  // Step 3.1B: same __EWS_UI_GEN guard as lesson.js/quiz.js/nav.js (2.3C),
+  // extended out to this shim layer. The shim's own tap IS the navigation
+  // intent, so it bumps the counter itself (same as openLesson()'s real
+  // implementation does) and snapshots it; if something else — a bottom-nav
+  // tap, a different lesson/quiz tap — bumps the counter again before
+  // quiz.js finishes fetching, this deferred call is stale and is dropped
+  // instead of yanking the user back into a screen they already left.
+  ['startLesson', 'startDailyChallenge', 'startQuizFromData', 'resumeLesson'].forEach(function (fnName) {
+    window[fnName] = function () {
+      var args = arguments;
+      window.__EWS_UI_GEN = (window.__EWS_UI_GEN || 0) + 1;
+      var _gen = window.__EWS_UI_GEN;
+      window.EWSLoadFeature('quiz', 'js/quiz.js')
+        .then(function () {
+          if (window.__EWS_UI_GEN !== _gen) return;
+          window[fnName].apply(null, args);
+        })
+        .catch(function (err) {
+          console.error('[EnglishFlow] Failed to load quiz.js:', err);
+          if (typeof showToast === 'function') {
+            showToast((typeof t === 'function' ? t('errorLoading') : 'Error loading: ') + 'Quiz');
+          }
+        });
+    };
+  });
+
+  // profile.js (~11.7KB) powers the "Meet the Creator" about panel and the
+  // profile-edit modal. Its two externally-reachable entry points (before
+  // the module loads) are openEditProfile — the avatar/edit button on the
+  // Profile tab — and toggleAboutCreator — the "Meet the Creator" card.
+  // Everything else profile.js exposes (closeEditProfile, closeEditProfileEv,
+  // selectAvatar, saveEditProfile, downloadCV) only lives on markup that's
+  // hidden/unrendered until one of these two shims has already run (the
+  // edit-profile overlay isn't shown, and the about-creator panel's HTML
+  // isn't injected, until after the real module takes over) — same
+  // reasoning as game.js's closeGame/checkWord shim-free handlers above.
+  // i18n.js also calls window.renderAbout on language switch, but it's
+  // guarded with `if (window.renderAbout)`, so it's a no-op before profile.js
+  // loads — safe, since the about panel can't be visible yet either.
+  // profile.js declares both functions as plain top-level declarations, so
+  // loading it overwrites these shims with the real implementations before
+  // the follow-up call below runs.
+  ['openEditProfile', 'toggleAboutCreator'].forEach(function (fnName) {
+    window[fnName] = function () {
+      var args = arguments;
+      window.EWSLoadFeature('profile', 'js/profile.js')
+        .then(function () { window[fnName].apply(null, args); })
+        .catch(function (err) {
+          console.error('[EnglishFlow] Failed to load profile.js:', err);
+          if (typeof showToast === 'function') {
+            showToast((typeof t === 'function' ? t('errorLoading') : 'Error loading: ') + 'Profile');
+          }
+        });
+    };
+  });
+
+  // settings.js (~3.5KB) powers the Settings tab. Unlike premium/game/quiz/
+  // profile, its entry point isn't reached from an onclick in index.html —
+  // nav.js's goTab() calls window.renderSettings() itself, guarded with
+  // `if (window.renderSettings)`. Defining this shim makes that guard true,
+  // so switching to the Settings tab still triggers the load exactly like
+  // it would call the real renderSettings once loaded. The tab's three
+  // toggle switches (onMuteToggle/onAmbientToggle/onVoiceMuteToggle) are
+  // static onchange attributes in index.html, but they live inside
+  // #tab-settings, which stays display:none (not interactable) until
+  // goTab('settings') adds the 'on' class — and that only happens after
+  // this shim has already kicked off the load — so they're safe with
+  // shims too, same reasoning as profile.js's edit-modal handlers.
+  // settings.js declares all four as plain top-level function declarations,
+  // so loading it overwrites every shim here before the follow-up runs.
+  ['renderSettings', 'onMuteToggle', 'onAmbientToggle', 'onVoiceMuteToggle'].forEach(function (fnName) {
+    window[fnName] = function () {
+      var args = arguments;
+      window.EWSLoadFeature('settings', 'js/settings.js')
+        .then(function () { window[fnName].apply(null, args); })
+        .catch(function (err) {
+          console.error('[EnglishFlow] Failed to load settings.js:', err);
+          if (typeof showToast === 'function') {
+            showToast((typeof t === 'function' ? t('errorLoading') : 'Error loading: ') + 'Settings');
+          }
+        });
+    };
+  });
+
+  // ui-grammar.js (~5KB) powers the Grammar Lab tab. Its four exports are
+  // all reachable via onclick/oninput on markup that's static in
+  // index.html but hidden until the Grammar tab is opened, same as
+  // settings.js's toggles. One difference worth flagging: app.js's
+  // launchApp() already calls window.renderGram() (guarded) inside its
+  // _ric() idle callback, alongside renderPron/etc., to pre-warm tabs
+  // shortly after startup for snappier switching later. That guard is
+  // satisfied by this shim too, so ui-grammar.js will still fetch at idle
+  // a moment after launch — it's removed from the blocking Phase 7
+  // Promise.all, but not deferred all the way to the user actually
+  // tapping the Grammar tab. That matches the pre-warm pattern used for
+  // leaderboard.js and (as of Step 3.1) ui-curriculum.js/flowy.js/chat.js/
+  // ui-sounds.js. lesson.js also got its own on-demand shim (below) as of
+  // the Step 3.1 follow-up, rather than an idle pre-warm — see that shim's
+  // comment for why. Phase 7's eager batch is now just nav.js, overlays.js,
+  // auth.js, and ui-dashboard.js — all four genuinely needed on the
+  // critical path.
+  ['renderGram', 'setGramCat', 'filterGram', 'toggleGC'].forEach(function (fnName) {
+    window[fnName] = function () {
+      var args = arguments;
+      window.EWSLoadFeature('ui-grammar', 'js/ui-grammar.js')
+        .then(function () { window[fnName].apply(null, args); })
+        .catch(function (err) {
+          console.error('[EnglishFlow] Failed to load ui-grammar.js:', err);
+          if (typeof showToast === 'function') {
+            showToast((typeof t === 'function' ? t('errorLoading') : 'Error loading: ') + 'Grammar');
+          }
+        });
+    };
+  });
+
+  // lesson.js (~9.6KB, the Learn-flow engine) — Step 3.1. Unlike every
+  // other shim above, openLesson() is NOT reached exclusively through
+  // onclick attributes that live in static index.html markup hidden until
+  // some other guarded entry point runs first. ui-curriculum.js renders
+  // `onclick="openLesson('unitId','lessonId')"` directly into each lesson
+  // card's HTML string — and ui-curriculum.js itself is pre-warmed at idle
+  // (Step 3.1, see app.js), so those cards can exist and be tapped well
+  // before Phase 7 (or this shim, previously) would otherwise have loaded
+  // lesson.js. This shim closes that gap: it's defined synchronously here,
+  // so `window.openLesson` exists (and `typeof openLesson === 'function'`
+  // is true for quiz.js's resumeLesson check at line ~877) from the very
+  // first paint, same as every other shim's guarantee. lesson.js declares
+  // `window.openLesson = openLesson;` as a top-level assignment, so —
+  // like premium.js's openPM — loading the file overwrites this shim
+  // before the follow-up call below runs; no infinite recursion.
+  // Step 3.1B: __EWS_UI_GEN guard (see the quiz quartet above for the full
+  // rationale). This tap is the navigation intent, so bump+snapshot here;
+  // if the user navigates away before lesson.js finishes loading, the
+  // deferred openLesson() call is dropped instead of stripping .on from
+  // whatever tab the user has since moved to.
+  window.openLesson = function () {
+    var args = arguments;
+    window.__EWS_UI_GEN = (window.__EWS_UI_GEN || 0) + 1;
+    var _gen = window.__EWS_UI_GEN;
+    window.EWSLoadFeature('lesson', 'js/lesson.js')
+      .then(function () {
+        if (window.__EWS_UI_GEN !== _gen) return;
+        window.openLesson.apply(null, args);
+      })
+      .catch(function (err) {
+        console.error('[EnglishFlow] Failed to load lesson.js:', err);
+        if (typeof showToast === 'function') {
+          showToast((typeof t === 'function' ? t('errorLoading') : 'Error loading: ') + 'Lesson');
+        }
+      });
+  };
+
+  // ── PHASE 0: Start fetching the heaviest CDN script immediately ──
+  // Supabase is ~200KB from an external CDN — start it right now
+  // so it loads in parallel with everything else.
+  var supabasePromise = loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2');
+
+  // ── PHASE 1: Fetch the lightweight manifest and register stub units ──
+  // (Sprint 3 a11y — lazy loading by unit) The manifest now carries
+  // metadata + a slim lesson list per unit (~65KB total) instead of
+  // eagerly downloading all 48 unitN.js files (~800KB). Real unit
+  // content is fetched on demand by js/lazy-loader.js's
+  // window.EWSEnsureUnit() the first time a lesson/quiz/daily
+  // challenge actually needs it. See js/lazy-loader.js for details.
+  fetch('js/data/manifest.json')
+    .then(function (r) {
+      var ct = r.headers.get('content-type') || '';
+      if (!r.ok || ct.indexOf('application/json') === -1) {
+        // Server returned HTML (404 page, SW glitch, etc.) instead of JSON
+        throw new Error('manifest.json returned non-JSON (HTTP ' + r.status + '). Clear site cache and reload.');
+      }
+      return r.json();
+    })
+    .then(function (manifest) {
+      return loadScript('js/lazy-loader.js').then(function () {
+        window.__EWS_INIT_LAZY(manifest);
+      });
+    })
+
+    // ── PHASE 1.5: Load only the needed i18n locale file(s) (Sprint 4 locale-split) ──
+    // Mirrors i18n.js's own detection logic so the two never disagree.
+    // 'en' always loads (universal fallback for t()); the saved/detected
+    // locale loads alongside it if different. Any other locale is fetched
+    // lazily by setLang() the first time the user switches to it.
+    .then(function () {
+      var savedLang = localStorage.getItem('ews4_lang');
+      var detected = savedLang ||
+        (navigator.language && navigator.language.startsWith('pt') ? 'mz' : 'en');
+      window.__EWS_INITIAL_LANG = detected;
+      var fileMap = { 'en': 'en', 'en-gb': 'en-gb', 'mz': 'mz', 'pt': 'pt', 'pt-pt': 'pt-pt' };
+      var toLoad = [loadScript('js/data/locales/i18n-en.js')];
+      var neededFile = fileMap[detected] || 'en';
+      if (neededFile !== 'en') toLoad.push(loadScript('js/data/locales/i18n-' + neededFile + '.js'));
+      return Promise.all(toLoad);
+    })
+
+    // ── PHASE 2: data.js (needs all unit files + initial locale loaded first) ──
+    .then(function () { return loadScript('js/data.js'); })
+
+    // ── PHASE 3: Wait for supabase CDN + load config & storage in parallel ──
+    .then(function () { return supabasePromise; })
+    .then(function () {
+      return Promise.all([
+        loadScript('js/supabase-config.js'),
+        loadScript('js/content-loader.js'),
+        loadScript('js/storage.js')
+      ]);
+    })
+
+    // ── PHASE 4: progress.js (needs storage.js) ──
+    .then(function () { return loadScript('js/progress.js'); })
+
+    // ── PHASE 5: user.js + i18n.js in parallel (both need data.js + storage) ──
+    .then(function () {
+      return Promise.all([
+        loadScript('js/user.js'),
+        loadScript('js/i18n.js')
+      ]);
+    })
+
+    // ── PHASE 6: app.js (the core — needs user, i18n, storage) ──
+    .then(function () { return loadScript('js/app.js'); })
+
+    // ── PHASE 7: Remaining feature modules in parallel (all depend only on app.js) ──
+    // premium.js, leaderboard.js, game.js, quiz.js, profile.js, settings.js,
+    // and ui-grammar.js are deliberately NOT in this list — each has an
+    // on-demand shim above (openPM / nav.js's openLB / openGame / the
+    // quiz.js quartet / openEditProfile+toggleAboutCreator / the
+    // renderSettings quartet / the renderGram quartet) that loads the real
+    // module on first use via EWSLoadFeature.
+    // sounds.js and gamification.js are ALSO deliberately NOT in this list —
+    // Step 2.2 already moved their loading into app.js's launchApp() idle
+    // callback via EWSLoadFeature('sounds', ...) / EWSLoadFeature('gamification', ...).
+    // They used to be eager-loaded here too; that duplicate loadScript() call
+    // meant both files were fetched and executed twice on every page load
+    // (gamification.js — not IIFE-wrapped — threw "Identifier 'LEAGUES' has
+    // already been declared" on the second run, and sounds.js silently spun
+    // up a second AudioContext + ambient-music loop). Removed here so
+    // app.js's idle-callback load is the only one.
+    // flowy.js (~1,757 lines, the floating mascot assistant), ui-curriculum.js
+    // (~4.4KB), chat.js (~9.7KB), and ui-sounds.js (~7.8KB) are ALSO
+    // deliberately NOT in this list as of Step 3.1 — all four now load from
+    // app.js's launchApp() idle callback alongside sounds.js/gamification.js.
+    // lesson.js (~9.6KB) is ALSO deliberately NOT in this list, as of the
+    // Step 3.1 follow-up — it gets its own on-demand shim above (like
+    // premium/game/quiz/profile/settings/ui-grammar), rather than an idle
+    // pre-warm, because openLesson() is invoked from unguarded onclick
+    // attributes baked into ui-curriculum.js's rendered HTML — it needs to
+    // exist synchronously from first paint, not just "soon after".
+    // Phase 7's eager batch is now down to the four files that are
+    // genuinely needed on the critical path: nav.js, overlays.js, auth.js,
+    // and ui-dashboard.js. See the STEP 3.1 audit for why each stays eager.
+    .then(function () {
+      return Promise.all([
+        loadScript('js/nav.js'),
+        loadScript('js/overlays.js'),
+        loadScript('js/auth.js'),
+        loadScript('js/ui-dashboard.js')
+      ]);
+    })
+
+    // ── PHASE 8: Init Supabase client ──
+    // FIX: reuse the SAME client instance auth.js uses (via createSupabaseClient()),
+    // instead of creating a second, independent GoTrue client here. Two separate
+    // clients on the same page means the second one never sees the session created
+    // by Google sign-in (different storage key), which broke any feature (like chat)
+    // that relied on window.supabaseClient reflecting the logged-in user.
+    .then(function () {
+      if (typeof window.createSupabaseClient === 'function') {
+        window.supabaseClient = window.createSupabaseClient();
+      }
+      // Try Supabase for units/lessons/grammar/translations; falls back to
+      // the bundled static data per-table if Supabase is empty/unreachable.
+      // See js/content-loader.js for the merge/fallback rules per table.
+      return window.EWSContent ? window.EWSContent.refresh() : Promise.resolve();
+    })
+    .then(function () {
+      if (typeof window.ewsInit === 'function') window.ewsInit();
+    })
+    .catch(function (err) {
+      console.error('[EnglishFlow] Load error:', err);
+      var isJsonErr = err.message && (err.message.indexOf('JSON') !== -1 || err.message.indexOf('token') !== -1 || err.message.indexOf('non-JSON') !== -1);
+      var msg = isJsonErr
+        ? 'Cache desactualizado — <b>limpa os dados do site no browser e recarrega.</b><br><small>Ou abre em modo privado/incógnito para testar.</small>'
+        : 'Erro ao carregar — tenta recarregar a página.';
+      document.body.innerHTML = '<div style="text-align:center;padding:2rem;background:#ffebee;color:#c62828;font-family:sans-serif;line-height:1.6">' + msg + '<br><br><button onclick="location.reload(true)" style="padding:.5rem 1.5rem;background:#c62828;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:1rem">🔄 Recarregar</button><br><br><small style="color:#999">' + err.message + '</small></div>';
+    });
+}());
+</script>
+<script>
+  // ── MINI-TUTORIAL ─────────────────────────────────────────
+  let _tutStep = 1;
+
+  function openTutorial() {
+    _tutStep = 1;
+    _showTutStep(1);
+    document.getElementById('tutOverlay').classList.add('on');
+    if (typeof SFX !== 'undefined' && SFX.click) SFX.click();
+  }
+
+  function closeTutorial() {
+    document.getElementById('tutOverlay').classList.remove('on');
+    localStorage.setItem('ews4_tut_seen', '1');
+  }
+
+  function tutNext() {
+    _tutStep++;
+    if (_tutStep > 3) { closeTutorial(); return; }
+    _showTutStep(_tutStep);
+    if (typeof SFX !== 'undefined' && SFX.click) SFX.click();
+  }
+
+  function _showTutStep(n) {
+    for (let i = 1; i <= 3; i++) {
+      const s = document.getElementById('tut-' + i);
+      const d = document.getElementById('tdot-' + i);
+      if (s) s.classList.toggle('active', i === n);
+      if (d) d.classList.toggle('active', i === n);
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', function() {
+    if (!localStorage.getItem('ews4_tut_seen')) {
+      setTimeout(openTutorial, 1800);
+    }
+  });
+
+  window.openTutorial = openTutorial;
+  window.closeTutorial = closeTutorial;
+  window.tutNext = tutNext;
+</script>
+<script>
+  // ── Deferred: runs after LCP, during browser idle time ──
+  function initBubbles() {
+    const c = document.getElementById('bubbles');
+    if (!c) return;
+    const cols = ['rgba(41,121,255,0.05)','rgba(213,0,249,0.03)','rgba(29,233,182,0.04)','rgba(255,215,64,0.03)'];
+    // Build fragment off-DOM to avoid 14 separate layout triggers
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < 14; i++) {
+      const b = document.createElement('div'); b.className = 'bubble';
+      b.style.cssText = [
+        'left:'              + (Math.random() * 100) + '%',
+        'width:'             + (Math.random() * 50 + 15) + 'px',
+        'height:'            + (Math.random() * 50 + 15) + 'px',
+        'background:'        + cols[Math.floor(Math.random() * cols.length)],
+        'animation-duration:'+ (Math.random() * 12 + 10) + 's',
+        'animation-delay:'   + (Math.random() * 12) + 's',
+      ].join(';');
+      frag.appendChild(b);
+    }
+    c.appendChild(frag); // single DOM write → single layout
+  }
+
+  // Defer until after the page has loaded and the browser is idle
+  window.addEventListener('load', function() {
+    if (window.requestIdleCallback) {
+      requestIdleCallback(initBubbles, { timeout: 2000 });
+    } else {
+      setTimeout(initBubbles, 200);
+    }
+  });
+</script>
+
+<!-- ===== REGISTO DO SERVICE WORKER (PWA) ===== -->
+<!-- Single registration point — app.js no longer registers the SW separately -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/service-worker.js', { scope: '/' })
+        .then(function(reg) {
+          console.log('[PWA] ✅ Service Worker registado! Scope:', reg.scope);
+          reg.onupdatefound = function() {
+            var installing = reg.installing;
+            if (installing) {
+              installing.onstatechange = function() {
+                if (installing.state === 'installed' && navigator.serviceWorker.controller) {
+                  console.log('[PWA] 🔄 Nova versão disponível — recarrega para atualizar.');
+                }
+              };
+            }
+          };
+        })
+        .catch(function(err) {
+          console.warn('[PWA] ❌ Falha no registo do Service Worker:', err);
+        });
+    });
+  } else {
+    console.info('[PWA] Service Workers não suportados neste browser.');
+  }
+</script>
+</body>
+</html>
