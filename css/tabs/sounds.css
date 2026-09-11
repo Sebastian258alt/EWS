@@ -1,0 +1,34 @@
+/* Pairs */
+.pair-card    { background:var(--surface); border:1px solid var(--border); border-radius:var(--r); padding:1rem; margin-bottom:.8rem; }
+.pair-card > div:first-of-type { display:flex; align-items:center; gap:.5rem; margin-bottom:.5rem; }
+.pair-btn     { flex:1; background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:.8rem; cursor:pointer; transition:all .22s; text-align:center; }
+.pair-btn:hover { transform:scale(1.04); border-color:var(--teal); }
+.pair-word    { font-family:'Black Han Sans',sans-serif; font-size:1.3rem; color:var(--text); }
+.pair-ipa     { font-size:.72rem; color:var(--teal); font-weight:800; margin:.15rem 0; }
+.pair-hear    { font-size:1rem; }
+.pair-vs      { font-weight:900; color:var(--muted); font-size:.85rem; padding:0 .3rem; }
+.pair-note    { font-size:.78rem; color:var(--muted); font-weight:700; text-align:center; background:rgba(29,233,182,.05); border-radius:8px; padding:.4rem; }
+/* Twisters */
+.twister-card { display:flex; align-items:center; gap:.9rem; background:var(--surface); border:1px solid var(--border); border-radius:var(--r); padding:.9rem 1rem; margin-bottom:.7rem; cursor:pointer; transition:all .22s; }
+.twister-card:hover { transform:translateX(4px); border-color:rgba(130,177,255,.3); }
+.tw-num  { font-family:'Boogaloo',cursive; font-size:1.6rem; color:var(--yellow); min-width:28px; }
+.tw-text { font-weight:800; font-size:.9rem; margin-bottom:.2rem; }
+.tw-note { font-size:.74rem; color:var(--muted); font-weight:700; }
+.tw-play { background:linear-gradient(135deg,var(--blue),var(--teal)); color:#fff; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-size:.85rem; flex-shrink:0; }
+/* Difficult sounds */
+.diff-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--r); padding:1rem; margin-bottom:.8rem; }
+.diff-sound { font-family:'Black Han Sans',sans-serif; font-size:1.2rem; color:var(--purple); margin-bottom:.4rem; }
+.diff-eg    { font-size:.84rem; font-weight:700; color:var(--text); margin-bottom:.4rem; }
+.diff-tip   { font-size:.82rem; font-weight:700; color:var(--green); background:rgba(0,230,118,.07); border-radius:8px; padding:.4rem .6rem; margin-bottom:.3rem; }
+.diff-wrong { font-size:.8rem;  font-weight:700; color:var(--orange); background:rgba(255,109,0,.07); border-radius:8px; padding:.4rem .6rem; }
+
+/* ─── AI CHAT ────────────────────────────────────────────── */
+.ai-hero {
+  background:linear-gradient(135deg,rgba(41,121,255,.12),rgba(29,233,182,.08));
+  border:1px solid rgba(41,121,255,.25); border-radius:20px;
+  padding:1.2rem; display:flex; align-items:center; gap:1rem; margin-bottom:1rem;
+}
+.ai-av   { font-size:2.4rem; animation:aiBob 2s ease-in-out infinite; }
+@keyframes aiBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+.ai-info h3     { font-weight:900; font-size:1rem; }
+.ai-info p      { font-size:.8rem; color:var(--muted); font-weight:700; margin:.2rem 0; }

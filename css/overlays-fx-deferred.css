@@ -1,0 +1,17 @@
+/* ─── PARTICLES & FEEDBACK FX — gamification-only ──────────
+   XP popup, confetti, and emoji-pop are triggered exclusively
+   by post-login quiz/game/level-up events. Disco mode is a
+   settings-toggle easter egg. None of these render on the
+   auth screen or the initial home paint, so they're safe to
+   defer. Split out of overlays-fx.css. ─────────────────────── */
+.xppop { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); font-family:'Boogaloo',cursive; font-size:2.5rem; color:var(--yellow); pointer-events:none; z-index:400; opacity:0; text-shadow:var(--glow-y); }
+@keyframes xpfl { 0%{opacity:1;transform:translate(-50%,-50%) scale(.8)}30%{transform:translate(-50%,-80%) scale(1.5)}100%{opacity:0;transform:translate(-50%,-250%) scale(.5)} }
+.xppop.go { animation:xpfl 1.2s ease forwards; }
+.confetti-piece { position:fixed; pointer-events:none; z-index:500; animation:cfFall 1.8s ease forwards; }
+@keyframes cfFall { 0%{transform:translateY(0) rotate(0) scale(1);opacity:1}100%{transform:translateY(110vh) rotate(720deg) scale(.3);opacity:0} }
+.emoji-pop { position:fixed; pointer-events:none; z-index:450; font-size:1.8rem; animation:eFloat 1.5s ease forwards; }
+@keyframes eFloat { 0%{opacity:1;transform:translate(0,0) scale(.5)}30%{transform:translate(var(--dx,-20px),var(--dy,-40px)) scale(1.2)}100%{opacity:0;transform:translate(calc(var(--dx,-20px)*2),calc(var(--dy,-40px)*3)) scale(.5)} }
+
+/* ─── DISCO ──────────────────────────────────────────────── */
+body.disco { animation:discoBg .35s linear infinite; }
+@keyframes discoBg { 0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)} }
