@@ -1,0 +1,47 @@
+-- Generated migration: 32 units
+-- Run after 01_schema.sql (uses the cefr column added there)
+
+insert into public.units (id, title, title_pt, description, description_pt, color, icon, premium, sort_order, cefr)
+values
+('u0', 'Beginner Zero', 'Nível Zero', 'Start here if you know ZERO English 🌱', 'Começa aqui se não sabes nada de inglês 🌱', '#00bfa5', '🌱', false, 0, 'A0'),
+('u0b', 'Pronunciation Basics', 'Pronúncia Básica', 'Learn how English sounds — the key to speaking well! 🔊', 'Aprende como o inglês soa — a chave para falar bem! 🔊', '#26c6da', '🔊', false, 1, 'A0'),
+('u0c', 'Numbers, Time & Calendar', 'Números, Tempo e Calendário', 'Count, tell the time and talk about dates! 📅', 'Conta, diz as horas e fala sobre datas! 📅', '#7e57c2', '🔢', false, 2, 'A0'),
+('u0d', 'People, School & Home', 'Pessoas, Escola e Casa', 'Talk about the people and places in your daily life 🏠', 'Fala sobre as pessoas e os lugares na tua vida diária 🏠', '#ef6c00', '🏠', false, 3, 'A0'),
+('u0e', 'Food, Drinks, Clothes & Transport', 'Comida, Bebidas, Roupas e Transporte', 'Essential vocabulary for everyday life 🍽️', 'Vocabulário essencial para o dia-a-dia 🍽️', '#e53935', '🍽️', false, 4, 'A0'),
+('u0f', 'Verbs, Questions & Daily Life', 'Verbos, Perguntas e Vida Diária', 'Use action words and ask questions confidently! 💬', 'Usa verbos de acção e faz perguntas com confiança! 💬', '#43a047', '💬', false, 5, 'A0'),
+('u0g', 'World, Work & Home', 'Mundo, Trabalho e Casa', 'Countries, jobs, transport, your home and the animal world 🌍', 'Países, profissões, transportes, a tua casa e o mundo animal 🌍', '#ef6c00', '🌍', false, 6, 'A0'),
+('u0h', 'Family & Relationships', 'Família e Relações', 'Learn to talk about the people you love 👨‍👩‍👧‍👦', 'Aprende a falar sobre as pessoas que amas 👨‍👩‍👧‍👦', '#e91e8c', '👨‍👩‍👧', false, 7, 'A0'),
+('u1', 'Present Tenses', 'Tempos Presentes', 'Master the most-used tenses in English 🕐', 'Domina os tempos presentes mais usados 🕐', '#2979ff', '🕐', false, 8, 'A1'),
+('u2', 'Past Tenses', 'Tempos Passados', 'Talk about history & completed actions 📜', 'Fala sobre o passado e acções concluídas 📜', '#ff6d00', '⏮️', false, 9, 'A1'),
+('u3', 'Future', 'Futuro', 'Talk about what''s coming! 🔮', 'Fala sobre o que está a vir! 🔮', '#82b1ff', '🚀', false, 10, 'A2'),
+('u4', 'Vocabulary Builder', 'Construtor de Vocabulário', 'Expand your word power! 💡', 'Expande o teu vocabulário! 💡', '#00e676', '📚', false, 11, 'A1'),
+('u5', 'Daily Life', 'Vida Quotidiana', 'English for everyday situations 🌍', 'Inglês para situações do dia-a-dia 🌍', '#ffd740', '🌅', false, 12, 'A1'),
+('u1b', 'Adverbs, Prepositions & Comparisons', 'Advérbios, Preposições e Comparações', 'Describe how often, where things are, and compare them! 📊', 'Descreve com que frequência, onde as coisas estão e compara-as! 📊', '#00acc1', '📊', false, 13, 'A1'),
+('u1c', 'Nouns & Quantities', 'Substantivos e Quantidades', 'Count, measure and describe amounts in English! 🔢', 'Conta, mede e descreve quantidades em inglês! 🔢', '#558b2f', '🔢', false, 14, 'A1'),
+('u1d', 'Modal Verbs', 'Verbos Modais', 'Express ability, permission, obligation and advice! 💡', 'Expressa capacidade, permissão, obrigação e conselho! 💡', '#6a1b9a', '💡', false, 15, 'A1'),
+('u1e', 'Daily Life & Health', 'Vida Quotidiana e Saúde', 'Talk about your day, your body and how you feel! 🌅', 'Fala sobre o teu dia, o teu corpo e como te sentes! 🌅', '#00796b', '🌅', false, 16, 'A1'),
+('u1f', 'Out & About', 'Fora de Casa', 'Travel, eat out, shop and explore the world in English! ✈️', 'Viaja, come fora, faz compras e explora o mundo em inglês! ✈️', '#c62828', '✈️', false, 17, 'A1'),
+('u1g', 'Modern World', 'Mundo Moderno', 'Technology, work and education in English! 💻', 'Tecnologia, trabalho e educação em inglês! 💻', '#1565c0', '💻', false, 18, 'A1'),
+('u1h', 'Reported Speech & Storytelling', 'Discurso Indirecto e Contar Histórias', 'Tell what others said & narrate events 🗣️', 'Relata o que outros disseram e narra eventos 🗣️', '#7c4dff', '🗣️', false, 19, 'A2'),
+('u1i', 'Conditionals', 'Condicionais', 'Express real and imaginary situations with IF 🔀', 'Expressa situações reais e imaginárias com IF 🔀', '#00bcd4', '🔀', false, 20, 'A2'),
+('u1j', 'Passive Voice', 'Voz Passiva', 'Shift the focus from who acts to what happens 🔄', 'Muda o foco de quem age para o que acontece 🔄', '#ff5722', '🔄', false, 21, 'B1'),
+('u6', 'Phrasal Verbs', 'Verbos Frasais', 'Sound like a native speaker 🤯', 'Soa como um falante nativo 🤯', '#bc8cff', '💬', true, 22, 'B1'),
+('u7', 'Idioms', 'Expressões Idiomáticas', 'Speak naturally & sound cool 😎', 'Fala naturalmente e com estilo 😎', '#ff4081', '🗣️', true, 23, 'B1'),
+('u8', 'Past Perfect & Narrative Tenses', 'Past Perfect e Tempos Narrativos', 'Master the art of storytelling in English 📖', 'Domina a arte de contar histórias em inglês 📖', '#6d4c41', '📖', false, 24, 'B1'),
+('u9', 'Future Perfect & Future Continuous', 'Future Perfect e Future Continuous', 'Talk about what will be happening or finished 🔮', 'Fala sobre o que estará a acontecer ou já estará terminado 🔮', '#7c4dff', '🔮', false, 25, 'B1'),
+('u10', 'Advanced Conditionals', 'Condicionais Avançados', 'Master if-clauses for all situations 🤔', 'Domina as orações condicionais para todas as situações 🤔', '#ff6f00', '🤔', false, 26, 'B2'),
+('u11', 'Reported Speech', 'Discurso Indireto', 'Tell what others said without quoting directly 🗣️', 'Diz o que outros disseram sem citar diretamente 🗣️', '#e65100', '🗣️', false, 27, 'B1'),
+('u12', 'Relative Clauses', 'Orações Relativas', 'Add information to your sentences seamlessly 🔗', 'Adiciona informação às tuas frases de forma fluida 🔗', '#1565c0', '🔗', false, 28, 'B1'),
+('u13', 'Gerunds & Infinitives', 'Gerúndios e Infinitivos', 'Master the two verb forms that confuse everyone 📚', 'Domina as duas formas verbais que confundem toda a gente 📚', '#00897b', '📚', false, 29, 'B1'),
+('u6h', 'Business English', 'Inglês Profissional', 'Communicate confidently in professional settings 💼', 'Comunica com confiança em contextos profissionais 💼', '#37474f', '💼', true, 30, 'B1'),
+('u6i', 'English for Mozambique', 'Inglês para Moçambique', 'English skills rooted in the Mozambican context 🇲🇿', 'Competências em inglês enraizadas no contexto moçambicano 🇲🇿', '#e65100', '🇲🇿', true, 31, 'B1')
+on conflict (id) do update set
+  title = excluded.title,
+  title_pt = excluded.title_pt,
+  description = excluded.description,
+  description_pt = excluded.description_pt,
+  color = excluded.color,
+  icon = excluded.icon,
+  premium = excluded.premium,
+  sort_order = excluded.sort_order,
+  cefr = excluded.cefr;

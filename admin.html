@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — EnglishFlow</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://xlpwrwourxcanpyfnivz.supabase.co" crossorigin>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Syne:wght@700;800&display=swap">
+
+  <!-- Reuses the same design tokens (colors, spacing, radii) as the main app -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <!-- ── Gate: shown while signed out / not yet verified as admin ── -->
+  <div id="gate" class="gate-wrap">
+    <div class="gate-card">
+      <h1>🛠️ Admin Panel</h1>
+      <p id="gate-message">Sign in with the Google account that has admin access.</p>
+      <button id="btn-google-signin" class="btn btn-primary">Sign in with Google</button>
+    </div>
+  </div>
+
+  <!-- ── App shell: shown once signed in AND confirmed admin ── -->
+  <div id="app" class="app-shell" hidden>
+    <aside class="sidebar">
+      <h1>🛠️ Admin</h1>
+      <nav id="nav"></nav>
+      <div class="sidebar-footer">
+        <div id="user-badge"></div>
+        <button id="btn-signout" class="btn btn-sm" style="margin-top: var(--space-3); width: 100%;">Sign out</button>
+      </div>
+    </aside>
+    <main class="main">
+      <div id="view-root"></div>
+    </main>
+  </div>
+
+  <!-- Supabase client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+
+  <!-- Admin panel logic -->
+  <script src="js/admin-tables.js"></script>
+  <script src="js/admin-api.js"></script>
+  <script src="js/admin-ui.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
