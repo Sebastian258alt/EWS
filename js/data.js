@@ -1,0 +1,538 @@
+// ═══════════════════════════════════════════════════════════
+//  📚 DATA.JS — All static app data
+//  EnglishFlow v3.0
+// ═══════════════════════════════════════════════════════════
+
+// ─── i18n TRANSLATIONS (Sprint 4 locale-split) ────────────
+// Locale bodies now live in js/data/locales/i18n-*.js and are loaded
+// selectively by index.html's Phase 1.5 (always 'en' + whichever locale
+// is saved/detected) — only the needed ~9KB blocks ship on initial load
+// instead of all ~45KB. i18n.js's setLang() lazily fetches any other
+// locale the first time a user switches to it, then mutates this object
+// in place (TRANSLATIONS[lang] = ...) so existing references keep working.
+const TRANSLATIONS = {
+  en: window.__I18N_EN || {},
+};
+if (window.__I18N_PT)   TRANSLATIONS.pt       = window.__I18N_PT;
+if (window.__I18N_MZ)   TRANSLATIONS.mz       = window.__I18N_MZ;
+if (window.__I18N_ENGB) TRANSLATIONS['en-gb'] = window.__I18N_ENGB;
+if (window.__I18N_PTPT) TRANSLATIONS['pt-pt'] = window.__I18N_PTPT;
+
+
+// ─── LEVELS ──────────────────────────────────────────────
+const LEVELS = [
+  {level:1,title:'Beginner',titlePt:'Iniciante',prev:0,next:100},
+  {level:2,title:'Elementary',titlePt:'Elementar',prev:100,next:250},
+  {level:3,title:'Pre-Intermediate',titlePt:'Pré-Intermédio',prev:250,next:500},
+  {level:4,title:'Intermediate',titlePt:'Intermédio',prev:500,next:900},
+  {level:5,title:'Upper-Intermediate',titlePt:'Intermédio Superior',prev:900,next:1400},
+  {level:6,title:'Advanced',titlePt:'Avançado',prev:1400,next:2000},
+  {level:7,title:'Fluent',titlePt:'Fluente',prev:2000,next:9999},
+];
+
+// ─── ACHIEVEMENTS ────────────────────────────────────────
+const ACHS = [
+  {id:'first',icon:'🌱',name:'First Step',namePt:'Primeiro Passo',c:u=>u.done.length>=1},
+  {id:'5less',icon:'📚',name:'Book Worm',namePt:'Rato de Biblioteca',c:u=>u.done.length>=5},
+  {id:'10less',icon:'🎓',name:'Scholar',namePt:'Académico',c:u=>u.done.length>=10},
+  {id:'allless',icon:'🏆',name:'Completionist',namePt:'Perfeccionista',c:u=>u.done.length>=18},
+  {id:'str3',icon:'🔥',name:'On Fire',namePt:'Em Chamas',c:u=>u.streak>=3},
+  {id:'str7',icon:'💥',name:'Week Warrior',namePt:'Guerreiro Semanal',c:u=>u.streak>=7},
+  {id:'str30',icon:'🌩️',name:'Monthly Legend',namePt:'Lenda Mensal',c:u=>u.streak>=30},
+  {id:'xp100',icon:'⚡',name:'XP Hunter',namePt:'Caçador de XP',c:u=>u.xp>=100},
+  {id:'xp500',icon:'💎',name:'XP Legend',namePt:'Lenda XP',c:u=>u.xp>=500},
+  {id:'xp1000',icon:'👑',name:'XP Master',namePt:'Mestre XP',c:u=>u.xp>=1000},
+  {id:'perfect',icon:'✨',name:'Perfectionist',namePt:'Perfeccionista',c:u=>u.hadPerfect},
+  {id:'combo5',icon:'💫',name:'Combo Master',namePt:'Mestre do Combo',c:u=>(u.maxCombo||0)>=5},
+  {id:'ai1',icon:'🤖',name:'AI Friend',namePt:'Amigo da IA',c:u=>(u.aiChats||0)>=1},
+  {id:'ai10',icon:'🤖',name:'AI Addict',namePt:'Viciado em IA',c:u=>(u.aiChats||0)>=10},
+  {id:'game100',icon:'🎮',name:'Scramble Pro',namePt:'Pro do Baralho',c:u=>(u.scrambleScore||0)>=100},
+  {id:'pron5',icon:'🎤',name:'Speaker',namePt:'Orador',c:u=>(u.pronP||0)>=5},
+  {id:'gram5',icon:'📖',name:'Grammar Nerd',namePt:'Nerd da Gramática',c:u=>(u.gramR||0)>=5},
+  {id:'allach',icon:'🌟',name:'All Rounder',namePt:'Completo',c:u=>u.achs.length>=10},
+];
+
+// ─── MASCOT MESSAGES ─────────────────────────────────────
+const MASCOT_MSGS = {
+  en: [
+    '🌊 Flow says: Keep going! Every lesson = brain gains!',
+    '💪 You\'re doing great! Don\'t stop now!',
+    '🔥 That streak isn\'t gonna keep itself!',
+    '🤖 Pro tip: Use the AI Tutor when you\'re confused!',
+    '🔊 Try the Sound Lab — your accent will thank you!',
+    '📖 The Grammar Lab has everything you need!',
+    '😎 Native speakers make mistakes too. They just keep talking!',
+    '🌍 English opens doors. Keep pushing!',
+    '🎯 30 minutes a day = fluent in 2 years. You got this!',
+    '🏆 Top of the leaderboard? That could be YOU!',
+  ],
+  pt: [
+    '🌊 Flow diz: Continua! Cada lição = progresso!',
+    '💪 Estás a sair-te bem! Não pares agora!',
+    '🔥 Essa série não se mantém sozinha!',
+    '🤖 Dica: Usa a IA Tutora quando tiveres dúvidas!',
+    '🔊 Experimenta o Laboratório de Sons — a tua pronúncia vai agradecer!',
+    '📖 O Laboratório de Gramática tem tudo que precisas!',
+    '😎 Falantes nativos também erram. Eles apenas continuam!',
+    '🌍 O inglês abre portas. Continua!',
+    '🎯 30 minutos por dia = fluente em 2 anos. Consegues!',
+    '🏆 Topo da classificação? Podes ser TU!',
+  ]
+};
+
+// ─── RANDOM TIPS ─────────────────────────────────────────
+const TIPS = {
+  en: [
+    '💡 Complete daily challenges for bonus XP!',
+    '🔥 Keep your streak alive — come back tomorrow!',
+    '🎮 Try the Word Scramble game for extra XP!',
+    '💪 Consistency beats talent — keep going!',
+    '🤖 Ask the AI Tutor anything — it\'s free!',
+    '🔊 Practice pronunciation every day — even 5 minutes helps!',
+  ],
+  pt: [
+    '💡 Completa os desafios diários para XP bónus!',
+    '🔥 Mantém a tua série — volta amanhã!',
+    '🎮 Experimenta as Palavras Baralhadas para XP extra!',
+    '💪 A consistência supera o talento — continua!',
+    '🤖 Pergunta qualquer coisa à IA Tutora — é grátis!',
+    '🔊 Pratica pronúncia todos os dias — até 5 minutos ajuda!',
+  ]
+};
+
+// ─── QUIZ MESSAGES ───────────────────────────────────────
+const QUIZ_MSGS = {
+  en: {
+    correct: ['Nailed it! 🎯','Perfect! ✨','Boom! 💥','Easy money 💰','Too smart! 🧠','Keep it up! 🔥','You\'re on fire! 🚀','Excellent! 💪'],
+    wrong: ['Oops... not quite 😬','Almost! Keep going 💪','Brain fart? It happens 😅','Come on, you\'re better than this!','Review and try again! 📚'],
+    results: {
+      perfect: ['PERFECT!', 'Absolutely CRUSHED it! 🔥'],
+      great: ['Great job!', 'Solid work! Almost perfect!'],
+      ok: ['Not bad!', 'Good effort! Review the mistakes.'],
+      tryAgain: ['Keep trying!', 'Review and try again — you got this!'],
+    }
+  },
+  pt: {
+    correct: ['Excelente! 🎯','Perfeito! ✨','Boom! 💥','Fácil! 💰','Demasiado inteligente! 🧠','Continua! 🔥','Estás em chamas! 🚀','Fantástico! 💪'],
+    wrong: ['Oops... não foi bem 😬','Quase! Continua 💪','Lapso mental? Acontece 😅','Vá, és melhor que isso!','Revê e tenta novamente! 📚'],
+    results: {
+      perfect: ['PERFEITO!', 'Absolutamente ARRASOU! 🔥'],
+      great: ['Muito bem!', 'Trabalho sólido! Quase perfeito!'],
+      ok: ['Não foi mau!', 'Bom esforço! Revê os erros.'],
+      tryAgain: ['Continua a tentar!', 'Revê e tenta novamente — consegues!'],
+    }
+  }
+};
+
+// ─── CURRICULUM DATA ─────────────────────────────────────
+
+// ─── UNITS (30+ lessons, A0→Advanced) ────────────────────
+// ── UNITS (assembled from modular per-level files) ────────────────────────
+// Load order in index.html: a0/unit*.js → a0/index.js → a1/unit*.js → a1/index.js → b1/unit*.js → b1/index.js → data.js
+// To add/edit lessons: open the relevant unit file in js/data/a0/, js/data/a1/, or js/data/b1/
+// To add a new unit: create a new unitN.js in the level folder, then add it to that folder's index.js and index.html
+// Units are assembled from the global registry populated by each unit file
+const UNITS = window.__EWS_REGISTRY || [];
+
+// ─── GRAMMAR DATA ────────────────────────────────────────
+const GRAM = [
+  {id:'g1',cat:'Tenses',cc:'#2979ff',icon:'🔵',title:'Simple Present',sub:'Habits, facts & routines',
+   formula:'Subject + V(s/es)',
+   uses:['Habits: "She reads every day."','General truths: "Water boils at 100°C."','Fixed schedules: "The bus leaves at 8am."'],
+   examples:[{en:'She works at a hospital.',pt:'Ela trabalha num hospital.'},{en:'Do you speak English?',pt:'Falas inglês?'},{en:'The Earth revolves around the Sun.',pt:'A Terra gira em torno do Sol.'}],
+   signals:['always','usually','often','sometimes','rarely','never','every day','on Mondays'],
+   tip:'💡 Add -s/-es for He/She/It: go→goes, watch→watches, study→studies',
+   mistakes:[{w:'She go to school every day.',r:'She goes to school every day.'},{w:'He don\'t work on Sundays.',r:'He doesn\'t work on Sundays.'}],
+   quiz:[{q:'Which is correct?',opts:['She go.','She goes.','She is go.','She going.'],ans:1},{q:'"He ___ like coffee."',opts:['don\'t','doesn\'t','not','isn\'t'],ans:1}]},
+  {id:'g2',cat:'Tenses',cc:'#2979ff',icon:'🟡',title:'Present Continuous',sub:'Ongoing actions right now',
+   formula:'Subject + am/is/are + V-ing',
+   uses:['Actions happening NOW: "She is sleeping."','Temporary situations: "I\'m living in Maputo this year."','Future arrangements: "We are meeting tomorrow."','Annoying habits: "He\'s always interrupting!"'],
+   examples:[{en:'I am studying English right now.',pt:'Estou a estudar inglês agora.'},{en:'Are you listening to me?',pt:'Estás a ouvir-me?'},{en:'They are building a new school.',pt:'Eles estão a construir uma escola.'}],
+   signals:['now','right now','at the moment','currently','look!','listen!','today'],
+   tip:'💡 Stative verbs can\'t use -ing: know, love, want, need, like, believe',
+   mistakes:[{w:'She is know the answer.',r:'She knows the answer.'},{w:'I am wanting coffee.',r:'I want coffee.'}],
+   quiz:[{q:'"Look! It ___ (rain)"',opts:['rains','rained','is raining','has rained'],ans:2},{q:'Which is WRONG?',opts:['I am eating.','She is running.','They are knowing.','We are waiting.'],ans:2}]},
+  {id:'g3',cat:'Tenses',cc:'#2979ff',icon:'🟢',title:'Present Perfect',sub:'Past actions with present impact',
+   formula:'Subject + have/has + Past Participle',
+   uses:['Life experiences: "I have visited Paris."','Recent actions: "I have just eaten."','Unfinished periods: "She has lived here for 5 years."'],
+   examples:[{en:'I have never eaten sushi.',pt:'Nunca comi sushi.'},{en:'She has already left.',pt:'Ela já foi embora.'},{en:'Have you finished your homework?',pt:'Já terminaste a tua tarefa?'}],
+   signals:['just','already','yet','ever','never','recently','since','for','still'],
+   tip:'💡 Simple Past with specific time: "I went yesterday." Present Perfect with no time or since/for.',
+   mistakes:[{w:'I have went to the store.',r:'I have gone to the store.'},{w:'She has seen him yesterday.',r:'She saw him yesterday.'}],
+   quiz:[{q:'"Have you ___ seen a lion?"',opts:['ever','just','since','yet'],ans:0},{q:'"She ___ just finished."',opts:['have','has','had','did'],ans:1}]},
+  {id:'g4',cat:'Tenses',cc:'#2979ff',icon:'⏮️',title:'Simple Past',sub:'Completed past actions',
+   formula:'Subject + V-ed / V2 (irregular)',
+   uses:['Completed actions at specific time: "I ate at 7pm."','Sequence of events: "She woke up, had breakfast, then left."'],
+   examples:[{en:'She walked to school yesterday.',pt:'Ela foi à escola a pé ontem.'},{en:'Did you see the match last night?',pt:'Viste o jogo ontem à noite?'},{en:'We bought a new car last year.',pt:'Comprámos um carro novo no ano passado.'}],
+   signals:['yesterday','last week/month','ago','in 2010','when','then','once'],
+   tip:'💡 Irregular verbs: go→went, buy→bought, eat→ate, see→saw, come→came',
+   mistakes:[{w:'She goed to the shop.',r:'She went to the shop.'},{w:'Did you went there?',r:'Did you go there?'}],
+   quiz:[{q:'"She ___ a letter." (write, past)',opts:['writed','wrote','has written','writing'],ans:1},{q:'"___ you see the game?"',opts:['Did','Do','Have','Were'],ans:0}]},
+  {id:'g5',cat:'Modal Verbs',cc:'#d500f9',icon:'⚡',title:'Modal Verbs',sub:'can, should, must, might...',
+   formula:'Subject + modal + base verb',
+   uses:['CAN: ability — "I can swim."','SHOULD: advice — "You should sleep more."','MUST: obligation — "You must wear a seatbelt."','MIGHT/MAY: possibility — "It might rain."','WOULD: polite/conditional — "I would like a coffee."'],
+   examples:[{en:'You should study more.',pt:'Deves estudar mais.'},{en:'She can speak three languages.',pt:'Ela consegue falar três línguas.'},{en:'It might snow tonight.',pt:'Pode nevar esta noite.'}],
+   signals:['can','could','should','must','might','may','will','would','shall','ought to'],
+   tip:'💡 Modals NEVER take -s for He/She/It: "She can swim" ✓ NOT "She cans swim" ✗',
+   mistakes:[{w:'She cans speak French.',r:'She can speak French.'},{w:'You should to study.',r:'You should study.'}],
+   quiz:[{q:'"You ___ see a doctor. You look terrible."',opts:['must to','should','can','might to'],ans:1},{q:'"She ___ swim when she was 5."',opts:['can','could','should','must'],ans:1}]},
+  {id:'g6',cat:'Conditionals',cc:'#ff4081',icon:'🔀',title:'Conditionals',sub:'If this, then that',
+   formula:'If + condition, result',
+   uses:['Zero (always true): If + Present, Present','1st (real): If + Present, Will + base','2nd (unreal): If + Past, Would + base','3rd (past unreal): If + Past Perfect, Would have + PP'],
+   examples:[{en:'If you heat ice, it melts.',pt:'Se aqueceres gelo, ele derrete.'},{en:'If I have time, I will call you.',pt:'Se tiver tempo, ligo-te.'},{en:'If I were rich, I would travel.',pt:'Se fosse rico, viajaria.'}],
+   signals:['if','unless','provided that','as long as','in case'],
+   tip:'💡 In 2nd Conditional, use "were" for all subjects: "If I WERE you..." (not "was").',
+   mistakes:[{w:'If I will go, I will tell you.',r:'If I go, I will tell you.'},{w:'If I was you, I would leave.',r:'If I were you, I would leave.'}],
+   quiz:[{q:'"If it rains, she ___ stay home."',opts:['would','will','stay','stayed'],ans:1},{q:'"If I were rich, I ___ travel."',opts:['will','would','am','should'],ans:1}]},
+  {id:'g7',cat:'Articles',cc:'#1de9b6',icon:'📄',title:'Articles: A / An / The',sub:'The most confusing 3 words in English',
+   formula:'A + consonant sound | An + vowel sound | The = specific',
+   uses:['A/AN: first mention, not specific — "I saw a cat."','THE: specific/already mentioned — "The cat was orange."','THE: unique things — "the sun", "the moon"','ZERO article: languages, sports, meals — "She speaks English."'],
+   examples:[{en:'She is a doctor.',pt:'Ela é médica.'},{en:'The doctor I like is Dr. Silva.',pt:'O médico de quem gosto é o Dr. Silva.'},{en:'He plays the piano.',pt:'Ele toca piano.'}],
+   signals:['first mention→a/an','specific/known→the','unique→the','instruments→the'],
+   tip:'💡 AN before vowel SOUNDS: "an hour" (h is silent!) / "a university" (sounds like "you"!)',
+   mistakes:[{w:'She is a honest person.',r:'She is an honest person.'},{w:'I play a guitar.',r:'I play the guitar.'}],
+   quiz:[{q:'Choose: "She is ___ engineer."',opts:['a','an','the','—'],ans:1},{q:'Choose: "___ Amazon is the largest river."',opts:['A','An','The','—'],ans:2}]},
+  {id:'g8',cat:'Passive Voice',cc:'#ff6d00',icon:'🔄',title:'Passive Voice',sub:'The action matters, not the doer',
+   formula:'Subject + be + Past Participle (+ by...)',
+   uses:['When the doer is unknown: "The window was broken."','When the doer is obvious: "The thief was arrested."','In formal/academic writing.','To emphasise the result.'],
+   examples:[{en:'The book was written by Couto.',pt:'O livro foi escrito pelo Couto.'},{en:'English is spoken worldwide.',pt:'O inglês é falado em todo o mundo.'},{en:'My phone was stolen!',pt:'O meu telefone foi roubado!'}],
+   signals:['was/were + PP','is/are + PP','has been + PP','will be + PP'],
+   tip:'💡 "By" introduces the agent (doer). Without "by" = unknown doer.',
+   mistakes:[{w:'The cake was ate by him.',r:'The cake was eaten by him.'},{w:'It was writed in 2010.',r:'It was written in 2010.'}],
+   quiz:[{q:'"The letter ___ yesterday." (write, passive)',opts:['wrote','was wrote','was written','is writing'],ans:2},{q:'Which is PASSIVE?',opts:['She cleaned the room.','The room was cleaned.','Cleaning the room.','She has cleaned it.'],ans:1}]},
+
+  // ─── NEW GRAMMAR TOPICS ──────────────────────────────
+  {id:'g9',cat:'Tenses',cc:'#6d4c41',icon:'⏪',title:'Past Perfect',sub:'The past of the past — an action completed before another past action',
+   formula:'Subject + had + Past Participle',
+   uses:['Action completed before another past action: "She had left when I arrived."','Duration before something in the past: "I had lived there for 5 years before moving."','Unreal past situations: "I wish I had studied harder."','Reported speech: "He said he had seen her."'],
+   examples:[{en:'She had already finished her homework when I called.',pt:'Ela já tinha terminado a lição de casa quando liguei.'},{en:'I had never seen such a beautiful place before I went to Italy.',pt:'Nunca tinha visto um lugar tão bonito antes de ir à Itália.'},{en:'By the time we arrived, the movie had already started.',pt:'Quando chegámos, o filme já tinha começado.'},{en:'He was tired because he had been working all day.',pt:'Ele estava cansado porque tinha estado a trabalhar o dia todo.'}],
+   signals:['already','just','never','ever','yet','by the time','before','after','when','once'],
+   tip:'💡 Past Perfect is used to show which action happened first when two past actions are compared.',
+   mistakes:[{w:'She had went to the store.',r:'She had gone to the store.'},{w:'I had saw him before.',r:'I had seen him before.'},{w:'They have left when I arrived.',r:'They had left when I arrived.'}],
+   quiz:[{q:'"She ___ already eaten when I arrived."',opts:['has','had','have','was'],ans:1},{q:'"I ___ never ___ to Europe before."',opts:['have, be','had, been','has, been','had, be'],ans:1},{q:'"By the time we got there, the party ___ started."',opts:['has','had','have','was'],ans:1},{q:'"He was tired because he ___ all night."',opts:['worked','had worked','was working','has worked'],ans:1}]},
+
+  {id:'g10',cat:'Tenses',cc:'#7c4dff',icon:'✅',title:'Future Perfect',sub:'An action that will be completed before a specific future time',
+   formula:'Subject + will have + Past Participle',
+   uses:['Action that will be finished before a certain future time: "I will have graduated by 2025."','To express a future deadline: "We will have finished the project by Friday."','To show how long something will have lasted: "I will have worked here for 10 years by 2026."'],
+   examples:[{en:'By next year, I will have finished my degree.',pt:'Para o ano que vem, já terei terminado a minha licenciatura.'},{en:'She will have arrived by 5pm.',pt:'Ela já terá chegado até às 17h.'},{en:'They will have been married for 20 years in 2030.',pt:'Eles estarão casados há 20 anos em 2030.'}],
+   signals:['by','by the time','before','by then','until','in (a future time)'],
+   tip:'💡 Future Perfect focuses on completion before a specific future moment. Use "by" + a future time.',
+   mistakes:[{w:'I will have finish by then.',r:'I will have finished by then.'},{w:'By 2025, I have graduated.',r:'By 2025, I will have graduated.'},{w:'She will has arrived by 6pm.',r:'She will have arrived by 6pm.'}],
+   quiz:[{q:'"By 2030, I ___ for 10 years."',opts:['will work','will have worked','have worked','will be working'],ans:1},{q:'"By the time you arrive, we ___ dinner."',opts:['will have','will have had','have','had'],ans:1},{q:'"She ___ her homework by 8pm."',opts:['will finish','will have finished','finishes','finished'],ans:1},{q:'"They ___ already ___ the report by Friday."',opts:['will, finish','will have, finished','have, finished','will be, finishing'],ans:1}]},
+
+  {id:'g11',cat:'Tenses',cc:'#e040fb',icon:'🔄',title:'Future Continuous',sub:'An action that will be in progress at a specific future time',
+   formula:'Subject + will be + verb-ing',
+   uses:['Action in progress at a specific future time: "This time tomorrow, I will be travelling."','Longer actions that will be interrupted by shorter ones: "I will be eating when you arrive."','Polite questions about future plans: "Will you be using the car tomorrow?"'],
+   examples:[{en:'This time next week, I will be lying on the beach.',pt:'Para a semana a esta hora, estarei deitado na praia.'},{en:'She will be working when you call her.',pt:'Ela estará a trabalhar quando ligares para ela.'},{en:'Will you be attending the meeting tomorrow?',pt:'Estarás a assistir à reunião amanhã?'}],
+   signals:['this time tomorrow','at 8pm','when you arrive','while'],
+   tip:'💡 Future Continuous describes actions in progress at a specific future moment, not actions that are completed.',
+   mistakes:[{w:'I will be study at 8pm.',r:'I will be studying at 8pm.'},{w:'She will working tomorrow.',r:'She will be working tomorrow.'},{w:'They will be arrive at 5pm.',r:'They will be arriving at 5pm.'}],
+   quiz:[{q:'"This time tomorrow, I ___ on the beach."',opts:['will lie','will be lying','am lying','will have lain'],ans:1},{q:'"At 10am, we ___ a meeting."',opts:['will have','will be having','are having','had'],ans:1},{q:'"Will you ___ at the party tonight?"',opts:['dance','be dancing','danced','have danced'],ans:1},{q:'"I ___ for you when you arrive."',opts:['wait','will wait','will be waiting','will have waited'],ans:2}]},
+
+  {id:'g12',cat:'Conditionals',cc:'#ff6f00',icon:'🔀',title:'Mixed Conditionals',sub:'Combining past conditions with present results (and vice versa)',
+   formula:'Type 1: If + Past Perfect, Would + infinitive (past condition → present result)\nType 2: If + Past Simple, Would have + PP (present condition → past result)',
+   uses:['Past condition, present result: "If I had studied medicine, I would be a doctor now."','Present condition, past result: "If I were a millionaire, I would have bought that house."','Showing how a past action affects the present: "If I hadn\'t learned English, I wouldn\'t have this job."'],
+   examples:[{en:'If I had studied harder, I would be at university now.',pt:'Se tivesse estudado mais, estaria na universidade agora.'},{en:'If she were fluent in English, she would have gotten the job.',pt:'Se ela fosse fluente em inglês, teria conseguido o emprego.'},{en:'If I hadn\'t met you, I would be lost.',pt:'Se não te tivesse conhecido, estaria perdido.'}],
+   signals:['if','had I','were I','but for'],
+   tip:'💡 Mixed conditionals show the relationship between a past unreal condition and a present unreal result, or a present unreal condition and a past unreal result.',
+   mistakes:[{w:'If I have studied, I would be a doctor.',r:'If I had studied, I would be a doctor.'},{w:'If I were rich, I would have bought the house.',r:'If I had been rich, I would have bought the house.'},{w:'If I had known, I would tell you.',r:'If I had known, I would have told you.'}],
+   quiz:[{q:'"If I had studied, I ___ a doctor now."',opts:['would be','would have been','am','was'],ans:0},{q:'"If I were rich, I ___ that house."',opts:['would buy','would have bought','bought','had bought'],ans:1},{q:'"If I hadn\'t learned English, I ___ this job."',opts:['wouldn\'t have','wouldn\'t have had','wouldn\'t have get','won\'t have'],ans:0},{q:'"If she ___ the meeting, she wouldn\'t be so confused now."',opts:['attended','had attended','would attend','has attended'],ans:1}]},
+
+  {id:'g13',cat:'Indirect Speech',cc:'#e65100',icon:'🗣️',title:'Reported Speech (Indirect Speech)',sub:'Reporting what someone said without quoting them directly',
+   formula:'Reporting verb + (that) + subject + verb (with backshift)',
+   uses:['Reporting statements: "She said (that) she was tired."','Reporting questions: "He asked if/whether I was coming."','Reporting commands: "She told me to sit down."','Reporting requests: "He asked me to help."'],
+   examples:[{en:'Direct: "I am happy." → Reported: She said she was happy.',pt:'Directo: "Estou feliz." → Indirecto: Ela disse que estava feliz.'},{en:'Direct: "Where do you live?" → Reported: He asked where I lived.',pt:'Directo: "Onde vives?" → Indirecto: Ele perguntou onde eu vivia.'},{en:'Direct: "Don\'t be late." → Reported: She warned me not to be late.',pt:'Directo: "Não te atrases." → Indirecto: Ela avisou-me para não me atrasar.'}],
+   signals:['said','told','asked','warned','advised','promised','explained','apologised'],
+   tip:'💡 When reporting speech, tenses often "backshift" (present becomes past, past becomes past perfect, etc.) and pronouns and time expressions may change.',
+   mistakes:[{w:'She said she is tired.',r:'She said she was tired.'},{w:'He asked me where I am going.',r:'He asked me where I was going.'},{w:'She told me to not go.',r:'She told me not to go.'}],
+   quiz:[{q:'"I am tired." → She said she ___ tired.',opts:['is','was','has been','had been'],ans:1},{q:'"Where is the station?" → He asked where the station ___.',opts:['is','was','has been','had been'],ans:1},{q:'"Don\'t touch that!" → She warned me ___ that.',opts:['to touch','not to touch','don\'t touch','that I don\'t touch'],ans:1},{q:'"I\'ll help you." → He promised ___ me.',opts:['he helps','to help','he helped','that he help'],ans:1}]}
+,
+
+  // ─── EXTRA GRAMMAR TOPICS ────────────────────────────
+  {id:'g14',cat:'Gerunds & Infinitives',cc:'#00897b',icon:'🔤',title:'Gerunds & Infinitives',sub:'Verb + -ing OR verb + to — which one?',
+   formula:'Gerund: V-ing (as noun) | Infinitive: to + base verb',
+   uses:['Gerund as subject: "Swimming is fun."','After certain verbs: enjoy, avoid, finish, mind, suggest','Infinitive after certain verbs: want, need, hope, decide, plan','Some verbs take BOTH with different meaning: stop, remember, forget, try'],
+   examples:[{en:'I enjoy swimming in the sea.',pt:'Gosto de nadar no mar.'},{en:'She decided to study abroad.',pt:'Ela decidiu estudar no estrangeiro.'},{en:'They finished writing the report.',pt:'Eles acabaram de escrever o relatório.'}],
+   signals:['enjoy/avoid/finish/mind/suggest → gerund','want/need/hope/decide/plan → infinitive','remember/stop/try → both (different meanings!)'],
+   tip:'💡 STOP + gerund = stop an activity. STOP + infinitive = stop in order to do something. "I stopped smoking" (quit) vs "I stopped to smoke" (paused in order to smoke).',
+   mistakes:[{w:'I enjoy to swim.',r:'I enjoy swimming.'},{w:'She decided studying abroad.',r:'She decided to study abroad.'},{w:'He avoided to eat meat.',r:'He avoided eating meat.'}],
+   quiz:[{q:'"I enjoy ___ movies." (watch)',opts:['to watch','watching','watch','watched'],ans:1},{q:'"She decided ___ early." (leave)',opts:['leaving','leave','to leave','left'],ans:2},{q:'"They finished ___ the project." (complete)',opts:['to complete','completing','complete','completed'],ans:1},{q:'"He wants ___ a doctor." (be)',opts:['being','be','to be','been'],ans:2}]},
+
+  {id:'g15',cat:'Prepositions',cc:'#00acc1',icon:'📍',title:'Prepositions of Time & Place',sub:'at, in, on — never get confused again!',
+   formula:'AT (point) | IN (enclosed space/period) | ON (surface/day)',
+   uses:['AT: specific time/place — "at 5pm", "at the bus stop", "at home"','IN: months, years, countries, rooms — "in July", "in Mozambique", "in the morning"','ON: days, dates, surfaces — "on Monday", "on the table", "on the wall"','FOR: duration — "for 3 hours". SINCE: starting point — "since 2020"'],
+   examples:[{en:'I wake up at 6am.',pt:'Acordo às 6h.'},{en:'She was born in 1998.',pt:'Ela nasceu em 1998.'},{en:'We meet on Fridays.',pt:'Encontramo-nos às sextas-feiras.'}],
+   signals:['at → time/specific place/events','in → months/years/countries/rooms/cities','on → days/dates/surfaces/streets','for → duration','since → starting point'],
+   tip:'💡 "At night" but "in the morning/afternoon/evening". And: "at the end" (specific point) vs "in the end" (finally/ultimately).',
+   mistakes:[{w:'I will see you in Monday.',r:'I will see you on Monday.'},{w:'She lives on Mozambique.',r:'She lives in Mozambique.'},{w:'He arrived on 2020.',r:'He arrived in 2020.'}],
+   quiz:[{q:'"I have a meeting ___ Monday ___ 9am."',opts:['on / at','in / on','at / in','on / in'],ans:0},{q:'"She has lived here ___ 2019."',opts:['for','since','at','in'],ans:1},{q:'"The keys are ___ the table."',opts:['in','at','on','for'],ans:2},{q:'"I will finish ___ an hour."',opts:['since','at','in','on'],ans:2}]},
+
+  {id:'g16',cat:'Questions',cc:'#f57c00',icon:'❓',title:'Question Formation',sub:'Word order, auxiliary verbs & question words',
+   formula:'Wh-word + Aux + Subject + Main verb? | Subject questions: no inversion',
+   uses:['Yes/No questions: "Do you like coffee?"','Wh- questions: "Where do you live?"','Subject questions (WHO/WHAT is subject): "Who called you?" — NO inversion','Negative questions: "Don\'t you know her?"','Question tags: "You\'re coming, aren\'t you?"'],
+   examples:[{en:'Where do you work?',pt:'Onde trabalhas?'},{en:'Who wrote this book?',pt:'Quem escreveu este livro?'},{en:'You\'re from Maputo, aren\'t you?',pt:'És de Maputo, não és?'}],
+   signals:['Who/What/Where/When/Why/How + auxiliary','Do/Does/Did for simple present/past','Is/Are/Was/Were for continuous/be','Have/Has/Had for perfect','Can/Could/Will/Would for modals'],
+   tip:'💡 Subject questions: When WHO or WHAT is the SUBJECT, NO auxiliary needed and NO inversion: "Who called?" ✓ NOT "Who did call?" ✗. "What happened?" ✓ NOT "What did happen?" ✗',
+   mistakes:[{w:'Where you live?',r:'Where do you live?'},{w:'What she is doing?',r:'What is she doing?'},{w:'Who did write this letter?',r:'Who wrote this letter? (subject question)'}],
+   quiz:[{q:'"___ does she work?" (place)',opts:['What','Who','Where','When'],ans:2},{q:'Choose the correct question:',opts:['Where you are going?','Where are you going?','Where do you going?','Where going you?'],ans:1},{q:'"Who ___ the window?" (break — subject question)',opts:['did break','broke','has broke','breaking'],ans:1},{q:'"You like pizza, ___ you?"',opts:['don\'t','aren\'t','isn\'t','do'],ans:0}]},
+
+  {id:'g17',cat:'Phrasal Verbs',cc:'#8e24aa',icon:'⚡',title:'Essential Phrasal Verbs',sub:'The secret to sounding natural in English',
+   formula:'Verb + Particle | Separable: "turn it off" | Inseparable: "look after him"',
+   uses:['Separable: "Turn off the TV" / "Turn it off" — object can go in the middle','Inseparable: "Look after your health" — cannot split!','Three-part: "Look forward to seeing you" — never split','Same verb, different meanings: "give up" (quit) vs "give out" (distribute)'],
+   examples:[{en:'I gave up smoking last year.',pt:'Deixei de fumar no ano passado.'},{en:'Can you look after my dog?',pt:'Podes tomar conta do meu cão?'},{en:'She came up with a great idea.',pt:'Ela teve uma grande ideia.'}],
+   signals:['"give up" = quit | "look after" = care for | "turn up" = arrive | "put off" = postpone','take off = remove/depart | "come up with" = invent | "find out" = discover | "run out of" = have no more','break down = stop working | "get on with" = continue | "go through" = experience | "bring up" = raise/mention'],
+   tip:'💡 With separable phrasal verbs, PRONOUNS must go in the middle: "Turn it off" ✓ NOT "Turn off it" ✗. But nouns can go either place: "Turn off the TV" = "Turn the TV off".',
+   mistakes:[{w:'I gave up to smoke.',r:'I gave up smoking.'},{w:'She looked it after.',r:'She looked after it. (inseparable — cannot split!)'},{w:'Turn off it.',r:'Turn it off. (pronoun must go in the middle)'}],
+   quiz:[{q:'"She ___ a brilliant plan." (invented)',opts:['came up with','came with up','came up to','up came with'],ans:0},{q:'"Don\'t ___ the meeting." (postpone)',opts:['put off','put away','put down','put up'],ans:0},{q:'"We ___ milk." (have no more)',opts:['ran out of','ran away from','ran out with','ran into'],ans:0},{q:'"I can\'t ___ the noise." (tolerate)',opts:['put up','put up with','put with up','put on with'],ans:1}]},
+
+  {id:'g18',cat:'Tenses',cc:'#1565c0',icon:'🔮',title:'Future Forms',sub:'will, going to, present continuous — all for the future!',
+   formula:'WILL: spontaneous/predictions | GOING TO: planned | Pres.Cont.: arranged',
+   uses:['WILL: predictions & spontaneous decisions — "I\'ll call you later."','GOING TO: pre-made plans/intentions — "I\'m going to study tonight."','Present Continuous: fixed future arrangements — "I\'m meeting her at 7."','Present Simple: timetabled events — "The train leaves at 8."','WILL + probably/think/I suppose for uncertain predictions'],
+   examples:[{en:'I\'ll have the chicken, please.',pt:'Vou querer o frango, por favor.'},{en:'She\'s going to start a new job.',pt:'Ela vai começar um novo emprego.'},{en:'We\'re flying to Lisbon next week.',pt:'Voamos para Lisboa na semana que vem.'}],
+   signals:['WILL: I think/probably/I\'ll/shall | GOING TO: I\'ve decided/I\'m planning to | Pres.Cont.: arranged/booked/confirmed'],
+   tip:'💡 "It\'s going to rain" (you CAN SEE clouds — evidence now) vs "I think it will rain" (just a prediction with no current evidence). The clouds make all the difference!',
+   mistakes:[{w:'I will meet her tonight. (restaurant booked)',r:'I\'m meeting her tonight. (arrangement → present continuous)'},{w:'Look at those clouds! It will rain.',r:'Look at those clouds! It\'s going to rain. (evidence visible)'},{w:'I going to travel next month.',r:'I\'m going to travel next month. (need the verb TO BE)'}],
+   quiz:[{q:'The phone rings. You pick it up and say...',opts:['I\'m going to answer it.','I answer it.','I\'ll get it!','I\'m getting it.'],ans:2},{q:'"Look at the sky — it ___ rain!" (evidence)',opts:['will','is going to','is','rains'],ans:1},{q:'"I ___ a concert next Saturday." (tickets bought)',opts:['will attend','attend','am attending','am going to attend'],ans:2},{q:'"I ___ learn to drive one day." (vague intention)',opts:['\'m going to','\'ll','\'m','am'],ans:1}]},
+
+  {id:'g19',cat:'Relative Clauses',cc:'#2e7d32',icon:'🔗',title:'Relative Clauses',sub:'Who, which, that, where, whose — linking ideas smoothly',
+   formula:'Defining: [no commas, use that] | Non-defining: [with commas, no that]',
+   uses:['WHO: for people — "The man who called you"','WHICH: for things — "The book which I bought"','THAT: people or things in defining clauses only','WHERE: for places — "The city where I grew up"','WHOSE: possession — "The student whose work was excellent"','WHOM: formal object (replaces who as object)'],
+   examples:[{en:'The woman who lives next door is a doctor.',pt:'A mulher que mora ao lado é médica.'},{en:'London, which is the capital of England, is very expensive.',pt:'Londres, que é a capital de Inglaterra, é muito cara.'},{en:'That\'s the house where I was born.',pt:'É aquela a casa onde nasci.'}],
+   signals:['Defining (no commas): remove it and meaning changes — essential info','Non-defining (with commas): extra info, could be removed — use which/who, NEVER that'],
+   tip:'💡 In DEFINING clauses, THAT can replace who/which. In NON-DEFINING clauses (with commas), THAT is NOT possible. Never use that with commas!',
+   mistakes:[{w:'The man which called you is here.',r:'The man who called you is here.'},{w:'London, that is the capital, is expensive.',r:'London, which is the capital, is expensive. (non-defining → no that)'},{w:'The girl whose she won the prize is my friend.',r:'The girl who won the prize is my friend.'}],
+   quiz:[{q:'"The student ___ got top marks is from Beira."',opts:['which','whose','who','where'],ans:2},{q:'"This is the village ___ I was born."',opts:['which','who','whose','where'],ans:3},{q:'"My car, ___ I bought last year, broke down."',opts:['that','which','who','whose'],ans:1},{q:'"The man ___ car was stolen called the police."',opts:['who','which','whose','where'],ans:2}]},
+
+  {id:'g20',cat:'Countable & Uncountable',cc:'#ad1457',icon:'🔢',title:'Countable & Uncountable Nouns',sub:'How many / How much — get it right every time',
+   formula:'Countable: a/an, plural, many, few | Uncountable: no article/plural, much, little',
+   uses:['Countable (can be plural): apple→apples, idea→ideas, mistake→mistakes','Uncountable (no plural): water, money, advice, information, luggage, furniture','SOME/ANY work with both types in different contexts','MUCH/LITTLE with uncountable | MANY/FEW with countable','A LOT OF / LOTS OF work with both'],
+   examples:[{en:'I have a little money but few friends.',pt:'Tenho pouco dinheiro mas poucos amigos.'},{en:'Could I have some water, please?',pt:'Podia me dar água, por favor?'},{en:'How many chairs do you need?',pt:'De quantas cadeiras precisas?'}],
+   signals:['Uncountable nouns: advice, information, news, luggage, furniture, traffic, money, water, bread, milk, hair, knowledge, research, equipment, homework'],
+   tip:'💡 Some nouns can be BOTH — with different meanings: "I\'d like a coffee" (a cup of coffee) vs "I don\'t like coffee" (the substance). Same with "a hair" (one strand) vs "hair" (in general).',
+   mistakes:[{w:'I need an advice.',r:'I need some advice. / I need a piece of advice.'},{w:'She has many luggages.',r:'She has a lot of luggage. / She has three pieces of luggage.'},{w:'How much people are coming?',r:'How many people are coming?'}],
+   quiz:[{q:'Choose the correct sentence:',opts:['I need some informations.','I need an information.','I need some information.','I need informations.'],ans:2},{q:'"There isn\'t ___ time."',opts:['many','few','much','a little much'],ans:2},{q:'"She has very ___ friends."',opts:['much','little','few','less'],ans:2},{q:'"Can I have ___ bread?"',opts:['a','many','few','some'],ans:3}]},
+
+  {id:'g21',cat:'Adjectives',cc:'#e65100',icon:'🎨',title:'Adjective Order',sub:'Big red Italian car — why THIS specific order?',
+   formula:'Opinion → Size → Age → Shape → Colour → Origin → Material → Purpose + Noun',
+   uses:['Opinion: lovely, ugly, boring, interesting','Size: big, small, tall, tiny, enormous','Age: new, old, ancient, modern, young','Shape: round, square, flat, triangular','Colour: red, blue, bright-green','Origin: Italian, African, Japanese, local','Material: wooden, plastic, silk, cotton','Purpose: sleeping (bag), running (shoes)'],
+   examples:[{en:'She drives a lovely little old red Italian sports car.',pt:'Ela conduz um lindo carrinho italiano vermelho antigo desportivo.'},{en:'He wore a beautiful long black silk scarf.',pt:'Ele usava um lindo cachecol longo de seda preta.'},{en:'They live in a small modern Japanese-style house.',pt:'Eles vivem numa casinha moderna de estilo japonês.'}],
+   signals:['Remember OSASCOMP: Opinion, Size, Age, Shape, Colour, Origin, Material, Purpose','In practice, 2–3 adjectives at most. But the ORDER never changes.'],
+   tip:'💡 Native speakers follow this order automatically and will feel something is "wrong" if you reverse it — even if they can\'t explain why. Learn it as a rule and trust it!',
+   mistakes:[{w:'She has Italian lovely long hair.',r:'She has lovely long Italian hair. (Opinion → Size → Origin)'},{w:'He bought a red big new car.',r:'He bought a big new red car. (Size → Age → Colour)'},{w:'It is a wooden small old box.',r:'It is a small old wooden box. (Size → Age → Material)'}],
+   quiz:[{q:'Choose the correct order:',opts:['a red big old car','a big old red car','a old big red car','a red old big car'],ans:1},{q:'"She wore a ___ silk scarf."',opts:['long beautiful black','beautiful black long','beautiful long black','black long beautiful'],ans:2},{q:'Which adjective type comes FIRST?',opts:['Colour','Origin','Opinion','Size'],ans:2},{q:'"They have a ___ house."',opts:['brick small lovely old','lovely small old brick','old small lovely brick','small old lovely brick'],ans:1}]},
+
+  {id:'g22',cat:'Connectors',cc:'#37474f',icon:'🧵',title:'Connectors & Linking Words',sub:'Because, although, however — making your English flow',
+   formula:'Contrast | Cause | Result | Addition | Condition',
+   uses:['CONTRAST: although/even though (+ clause) | despite/in spite of (+ noun/gerund) | however/nevertheless (new sentence)','CAUSE: because/since/as (+ clause) | due to/owing to/because of (+ noun)','RESULT: so/therefore/as a result/consequently','ADDITION: also/in addition/furthermore/moreover','CONDITION: if/unless/provided that/as long as'],
+   examples:[{en:'Although it was raining, we went for a walk.',pt:'Embora estivesse a chover, fomos dar uma volta.'},{en:'She studied hard; therefore, she passed the exam.',pt:'Ela estudou muito; por isso, passou no exame.'},{en:'Despite the heat, he wore a jacket.',pt:'Apesar do calor, ele usou um casaco.'}],
+   signals:['"although/even though" + clause | "despite/in spite of" + noun or gerund | "however/nevertheless" + comma | "because/since/as" + clause | "due to/owing to" + noun'],
+   tip:'💡 "Despite" and "in spite of" MUST be followed by a NOUN or gerund — NOT a full clause. "Despite it was raining" ✗ → "Despite the rain" ✓ or "Despite it being rainy" ✓',
+   mistakes:[{w:'Despite it was raining, we went out.',r:'Despite the rain, we went out. / Although it was raining, we went out.'},{w:'She is tired. However she works hard.',r:'She is tired. However, she works hard. (comma after however!)'},{w:'Because of she is ill, she stayed home.',r:'Because she is ill, she stayed home. (because of + noun, because + clause)'}],
+   quiz:[{q:'"___ the cold weather, she wore a T-shirt."',opts:['Although','Despite','Because','However'],ans:1},{q:'"He failed the test; ___, he tried again."',opts:['despite','although','however','because'],ans:2},{q:'"___ it was late, she kept studying."',opts:['Despite','However','Although','Therefore'],ans:2},{q:'"She studied hard. ___, she passed."',opts:['Although','Despite','Because','As a result'],ans:3}]},
+
+  {id:'g23',cat:'Determiners',cc:'#558b2f',icon:'🏷️',title:'Quantifiers & Determiners',sub:'all, every, each, both, either, neither — mastered!',
+   formula:'ALL (whole group) | EVERY (each, singular) | EACH (individual) | BOTH/EITHER/NEITHER (for two)',
+   uses:['ALL: the whole group/thing — "All students must attend."','EVERY: all members one by one (singular!) — "Every student passed."','EACH: individual items — "Each student received a certificate."','BOTH: two things (positive) — "Both answers are correct."','EITHER: one or the other of two — "Either day works for me."','NEITHER: not one, not the other — "Neither answer is correct."'],
+   examples:[{en:'Every student needs a pen.',pt:'Cada aluno precisa de uma caneta.'},{en:'Both sisters are doctors.',pt:'As duas irmãs são médicas.'},{en:'Neither of the options is ideal.',pt:'Nenhuma das opções é ideal.'}],
+   signals:['ALL + plural noun or uncountable noun','EVERY/EACH + singular noun + singular verb','BOTH + plural noun + plural verb','EITHER/NEITHER + singular noun + singular verb (or "of the + plural + singular verb")'],
+   tip:'💡 "Neither of them ARE/IS correct" — both forms are used, but IS is grammatically correct (formal). In casual speech, ARE is very common with NEITHER/EITHER of them.',
+   mistakes:[{w:'Every students must attend.',r:'Every student must attend. (every + singular!)'},{w:'Neither of the answers are correct.',r:'Neither of the answers is correct. (formal)'},{w:'Both of them is right.',r:'Both of them are right. (both + plural verb)'}],
+   quiz:[{q:'"___ student in the class passed."',opts:['All','Every','Both','Neither'],ans:1},{q:'"___ the brothers work as teachers."',opts:['Each','Every','Both','Either'],ans:2},{q:'"___ of the plans will work." (none)',opts:['Both','Either','Neither','Each'],ans:2},{q:'"She visits ___ day." (daily)',opts:['all','every','each','both'],ans:1}]},
+
+  {id:'g24',cat:'Wish & Regret',cc:'#6a1b9a',icon:'🌠',title:'Wish, If Only & I Wish',sub:'Expressing wishes about now and regrets about the past',
+   formula:'WISH + Past Simple (present wish) | WISH + Past Perfect (past regret) | WISH + WOULD (annoying habit)',
+   uses:['Wish + Past Simple: wish about the PRESENT — "I wish I knew the answer."','Wish + Past Perfect: regret about the PAST — "I wish I had studied more."','Wish + would: annoying habit or request — "I wish you would stop shouting!"','If only: stronger emotion than wish — "If only I had listened!"','I would rather + past simple: preference — "I\'d rather you didn\'t smoke."'],
+   examples:[{en:'I wish I could speak Spanish.',pt:'Quem dera eu falar espanhol.'},{en:'She wishes she hadn\'t said that.',pt:'Ela queria não ter dito isso.'},{en:'If only I had more time!',pt:'Oxalá eu tivesse mais tempo!'}],
+   signals:['wish/if only + past simple → unreal present wish','wish/if only + past perfect → past regret','wish + would → annoying repeated action or request (NOT for yourself)'],
+   tip:'💡 You CANNOT use "wish + would" about yourself: "I wish I would stop eating" ✗ → "I wish I could stop eating" ✓. Wish + would is only for someone ELSE\'s behaviour.',
+   mistakes:[{w:'I wish I can speak French.',r:'I wish I could speak French. (wish + past simple = could)'},{w:'She wishes she didn\'t eat so much yesterday.',r:'She wishes she hadn\'t eaten so much yesterday. (past regret = past perfect)'},{w:'I wish you stop talking!',r:'I wish you would stop talking! (annoying habit = wish + would)'}],
+   quiz:[{q:'"I wish I ___ taller." (present wish)',opts:['am','was/were','had been','will be'],ans:1},{q:'"She wishes she ___ harder at school." (past regret)',opts:['studied','studies','had studied','would study'],ans:2},{q:'"If only I ___ you the truth!" (past regret)',opts:['told','tell','had told','would tell'],ans:2},{q:'"I wish you ___ make so much noise!" (annoying habit)',opts:['don\'t','wouldn\'t','didn\'t','won\'t'],ans:1}]},
+
+  {id:'g25',cat:'Passive Voice',cc:'#bf360c',icon:'🔃',title:'Advanced Passive Constructions',sub:'Modal passive, perfect passive & reporting structures',
+   formula:'Modal passive: modal + be + PP | Perfect passive: have been + PP',
+   uses:['Present perfect passive: "It has been finished."','Modal passive: "It must be done." / "It should be cleaned."','Causative: "I had my hair cut." (someone did it for me)','Reporting structures: "It is said/believed/reported that..."','Get-passive (informal): "He got arrested."'],
+   examples:[{en:'The project has been completed.',pt:'O projecto foi concluído.'},{en:'The rules must be followed.',pt:'As regras devem ser seguidas.'},{en:'It is reported that prices will rise.',pt:'É noticiado que os preços vão subir.'}],
+   signals:['is/are + PP (present passive)','was/were + PP (past passive)','has/have been + PP (present perfect passive)','will/must/should/can be + PP (future/modal passive)','It is said/believed/known/reported/thought that...'],
+   tip:'💡 Causative "have/get + object + PP" means you arranged for someone else to do it: "I cut my hair" (I did it myself) vs "I had my hair cut" (at the barber). Very common and useful!',
+   mistakes:[{w:'The work has been complete.',r:'The work has been completed. (need past participle)'},{w:'It is said he is been innocent.',r:'It is said that he is innocent.'},{w:'The letter should written carefully.',r:'The letter should be written carefully. (need BE before PP)'}],
+   quiz:[{q:'"The homework ___ before Friday." (must)',opts:['must finish','must be finish','must be finished','must finished'],ans:2},{q:'"The bridge ___ in 1905." (build, past passive)',opts:['built','was built','has built','is built'],ans:1},{q:'"The results ___ yet." (not announce, present perfect passive)',opts:['haven\'t announced','haven\'t been announced','aren\'t announced','weren\'t announced'],ans:1},{q:'"___ that the economy will recover."',opts:['People believe','It is believed','Believed it is','It believes'],ans:1}]},
+
+  {id:'g26',cat:'Emphasis',cc:'#0277bd',icon:'💥',title:'Emphasis & Cleft Sentences',sub:'It was HER who called — making specific ideas stand out',
+   formula:'IT + be + focus + THAT/WHO | WHAT + clause + be + focus',
+   uses:['It-cleft: "It was John who broke the window." — emphasises WHO','What-cleft: "What I need is rest." — emphasises WHAT','DO/DOES/DID for emphatic assertion: "I DO like coffee!"','Inversion after negative adverbials: "Never have I seen such beauty."','Fronting: "That book, I\'ve already read." — emphasises the object'],
+   examples:[{en:'It is hard work that leads to success.',pt:'É o trabalho árduo que leva ao sucesso.'},{en:'What I really want is a holiday.',pt:'O que eu realmente quero é umas férias.'},{en:'Never have I been so embarrassed!',pt:'Nunca me senti tão envergonhado!'}],
+   signals:['It is/was ... that/who (cleft for emphasis)','What ... is/was (what-cleft)','DO/DOES/DID before main verb (emphatic auxiliary)','Never/Rarely/Seldom/Only + auxiliary + subject (inversion)'],
+   tip:'💡 Inversion after negative adverbials (Never, Rarely, Seldom, Not only, Little did...) is very FORMAL — perfect for essays, academic writing and impressive speeches!',
+   mistakes:[{w:'It was John who he broke the window.',r:'It was John who broke the window. (no extra subject after WHO)'},{w:'What I want it is a car.',r:'What I want is a car. (no IT before IS)'},{w:'Never I have seen such a thing.',r:'Never have I seen such a thing. (inversion: aux + subject)'}],
+   quiz:[{q:'"___ was her smile that won everyone over."',opts:['That','What','It','Which'],ans:2},{q:'"___ I really hate is traffic jams."',opts:['It','That','What','Which'],ans:2},{q:'"I ___ like your new haircut!" (emphasis)',opts:['really do','do really','really','just do'],ans:0},{q:'"Never ___ I eaten something so delicious!"',opts:['I have','have','did','I did'],ans:1}]},
+
+  {id:'g27',cat:'Adjectives',cc:'#c62828',icon:'📊',title:'Comparatives & Superlatives',sub:'Bigger, the biggest — and all the tricky exceptions',
+   formula:'Short adj: -er / the -est | Long adj: more/most | Irregular: good→better→best',
+   uses:['Short (1-2 syllables): fast→faster→fastest | big→bigger→biggest (double consonant)','Long (3+ syllables): beautiful→more beautiful→most beautiful','Two-syllable adjectives ending in -y: happy→happier→happiest','Irregular: good→better→best | bad→worse→worst | far→further→furthest | little→less→least','AS ... AS for equal comparison: "as tall as" | NOT AS ... AS: "not as tall as"'],
+   examples:[{en:'She is more intelligent than her brother.',pt:'Ela é mais inteligente do que o irmão.'},{en:'This is the best coffee I\'ve ever had.',pt:'Este é o melhor café que alguma vez bebi.'},{en:'He runs as fast as a cheetah.',pt:'Ele corre tão rápido quanto um guepardo.'}],
+   signals:['than (comparison between two)','the ... of/in (superlative: the best in the class)','as ... as (equal comparison)','less ... than (opposite of more)','the least (opposite of the most)'],
+   tip:'💡 Never double-compare: "more better" ✗ / "more faster" ✗ / "the most tallest" ✗. The -er ending already MEANS "more". Adding "more" is a classic, very noticeable error.',
+   mistakes:[{w:'She is more taller than him.',r:'She is taller than him. (never more + -er)'},{w:'It is the most best film.',r:'It is the best film. (never most + irregular superlative)'},{w:'He is less smarter.',r:'He is less smart. / He is not as smart.'}],
+   quiz:[{q:'"She runs ___ than her sister."',opts:['more fast','faster','most fast','more faster'],ans:1},{q:'"This is the ___ day of my life!"',opts:['more good','gooder','best','most good'],ans:2},{q:'"He is ___ as tall ___ his father."',opts:['as / than','so / as','as / as','than / as'],ans:2},{q:'"The traffic is ___ in the morning."',opts:['more bad','baddest','worse','worst'],ans:2}]},
+
+  {id:'g28',cat:'Tenses',cc:'#4527a0',icon:'⏳',title:'Present Perfect Continuous',sub:'How long have you been doing this?',
+   formula:'Subject + have/has + been + V-ing',
+   uses:['Duration of an ongoing action: "I have been studying for 3 hours."','Recently stopped action with visible present result: "She\'s been crying — her eyes are red."','Repeated actions over a recent period: "He has been calling all morning."','Temporary situations around now: "I\'ve been living here since March."'],
+   examples:[{en:'I have been learning English for two years.',pt:'Estou a aprender inglês há dois anos.'},{en:'She looks tired — she has been working all night.',pt:'Ela parece cansada — esteve a trabalhar toda a noite.'},{en:'How long have you been waiting?',pt:'Há quanto tempo estás à espera?'}],
+   signals:['for (duration)', 'since (starting point)','all morning/day/week','lately','recently','How long...?','still'],
+   tip:'💡 KEY difference: "I have read 50 pages" (RESULT counts — completed amount) vs "I have been reading" (ACTIVITY is the focus — result doesn\'t matter). Stative verbs (know, love, own, want) CANNOT use continuous!',
+   mistakes:[{w:'I have been knowing her for years.',r:'I have known her for years. (know = stative verb, no continuous!)'},{w:'She has been finishing the book.',r:'She has finished the book. (completed action = use simple)'},{w:'How long you have been waiting?',r:'How long have you been waiting? (inversion in questions!)'}],
+   quiz:[{q:'"I ___ English for three years."',opts:['am learning','learn','have been learning','was learning'],ans:2},{q:'"She looks exhausted — she ___ all day."',opts:['worked','has worked','has been working','is working'],ans:2},{q:'Which verb CANNOT use continuous?',opts:['work','run','know','study'],ans:2},{q:'"How long ___ here?"',opts:['you are living','you have lived','have you been living','are you living'],ans:2}]},
+
+  {id:'g29',cat:'Idioms',cc:'#00695c',icon:'🗣️',title:'Common English Idioms',sub:'Sound like a native — master figures of speech',
+   formula:'Idioms = fixed expressions whose meaning ≠ the literal words',
+   uses:['Body idioms: "cost an arm and a leg", "break a leg", "pull someone\'s leg", "keep an eye on"','Animal idioms: "raining cats and dogs", "let the cat out of the bag", "kill two birds"','Time idioms: "in the nick of time", "once in a blue moon", "it\'s high time"','Work idioms: "get the ball rolling", "back to square one", "call it a day", "the ball is in your court"'],
+   examples:[{en:'The new car cost an arm and a leg.',pt:'O carro novo custou uma fortuna.'},{en:'Let\'s get the ball rolling on this project.',pt:'Vamos começar/pôr o projecto a andar.'},{en:'She let the cat out of the bag about the surprise.',pt:'Ela revelou o segredo sobre a surpresa.'}],
+   signals:['"cost an arm and a leg" = very expensive','"break a leg" = good luck','"once in a blue moon" = very rarely','"get the ball rolling" = start something','"back to square one" = start from the beginning again','"call it a day" = stop working for today','"kill two birds with one stone" = achieve two things at once','"the ball is in your court" = it is your decision/turn to act'],
+   tip:'💡 NEVER translate idioms word-by-word! "It\'s raining cats and dogs" does NOT mean animals are falling from the sky — it means heavy rain. Context and fixed learning are the keys!',
+   mistakes:[{w:'Trying to translate idioms literally.',r:'Learn idioms as complete, fixed phrases with their meaning — not word by word.'},{w:'Using idioms in formal academic writing.',r:'Idioms belong in spoken English and informal writing. Use formal language in essays and reports.'}],
+   quiz:[{q:'"Break a leg!" means...',opts:['Be careful','Good luck','Hurry up','Start over'],ans:1},{q:'"Once in a blue moon" means...',opts:['Every month','Very rarely','At night','Very often'],ans:1},{q:'"Let\'s call it a day" means...',opts:['Name the day','Stop working','Plan the day','The day is long'],ans:1},{q:'"It cost an arm and a leg" means...',opts:['It was painful','It was very expensive','It required effort','It was heavy'],ans:1}]},
+
+  {id:'g30',cat:'Punctuation',cc:'#4e342e',icon:'✏️',title:'Punctuation & Apostrophes',sub:"Its, it's, whose, who's — the details that matter",
+   formula:"Apostrophe: possession (John's) & contraction (don't) | ITS vs IT'S",
+   uses:["Apostrophe for possession: \"John's car\" / \"The students' books\" (plural)","Apostrophe for contractions: \"don't\" = do not, \"it's\" = it is OR it has","ITS (possessive pronoun, NO apostrophe) vs IT'S (it is / it has)","WHO'S (who is/who has) vs WHOSE (possession)","THEY'RE (they are) vs THEIR (possession) vs THERE (place)","Comma after introductory clause: \"Although it was late, she stayed.\""],
+   examples:[{en:"It's a beautiful day, isn't it?",pt:'É um lindo dia, não é?'},{en:'The dog wagged its tail happily.',pt:'O cão abanou a cauda alegremente.'},{en:'I visited London, Paris, and Rome.',pt:'Visitei Londres, Paris e Roma.'}],
+   signals:["it's = it is OR it has | its = belonging to it (NO apostrophe)","who's = who is/who has | whose = belonging to whom","they're = they are | their = belonging to them | there = location"],
+   tip:"💡 The FASTEST way to check: replace with \"it is\" or \"it has\". If it makes sense → use IT'S. If not → use ITS. \"The dog hurt it's paw\" → \"The dog hurt it is paw\" ✗ → use ITS!",
+   mistakes:[{w:"The dog hurt it's paw.",r:'The dog hurt its paw. (its = possession, no apostrophe)'},{w:'Its a great idea.',r:"It's a great idea. (it's = it is)"},{w:'I invited john and maria to the party.',r:'I invited John and Maria to the party. (proper nouns always capitalized)'}],
+   quiz:[{q:'"The cat licked ___ paw."',opts:["it's",'its',"its'","it's's"],ans:1},{q:'"___ going to the party?" (who is)',opts:['Whose',"Who's","Whos'","Whose'"],ans:1},{q:'"I saw the man ___ wallet was stolen."',opts:["who's",'whose','which',"that's"],ans:1},{q:'"___ my friend Tom." (= he is)',opts:['Its',"Its'","He's",'Hes'],ans:2}]}
+
+];
+
+
+// ─── Sounds/Game/Chat feature data (Step 3.1 follow-up) ───
+// PRON_WORDS, MINIMAL_PAIRS, TONGUE_TWISTERS, DIFFICULT_SOUNDS,
+// WORDS_FOR_GAME, and AI_QUICK_PROMPTS used to live here, but their only
+// consumers are ui-sounds.js, game.js, and chat.js — all three already
+// lazy/idle-loaded, while this file (data.js) still ships eagerly at
+// Phase 2, before Supabase config/storage/user/i18n/app.js/Phase 7 even
+// start. Shipping ~20.5KB of feature-only data on that blocking path for
+// every user, whether or not they ever open Sounds/Game/Chat, was pure
+// waste. They now live in their own lazy files, same pattern as the
+// Sprint 4 locale split above:
+//   js/data/sounds-data.js  (PRON_WORDS, MINIMAL_PAIRS, TONGUE_TWISTERS, DIFFICULT_SOUNDS)
+//   js/data/game-data.js    (WORDS_FOR_GAME)
+//   js/data/chat-data.js    (AI_QUICK_PROMPTS)
+// index.html/app.js load each data file via EWSLoadFeature BEFORE the
+// feature module that reads it, so by the time ui-sounds.js/game.js/
+// chat.js's functions actually run, the globals are guaranteed defined.
+// The one exception is buildSearchIndex() below, which runs at idle
+// (app.js's launchApp() _ric callback) BEFORE sounds-data.js has had a
+// chance to load — see its typeof guard on PRON_WORDS.
+
+const AI_RESPONSES = {
+  default: {
+    en: [
+      "Great question! Let me break this down for you step by step...",
+      "This is a common confusion for learners! Here's how to think about it:",
+      "As your English tutor, I'd say the key thing to remember is:",
+      "Excellent! This is exactly the kind of thing that makes the difference between good and fluent English:",
+    ],
+    pt: [
+      "Boa pergunta! Vou explicar passo a passo...",
+      "Esta é uma confusão comum para estudantes! Aqui está como pensar nisso:",
+      "Como teu tutor de inglês, diria que a coisa principal a lembrar é:",
+      "Excelente! Isto é exactamente o tipo de coisa que faz a diferença entre o bom e o inglês fluente:",
+    ]
+  },
+  since_for: {
+    en: `**Since vs For** ⏱️\n\n📌 **FOR** = duration (how long)\n→ "I have studied English **for** 2 years."\n→ "She has been waiting **for** an hour."\n\n📌 **SINCE** = starting point (from when)\n→ "I have studied English **since** 2022."\n→ "She has been waiting **since** 3pm."\n\n💡 **Trick**: Replace with "during X time" (FOR) vs "from that point" (SINCE).\n\nFOR = a span ↔ SINCE = a point in time 🎯`,
+    pt: `**Since vs For** ⏱️\n\n📌 **FOR** = duração (quanto tempo)\n→ "Estudo inglês **for** 2 anos."\n→ "Ela está à espera **for** uma hora."\n\n📌 **SINCE** = ponto de partida (desde quando)\n→ "Estudo inglês **since** 2022."\n→ "Ela está à espera **since** às 15h."\n\n💡 **Truque**: Substitui por "durante X tempo" (FOR) vs "desde aquele ponto" (SINCE).\n\nFOR = período ↔ SINCE = ponto no tempo 🎯`
+  },
+};
+
+// ─── ABOUT ME DATA ───────────────────────────────────────
+const ABOUT_DATA = {
+  name: 'Sebastiao Zefanias Nhamuneque Junior',
+  nickname: 'Flow Creator',
+  photo: 'img/creator.jpg',
+  role: {en: 'English Teacher · Translator · Interpreter', pt: 'Professor de Inglês · Tradutor · Intérprete'},
+  location: 'Maputo / Matola, Mozambique 🇲🇿',
+  email: 'nhamoneques@gmail.com',
+  phone: '+258 845 713 020',
+  whatsapp: '+258845713020',
+  education: [
+    {
+      en: {degree: 'Bachelor\'s in Translation & Interpretation', school: 'Universidade Eduardo Mondlane', year: '2022–Present', note: 'Final Year Student'},
+      pt: {degree: 'Licenciatura em Tradução e Interpretação', school: 'Universidade Eduardo Mondlane', year: '2022–Presente', note: 'Estudante do Último Ano'}
+    }
+  ],
+  experience: [
+    {
+      en: {title: 'English Teacher', org: 'CLCI — Consultoria Linguística e Coaching Isac', period: '2020–2024', desc: 'Taught English levels 1 through 4 to diverse groups of adult learners. Developed custom lesson plans and assessment tools.'},
+      pt: {title: 'Professor de Inglês', org: 'CLCI — Consultoria Linguística e Coaching Isac', period: '2020–2024', desc: 'Leccionou inglês dos níveis 1 ao 4 a grupos diversificados. Desenvolveu planos de aula e ferramentas de avaliação personalizadas.'}
+    },
+    {
+      en: {title: 'Translator EN↔PT', org: 'Freelance', period: '2022–Present', desc: 'Technical and academic translation services. Specialisation in education, linguistics, and development sector documents.'},
+      pt: {title: 'Tradutor EN↔PT', org: 'Freelancer', period: '2022–Presente', desc: 'Serviços de tradução técnica e académica. Especialização em educação, linguística e documentos do sector do desenvolvimento.'}
+    }
+  ],
+  skills: [
+    {icon:'🎓', en:'English Teaching', pt:'Ensino de Inglês'},
+    {icon:'📝', en:'Translation (EN↔PT)', pt:'Tradução (EN↔PT)'},
+    {icon:'🎙️', en:'Consecutive Interpretation', pt:'Interpretação Consecutiva'},
+    {icon:'🌍', en:'Localisation', pt:'Localização'},
+    {icon:'📱', en:'Educational Technology', pt:'Tecnologia Educacional'},
+    {icon:'💻', en:'Basic IT Skills', pt:'Informática Básica'},
+    {icon:'🗣️', en:'Content Creation', pt:'Criação de Conteúdo'},
+    {icon:'📊', en:'Language Assessment', pt:'Avaliação Linguística'},
+  ],
+  stats: [
+    {n: 4, en: 'Years Teaching', pt: 'Anos de Ensino', icon: '🎓'},
+    {n: 200, en: 'Students Taught', pt: 'Estudantes', icon: '👥'},
+    {n: 3, en: 'Languages', pt: 'Línguas', icon: '🌍'},
+    {n: 50, en: 'Lessons Created', pt: 'Lições Criadas', icon: '📚'},
+  ],
+  socials: {
+    facebook: '#', instagram: 'https://instagram.com', tiktok: '#',
+    linkedin: '#', youtube: '#', github: '#'
+  }
+};
+
+// ─── SEARCH INDEX ────────────────────────────────────────
+const buildSearchIndex = () => {
+  const idx = [];
+  UNITS.forEach(unit => {
+    unit.lessons.forEach(l => {
+      idx.push({
+        title: l.title, sub: `${unit.title} · +${l.xp} XP`,
+        icon: l.icon, tag: 'Lesson', tagColor: unit.color,
+        action: () => window.startLesson && window.startLesson(unit.id, l.id)
+      });
+    });
+  });
+  GRAM.forEach(g => {
+    idx.push({
+      title: g.title, sub: g.sub,
+      icon: g.icon, tag: g.cat, tagColor: g.cc,
+      action: () => {
+        if (window.goTabFn) window.goTabFn('grammar');
+        setTimeout(() => { const el = document.getElementById('gc-'+g.id); if(el) el.scrollIntoView({behavior:'smooth'}); }, 300);
+      }
+    });
+  });
+  // PRON_WORDS now lives in the lazy js/data/sounds-data.js (Step 3.1
+  // follow-up) and isn't loaded yet the first time buildSearchIndex() runs
+  // (app.js's launchApp() idle callback calls it before sounds-data.js has
+  // had a chance to fetch). Guard instead of letting this throw a
+  // ReferenceError and abort the whole idle callback — pronunciation
+  // entries simply join the index a moment later, once sounds-data.js
+  // loads and re-triggers a rebuild (see app.js).
+  if (typeof PRON_WORDS !== 'undefined') {
+    PRON_WORDS.forEach(p => {
+      idx.push({
+        title: p.w, sub: `${p.ipa} · ${p.m}`,
+        icon: '🔊', tag: 'Sound', tagColor: '#1de9b6',
+        action: () => { if (window.goTabFn) window.goTabFn('sounds'); }
+      });
+    });
+  }
+  return idx;
+};
+
+window.buildSearchIndex = buildSearchIndex;
