@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /auth-callback.html
+Disallow: /supabase-migration/
+
+Sitemap: https://englishflowmz.vercel.app/sitemap.xml
